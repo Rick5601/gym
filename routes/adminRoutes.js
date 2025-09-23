@@ -10,6 +10,7 @@ const memberStatusController = require("../controllers/memberstatusController");
 const summaryCardController = require("../controllers/summarycardController");
 const recentActivityController = require("../controllers/recentactivityController.js");
 const announcementController = require("../controllers/announcementController");
+const reportController = require("../controllers/adminreportController"); // ✅ Reports controller
 
 // ------------------ HTML Pages ------------------ //
 // Serve Admin Dashboard HTML
@@ -39,6 +40,34 @@ router.get(
   authorizeRoles("admin"),
   (req, res) => {
     res.sendFile(path.join(__dirname, "../public/admin_pages/member_status.html"));
+  }
+);
+
+// ✅ Serve Report Pages
+router.get(
+  "/report-membership",
+  authenticateToken,
+  authorizeRoles("admin"),
+  (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/admin_pages/report_membership.html"));
+  }
+);
+
+router.get(
+  "/report-payments",
+  authenticateToken,
+  authorizeRoles("admin"),
+  (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/admin_pages/report_payments.html"));
+  }
+);
+
+router.get(
+  "/report-attendance",
+  authenticateToken,
+  authorizeRoles("admin"),
+  (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/admin_pages/report_attendance.html"));
   }
 );
 
@@ -113,6 +142,67 @@ router.put(
   authenticateToken,
   authorizeRoles("admin"),
   announcementController.toggleArchiveAnnouncement
+);
+
+// ------------------ Report APIs ------------------ //
+// Membership
+router.get(
+  "/membership-report",
+  authenticateToken,
+  authorizeRoles("admin"),
+  reportController.getMembershipReport
+);
+router.get(
+  "/membership-report/excel",
+  authenticateToken,
+  authorizeRoles("admin"),
+  reportController.exportMembershipExcel
+);
+router.get(
+  "/membership-report/pdf",
+  authenticateToken,
+  authorizeRoles("admin"),
+  reportController.exportMembershipPDF
+);
+
+// Payment
+router.get(
+  "/payment-report",
+  authenticateToken,
+  authorizeRoles("admin"),
+  reportController.getPaymentReport
+);
+router.get(
+  "/payment-report/excel",
+  authenticateToken,
+  authorizeRoles("admin"),
+  reportController.exportPaymentExcel
+);
+router.get(
+  "/payment-report/pdf",
+  authenticateToken,
+  authorizeRoles("admin"),
+  reportController.exportPaymentPDF
+);
+
+// Attendance
+router.get(
+  "/attendance-report",
+  authenticateToken,
+  authorizeRoles("admin"),
+  reportController.getAttendanceReport
+);
+router.get(
+  "/attendance-report/excel",
+  authenticateToken,
+  authorizeRoles("admin"),
+  reportController.exportAttendanceExcel
+);
+router.get(
+  "/attendance-report/pdf",
+  authenticateToken,
+  authorizeRoles("admin"),
+  reportController.exportAttendancePDF
 );
 
 module.exports = router;

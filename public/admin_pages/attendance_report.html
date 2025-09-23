@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Attendance Report - UNZAGYM</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+  <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+      <div class="container-fluid d-flex flex-column p-0">
+        <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+          <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-dumbbell"></i></div>
+          <div class="sidebar-brand-text mx-3"><span>UNZAGYM</span></div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <ul class="navbar-nav text-light" id="accordionSidebar">
+
+          <!-- Dashboard -->
+          <li class="nav-item">
+            <a class="nav-link active" href="admin_dashboard.html">
+              <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
+            </a>
+          </li>
+
+          <!-- Member Tables Collapse -->
+          <li class="nav-item">
+            <a class="nav-link" href="#collapseMembers" data-bs-toggle="collapse" aria-expanded="false"
+              aria-controls="collapseMembers">
+              <i class="fas fa-folder"></i>&nbsp;<span>Member Tables</span>
+            </a>
+            <div class="collapse" id="collapseMembers" data-bs-parent="#accordionSidebar">
+              <div class="bg-white border rounded py-2 collapse-inner">
+                <h6 class="collapse-header">MEMBER TABLES:</h6>
+                <a class="collapse-item" href="all_members.html">All Members</a>
+                <a class="collapse-item" href="pending_members.html">Pending Members</a>
+                <a class="collapse-item" href="remove_members.html">Remove Member</a>
+                <a class="collapse-item" href="member_status.html">Member Status</a>
+              </div>
+            </div>
+          </li>
+
+          <!-- Reports Collapse -->
+          <li class="nav-item">
+            <a class="nav-link" href="#collapseReports" data-bs-toggle="collapse" aria-expanded="false"
+              aria-controls="collapseReports">
+              <i class="fas fa-chart-bar"></i>&nbsp;<span>Reports</span>
+            </a>
+            <div class="collapse" id="collapseReports" data-bs-parent="#accordionSidebar">
+              <div class="bg-white border rounded py-2 collapse-inner">
+                <h6 class="collapse-header">Reports:</h6>
+                <a class="collapse-item" href="attendance_report.html">Attendance Report</a>
+                <a class="collapse-item" href="membership_report.html">Membership Report</a>
+                <a class="collapse-item" href="payment_report.html">Payment Report</a>
+              </div>
+            </div>
+          </li>
+
+          <!-- Announcements -->
+          <li class="nav-item">
+            <a class="nav-link" href="announcements.html">
+              <i class="fas fa-bullhorn"></i><span>Announcements</span>
+            </a>
+          </li>
+
+        </ul>
+        <div class="text-center d-none d-md-inline">
+          <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+      <div id="content">
+
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <div class="d-sm-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-bold text-dark mb-0">Attendance Report</h3>
+          </div>
+
+          <!-- Report Table -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="text-primary fw-bold m-0">Check-in / Check-out Records</h6>
+              <button class="btn btn-sm btn-success float-end me-2" onclick="exportTable('attendanceReportTable')">
+                Export CSV
+              </button>
+              <button class="btn btn-sm btn-danger float-end" onclick="exportPDF('attendanceReportTable')">
+                Export PDF
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="attendanceReportTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Log ID</th>
+                      <th>Member</th>
+                      <th>Date</th>
+                      <th>Check-In Time</th>
+                      <th>Check-Out Time</th>
+                    </tr>
+                  </thead>
+                  <tbody id="attendanceReportBody">
+                    <tr>
+                      <td colspan="5">Loading...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="bg-white sticky-footer">
+        <div class="container my-auto">
+          <div class="text-center my-auto copyright">
+            <span>Copyright © UNZAGYM 2025</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/admin_pages/assets/bootstrap/js/bootstrap.min.js" defer></script>
+  <script src="assets/js/custom.js" defer></script>
+  <script src="assets/js/theme.js" defer></script>
+  <script src="adminAuth.js" defer></script>
+  <!-- jsPDF library for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    async function loadAttendanceReport() {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return console.error("No token found");
+
+        const response = await fetch("http://localhost:5000/api/admin/attendance-report", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const result = await response.json();
+
+        const tbody = document.getElementById("attendanceReportBody");
+        tbody.innerHTML = "";
+
+        if (result.success && result.data.length > 0) {
+          result.data.forEach(log => {
+            const row = `
+              <tr>
+                <td>${log.attendance_id}</td>
+                <td>${log.member_name}</td>
+                <td>${new Date(log.date).toLocaleDateString()}</td>
+                <td>${log.check_in_time}</td>
+                <td>${log.check_out_time || "-"}</td>
+              </tr>`;
+            tbody.insertAdjacentHTML("beforeend", row);
+          });
+        } else {
+          tbody.innerHTML = "<tr><td colspan='5'>No data found</td></tr>";
+        }
+      } catch (error) {
+        console.error("Error loading attendance report:", error);
+      }
+    }
+
+    function exportTable(tableId) {
+      const table = document.getElementById(tableId);
+      let csv = [];
+
+      // Headers
+      const headers = [];
+      for (let th of table.querySelectorAll("thead th")) headers.push(th.innerText);
+      csv.push(headers.join(","));
+
+      // Rows
+      for (let row of table.tBodies[0].rows) {
+        let cols = [];
+        for (let cell of row.cells) cols.push(cell.innerText);
+        csv.push(cols.join(","));
+      }
+
+      const blob = new Blob([csv.join("\n")], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = tableId + ".csv";
+      a.click();
+    }
+
+    async function exportPDF(tableId) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const table = document.getElementById(tableId);
+      const headers = Array.from(table.querySelectorAll("thead th")).map(th => th.innerText);
+      const rows = Array.from(table.tBodies[0].rows).map(tr => Array.from(tr.cells).map(td => td.innerText));
+
+      doc.setFontSize(18);
+      doc.text("Attendance Report", 105, 20, { align: "center" });
+      doc.setFontSize(12);
+
+      // Draw table manually
+      let startY = 30;
+      const rowHeight = 8;
+      const colWidth = [20, 50, 30, 30, 30]; // approximate widths
+
+      // Header
+      headers.forEach((header, i) => {
+        doc.text(header, 10 + colWidth.slice(0, i).reduce((a, b) => a + b, 0), startY);
+      });
+
+      // Rows
+      rows.forEach((row, rIdx) => {
+        row.forEach((cell, cIdx) => {
+          doc.text(cell, 10 + colWidth.slice(0, cIdx).reduce((a, b) => a + b, 0), startY + rowHeight * (rIdx + 1));
+        });
+      });
+
+      doc.save("attendance_report.pdf");
+    }
+
+    window.addEventListener("load", loadAttendanceReport);
+  </script>
+</body>
+</html>
