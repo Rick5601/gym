@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Announcements - UNZAGYM</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-bullhorn"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>UNZAGYM</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="admin_dashboard.html"><i
+                                class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+
+                    <li class="nav-item">
+                        <div><a class="btn btn-link nav-link" data-bs-toggle="collapse" aria-expanded="true"
+                                aria-controls="collapse-3" href="#collapse-3" role="button"><i
+                                    class="fas fa-folder"></i>&nbsp;<span>Member Tables</span></a>
+                            <div class="collapse show" id="collapse-3">
+                                <div class="bg-white border rounded py-2 collapse-inner">
+                                    <h6 class="collapse-header">MEMBER TABLES:</h6><a class="collapse-item"
+                                        href="all_members.html">All Members</a><a class="collapse-item"
+                                        href="pending_members.html">Pending Members</a><a class="collapse-item"
+                                        href="remove_members.html">Remove Members</a><a class="collapse-item"
+                                        href="member_status.html">Member Status</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="collapsePages" class="collapse" aria-labelledby="headingTwo"
+                            aria-controls="collapsePages" data-bs-parent="#accordionSidebar">
+                            <div class="bg-white border rounded py-2 collapse-inner">
+                                <h6 class="collapse-header">LOGIN SCREENS:</h6><a class="collapse-item" href="#">Login</a><a
+                                    class="collapse-item" href="#">Register</a><a class="collapse-item"
+                                    href="#">Forgot Password</a>
+                                <h6 class="collapse-header">OTHER PAGES:</h6><a class="collapse-item" href="#">404 Page</a><a
+                                    class="collapse-item" href="#">Blank Page</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link active" href="announcements.html"><i
+                                class="fas fa-bullhorn"></i><span>Announcements</span></a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Content Wrapper -->
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid">
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown show no-arrow">
+                                    <a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown"
+                                        href="#"><i class="fas fa-users fs-5"></i><span
+                                            class="d-none d-lg-inline me-2 text-gray-600 small"
+                                            id="username">Admin</span></a>
+                                    <div class="dropdown-menu show shadow dropdown-menu-end animated--grow-in"
+                                        data-bs-popper="none">
+                                        <a class="dropdown-item" href="#" id="logoutBtn"><i
+                                                class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Page Content -->
+                <div class="container-fluid">
+                    <h3 class="text-dark mb-4">Manage Announcements</h3>
+
+                    <!-- Add Announcement Form -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <form id="announcementForm">
+                                <div class="mb-3">
+                                    <label class="form-label" for="announcementTitle">Title</label>
+                                    <input type="text" class="form-control" id="announcementTitle" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="announcementMessage">Message</label>
+                                    <textarea class="form-control" id="announcementMessage" rows="3" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="announcementVisibility">Visibility</label>
+                                    <select class="form-control" id="announcementVisibility" required>
+                                        <option value="all">All</option>
+                                        <option value="members">Members Only</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Announcement</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Announcements List -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Existing Announcements</h5>
+                            <div id="announcementList">
+                                <p class="text-muted">Loading announcements...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © UNZA 2025</span></div>
+                </div>
+            </footer>
+        </div>
+
+        <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <!-- Announcements Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("token");
+            const announcementList = document.getElementById("announcementList");
+            const announcementForm = document.getElementById("announcementForm");
+
+            // Load announcements
+            async function loadAnnouncements() {
+                try {
+                    const res = await fetch("/api/admin/announcements", {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+                    const data = await res.json();
+                    announcementList.innerHTML = "";
+
+                    if (!data.success || data.announcements.length === 0) {
+                        announcementList.innerHTML = "<p class='text-muted'>No announcements found.</p>";
+                        return;
+                    }
+
+                    data.announcements.forEach(a => {
+                        const card = document.createElement("div");
+                        card.className = "card mb-2 shadow";
+                        card.innerHTML = `
+                            <div class="card-body">
+                                <h5>${a.title}</h5>
+                                <p>${a.message}</p>
+                                <small>By: ${a.admin_name} | ${new Date(a.created_at).toLocaleString()}</small>
+                                <div class="mt-2">
+                                    <button class="btn btn-sm btn-warning archive-btn" data-id="${a.announcement_id}">
+                                        ${a.is_archived ? "Unarchive" : "Archive"}
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        announcementList.appendChild(card);
+                    });
+
+                    // Archive/unarchive buttons
+                    document.querySelectorAll(".archive-btn").forEach(btn => {
+                        btn.addEventListener("click", async () => {
+                            const id = btn.dataset.id;
+                            const archive = btn.textContent === "Archive" ? true : false;
+
+                            try {
+                                const res = await fetch(`/api/admin/announcements/${id}/archive`, {
+                                    method: "PUT",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "Authorization": `Bearer ${token}`
+                                    },
+                                    body: JSON.stringify({ archive })
+                                });
+                                const result = await res.json();
+                                if (result.success) loadAnnouncements();
+                                else alert("Failed: " + result.message);
+                            } catch (err) {
+                                console.error(err);
+                                alert("Error updating announcement");
+                            }
+                        });
+                    });
+
+                } catch (err) {
+                    console.error(err);
+                    announcementList.innerHTML = "<p class='text-danger'>Error loading announcements.</p>";
+                }
+            }
+
+            // Add announcement
+            announcementForm.addEventListener("submit", async e => {
+                e.preventDefault();
+                const title = document.getElementById("announcementTitle").value.trim();
+                const message = document.getElementById("announcementMessage").value.trim();
+                const visibility = document.getElementById("announcementVisibility").value;
+
+                if (!title || !message || !visibility) return alert("All fields are required.");
+
+                try {
+                    const res = await fetch("/api/admin/announcements", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ title, message, visibility })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        announcementForm.reset();
+                        loadAnnouncements();
+                    } else {
+                        alert("Failed: " + data.message);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("Error creating announcement");
+                }
+            });
+
+            loadAnnouncements();
+        });
+    </script>
+    <script src="adminAuth.js"></script>
+</body>
+</html>

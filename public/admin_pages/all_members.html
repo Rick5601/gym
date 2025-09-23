@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Table - Brand</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0"><a
+                    class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>UNZAGYM</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="admin_dashboard.html"><i
+                                class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item">
+                        <div><a class="btn btn-link nav-link" data-bs-toggle="collapse" aria-expanded="true"
+                                aria-controls="collapse-3" href="#collapse-3" role="button"><i
+                                    class="fas fa-folder"></i>&nbsp;<span>Member Tables</span></a>
+                            <div class="collapse show" id="collapse-3">
+                                <div class="bg-white border rounded py-2 collapse-inner">
+                                    <h6 class="collapse-header">MEMBER TABLES:</h6><a class="collapse-item"
+                                        href="all_members.html">All Members</a><a class="collapse-item"
+                                        href="pending_members.html">Pending Members</a><a class="collapse-item"
+                                        href="remove_members.html">Remove Members</a><a class="collapse-item"
+                                        href="member_status.html">Member Status</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="collapsePages" class="collapse" aria-labelledby="headingTwo"
+                            aria-controls="collapsePages" data-bs-parent="#accordionSidebar">
+                            <div class="bg-white border rounded py-2 collapse-inner">
+                                <h6 class="collapse-header">LOGIN SCREENS:</h6><a class="collapse-item" href="#">Login</a><a
+                                    class="collapse-item" href="#">Register</a><a class="collapse-item"
+                                    href="#">Forgot Password</a>
+                                <h6 class="collapse-header">OTHER PAGES:</h6><a class="collapse-item" href="#">404 Page</a><a
+                                    class="collapse-item" href="#">Blank Page</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="announcements.html"><i
+                                class="fas fa-tachometer-alt"></i><span>Announcements</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
+                        id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3"
+                            id="sidebarToggleTop-1" type="button"><i class="fas fa-bars"></i></button>
+                        <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
+                                    id="search" placeholder="Search for ..."><button class="btn btn-primary py-0"
+                                    type="button"><i class="fas fa-search" id="search_button"></i></button></div>
+                        </form>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
+                                    aria-expanded="false" data-bs-toggle="dropdown" href="#"><i
+                                        class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"
+                                    aria-labelledby="searchDropdown">
+                                    <form class="me-auto navbar-search w-100">
+                                        <div class="input-group"><input class="bg-light form-control border-0 small"
+                                                type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0"
+                                                    type="button"><i class="fas fa-search"></i></button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow mx-1"></li>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-end"
+                                    aria-labelledby="alertsDropdown"></div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown show no-arrow"><a class="dropdown-toggle nav-link"
+                                        aria-expanded="true" data-bs-toggle="dropdown" href="#"><i
+                                            class="fas fa-users fs-5"></i><span
+                                            class="d-none d-lg-inline me-2 text-gray-600 small"
+                                            id="username">Valerie Luna</span></a>
+                                    <div class="dropdown-menu show shadow dropdown-menu-end animated--grow-in"
+                                        data-bs-popper="none"><a class="dropdown-item" href="#" id="logoutBtn"><i
+                                                class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid">
+                    <h3 class="text-start text-dark mb-4">All Members</h3>
+                    <div class="card shadow">
+                        <div class="card-body d-xl-flex justify-content-xl-center align-items-xl-center">
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid"
+                                aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead style="background: var(--bs-gray-400);">
+                                        <tr>
+                                            <th id="student_id" style="border-color: var(--bs-gray-900);">Student ID</th>
+                                            <th id="username" style="border-color: var(--bs-gray-900);">Username</th>
+                                            <th id="fullname" style="border-color: var(--bs-gray-900);">Full Name</th>
+                                            <th id="gender" style="border-color: var(--bs-gray-900);">Gender</th>
+                                            <th id="phone_number" style="border-color: var(--bs-gray-900);">Phone Number</th>
+                                            <th id="email" style="border-color: var(--bs-gray-900);">Email</th>
+                                            <th id="date_of_registration" style="border-color: var(--bs-gray-900);">Date Of Registration</th>
+                                            <th id="room_number" style="border-color: var(--bs-gray-900);">Room Number</th>
+                                            <th id="amount" style="border-color: var(--bs-gray-900);">Amount</th>
+                                            <th id="plan-1" style="border-color: var(--bs-gray-900);">Plan</th>
+                                            <th style="border-color: var(--bs-gray-900);">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="border-width: 1px;" id="membersTableBody">
+                                        <!-- Dynamic rows will be injected here -->
+                                    </tbody>
+                                    <tfoot>
+                                        <tr></tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © UNZA 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i
+                class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <!-- New Script to fetch members -->
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("token"); // Assuming JWT is stored in localStorage
+            const tbody = document.getElementById("membersTableBody");
+
+            try {
+                const response = await fetch("/api/admin/all-members", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    tbody.innerHTML = ""; // Clear existing rows
+                    data.members.forEach(member => {
+                        const tr = document.createElement("tr");
+
+                        tr.innerHTML = `
+                            <td>${member.student_id || ""}</td>
+                            <td>${member.username || ""}</td>
+                            <td>${member.full_name || ""}</td>
+                            <td>${member.gender || ""}</td>
+                            <td>${member.phone || ""}</td>
+                            <td>${member.email || ""}</td>
+                            <td>${new Date(member.date_of_registration).toLocaleDateString() || ""}</td>
+                            <td>${member.room_number || ""}</td>
+                            <td>${member.amount || ""}</td>
+                            <td>${member.plan_name || ""}</td>
+                            <td class="text-center d-flex">
+                                <button class="btn btn-primary btn-sm d-flex align-items-xl-center" type="button" style="margin: 2px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-search fs-6 text-center d-xl-flex" style="font-size: 15px;">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <circle cx="10" cy="10" r="7"></circle>
+                                        <line x1="21" y1="21" x2="15" y2="15"></line>
+                                    </svg>View Profile
+                                </button>
+                            </td>
+                        `;
+
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="12" class="text-center">No members found</td></tr>`;
+                }
+            } catch (err) {
+                console.error("Error fetching members:", err);
+                tbody.innerHTML = `<tr><td colspan="12" class="text-center">Error loading members</td></tr>`;
+            }
+        });
+    </script>
+    <script src="adminAuth.js"></script>
+</body>
+
+</html>

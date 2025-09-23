@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Profile - UNZAGYM</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+</head>
+
+<body id="page-top">
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-weight-hanging"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>UNZAGYM</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link active" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="announcements.html"><i class="fas fa-bullhorn"></i><span>Announcements</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="login_history.html"><i class="fas fa-table"></i><span>Login History</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="payment_history.html"><i class="fas fa-credit-card"></i><span>Payment History</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="report.html"><i class="fas fa-file-alt"></i><span>Report</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline">
+                    <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+                </div>
+            </div>
+        </nav>
+        <!-- End Sidebar -->
+
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-light navbar-expand shadow mb-4 topbar static-top">
+                    <div class="container-fluid">
+                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="dropdown-toggle nav-link" id="logoutDropdown" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                    <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
+                                    <span class="fs-6 fw-bold d-none d-lg-inline me-2 text-gray-600 small"
+                                        id="navbar_username">Member</span>
+                                </a>
+                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                                    <a class="dropdown-item" href="profile.html">
+                                        <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>Profile
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" id="logoutBtn">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>Logout
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- End Topbar -->
+
+                <div class="container-fluid">
+                    <div class="col-xl-12">
+                        <!-- User Details -->
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">User Details</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <!-- Student ID -->
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="text-primary m-0 fw-bold">Student ID</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <p id="student_id" class="m-0"></p>
+                                            </div>
+                                        </div>
+                                        <!-- First Name -->
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="text-primary m-0 fw-bold">First Name</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <p id="first_name" class="m-0"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <!-- Username -->
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="text-primary m-0 fw-bold">Username</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <p id="username" class="m-0"></p>
+                                            </div>
+                                        </div>
+                                        <!-- Last Name -->
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="text-primary m-0 fw-bold">Last Name</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <p id="last_name" class="m-0"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <!-- Email -->
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="text-primary m-0 fw-bold">Email</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <p id="email" class="m-0"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Details -->
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Contact Details</p>
+                            </div>
+                            <div class="card-body">
+                                <!-- Phone Number -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="text-primary m-0 fw-bold">Phone Number</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p id="phone_number" class="m-0"></p>
+                                    </div>
+                                </div>
+                                <!-- Room Number -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="text-primary m-0 fw-bold">Room Number</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p id="room_number" class="m-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Subscription Details -->
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Subscription Details</p>
+                            </div>
+                            <div class="card-body">
+                                <!-- Subscription Type -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="text-primary m-0 fw-bold">Subscription Type</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p id="subscription_type" class="m-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Note -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="text-primary m-0 fw-bold">Note: For any change in profile details contact your admin.</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © UNZA 2025</span></div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Protected Profile Script -->
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Profile script loaded");
+
+    // Get token from localStorage OR sessionStorage
+    const token = localStorage.getItem("memberToken") || sessionStorage.getItem("memberToken");
+    console.log("Retrieved token:", token);
+
+    // Redirect to login if token is missing
+    if (!token) {
+        console.warn("No token found. Redirecting to login.");
+        window.location.replace("/member_login.html");
+        return;
+    }
+
+    // Get username from storage
+    const username = localStorage.getItem("memberName") || sessionStorage.getItem("memberName") || "Member";
+
+    // Set navbar username immediately
+    const navbarUsernameEl = document.getElementById("navbar_username");
+    if (navbarUsernameEl) {
+        navbarUsernameEl.textContent = username;
+    }
+
+    // Optional: populate profile page fields if still fetching from API
+    async function loadProfile() {
+        try {
+            const res = await fetch("/api/member/profile", {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            });
+            const data = await res.json();
+
+            if (res.ok && data.success && data.user) {
+                const user = data.user;
+
+                // Populate fields on the profile page (not navbar)
+                const fields = [
+                    "student_id",
+                    "first_name",
+                    "last_name",
+                    "username",
+                    "email",
+                    "phone_number",
+                    "room_number",
+                    "subscription_type"
+                ];
+
+                fields.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = user[id] || "-";
+                });
+
+                console.log("Profile populated successfully!");
+            } else {
+                alert("Session expired or invalid. Redirecting to login.");
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.replace("/member_login.html");
+            }
+        } catch (err) {
+            console.error("Failed to fetch profile:", err);
+            alert("Failed to load profile. Check your connection or try again later.");
+        }
+    }
+
+    loadProfile();
+
+    // Logout button
+    document.getElementById("logoutBtn")?.addEventListener("click", () => {
+        console.log("Logging out...");
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.replace("/member_login.html");
+    });
+});
+
+</script>
+
+
+
+
+
+
+</body>
+</html>

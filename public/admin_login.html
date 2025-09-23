@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+</head>
+
+<body class="bg-gradient-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-9 col-lg-12 col-xl-10">
+                <div class="card shadow-lg o-hidden border-0 my-5">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-lg-12 col-xl-12">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h4 class="fw-semibold text-dark mb-4">Admin Login</h4>
+                                    </div>
+                                    <form class="user" id="loginForm">
+                                        <div class="mb-3">
+                                            <input class="form-control form-control-user" type="email" id="email" placeholder="Email" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input class="form-control form-control-user" type="password" id="password" placeholder="Password" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="rememberMe">
+                                                <label class="form-check-label" for="rememberMe">Remember Me</label>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
+                                    </form>
+
+                                    <div class="text-center mt-3">
+                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col d-flex justify-content-between">
+                                            <a class="btn btn-secondary" href="member_login.html">Member Login</a>
+                                            <a class="btn btn-secondary" href="sign_up.html">Member Sign Up</a>
+                                        </div>
+                                    </div>
+
+                                    <p id="message" class="mt-2 text-danger"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+   <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevent page reload
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const message = document.getElementById('message');
+
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                // Clear any previous admin token first
+                localStorage.removeItem('token');
+
+                // Store JWT token for admin
+                localStorage.setItem('token', data.token);
+
+                // Redirect to admin dashboard
+                window.location.href = '/admin_pages/admin_dashboard.html';
+
+            } else {
+                message.textContent = data.message; // Show error
+            }
+        } catch (err) {
+            console.error(err);
+            message.textContent = 'Server error. Try again later.';
+        }
+    });
+</script>
+
+
+</body>
+
+</html>

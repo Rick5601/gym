@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Dashboard - UNZAGYM</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-dumbbell"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>UNZAGYM</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link active" href="admin_dashboard.html"><i
+                                class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item">
+                        <div>
+                            <a class="btn btn-link nav-link" data-bs-toggle="collapse" aria-expanded="true"
+                                aria-controls="collapse-3" href="#collapse-3" role="button"><i
+                                    class="fas fa-folder"></i>&nbsp;<span>Member Tables</span></a>
+                            <div class="collapse show" id="collapse-3">
+                                <div class="bg-white border rounded py-2 collapse-inner">
+                                    <h6 class="collapse-header">MEMBER TABLES:</h6>
+                                    <a class="collapse-item" href="all_members.html">All Members</a>
+                                    <a class="collapse-item" href="pending_members.html">Pending Members</a>
+                                    <a class="collapse-item" href="remove_members.html">Remove Member</a>
+                                    <a class="collapse-item" href="member_status.html">Member Status</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link active" href="announcements.html"><i
+                                class="fas fa-tachometer-alt"></i><span>Announcements</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
+                        id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+
+        <!-- Content Wrapper -->
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid">
+                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop"
+                            type="button"><i class="fas fa-bars"></i></button>
+                        <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
+                                    placeholder="Search for ..."><button class="btn btn-primary py-0" type="button"><i
+                                        class="fas fa-search"></i></button></div>
+                        </form>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown show no-arrow">
+                                    <a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown"
+                                        href="#"><span
+                                            class="d-none d-lg-inline me-2 text-gray-600 small">Admin Name</span><img
+                                            class="border rounded-circle img-profile" src="/assets/img/avatars/avatar1.jpeg"></a>
+                                    <div class="dropdown-menu show shadow dropdown-menu-end animated--grow-in"
+                                        data-bs-popper="none" id="logoutBtn"><a class="dropdown-item" href="#"><i
+                                                class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Main Content -->
+                <div class="container-fluid">
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h3 class="fw-bold text-dark mb-0">Admin Dashboard</h3>
+                    </div>
+
+                    <!-- Alerts -->
+                    <div id="dashboardAlerts" class="mb-4">
+                        <!-- Alerts will be dynamically populated -->
+                    </div>
+
+                    <!-- Summary Cards -->
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="card text-white bg-primary shadow">
+                                <div class="card-body text-center">
+                                    <p class="fw-bold m-0">Total Members</p>
+                                    <p class="h3 m-0" id="totalMembers">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="card text-white bg-success shadow">
+                                <div class="card-body text-center">
+                                    <p class="fw-bold m-0">Active Members</p>
+                                    <p class="h3 m-0" id="activeMembers">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="card text-white bg-warning shadow">
+                                <div class="card-body text-center">
+                                    <p class="fw-bold m-0">Pending Members</p>
+                                    <p class="h3 m-0" id="pendingMembers">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="card text-white bg-info shadow">
+                                <div class="card-body text-center">
+                                    <p class="fw-bold m-0">Total Subscriptions</p>
+                                    <p class="h3 m-0" id="totalSubscriptions">0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="mb-4">
+                        <h5>Quick Actions</h5>
+                        <div class="d-flex flex-wrap gap-3">
+                            <button class="btn btn-success" onclick="location.href='pending_members.html'">Approve Memberships</button>
+                            <button class="btn btn-warning text-white">Record Payment</button>
+                            <button class="btn btn-info text-white">Manage Subscriptions</button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity & Announcements -->
+                    <div class="row">
+                        <!-- Recent Activity -->
+                        <div class="col-lg-6 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="text-primary fw-bold m-0">Recent Activity</h6>
+                                </div>
+                                <ul class="list-group list-group-flush" id="recentActivityList">
+                                    <li class="list-group-item">Loading...</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Announcements with Pagination -->
+                        <div class="col-lg-6 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="text-primary fw-bold m-0">Announcements</h6>
+                                </div>
+                                <ul class="list-group list-group-flush" id="announcementsList">
+                                    <li class="list-group-item">Loading announcements...</li>
+                                </ul>
+                                <div class="d-flex justify-content-between p-2" id="announcementsPagination">
+                                    <button class="btn btn-sm btn-secondary" id="prevPage" disabled>Previous</button>
+                                    <span id="pageInfo">Page 1</span>
+                                    <button class="btn btn-sm btn-secondary" id="nextPage" disabled>Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © UNZAGYM 2025</span></div>
+                </div>
+            </footer>
+        </div>
+
+        <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js" defer></script>
+    <script src="assets/js/custom.js" defer></script>
+    <script src="assets/js/theme.js" defer></script>
+    <script src="adminAuth.js" defer></script>
+
+    <script>
+        let currentPage = 1;
+        const pageSize = 5; // <-- now shows 5 announcements per page
+
+        async function loadDashboardData() {
+            try {
+                const token = localStorage.getItem("token");
+                if (!token) return console.error("No token found");
+
+                // --- Fetch Summary Cards ---
+                const summaryResponse = await fetch("http://localhost:5000/api/admin/summary", {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                const summaryResult = await summaryResponse.json();
+
+                if (summaryResult.success) {
+                    const data = summaryResult.data;
+                    document.getElementById("totalMembers").textContent = data.totalMembers;
+                    document.getElementById("activeMembers").textContent = data.activeMembers;
+                    document.getElementById("pendingMembers").textContent = data.pendingMembers;
+                    document.getElementById("totalSubscriptions").textContent = data.totalSubscriptions;
+
+                    // --- Dynamic Alerts ---
+                    const alertsDiv = document.getElementById("dashboardAlerts");
+                    alertsDiv.innerHTML = "";
+                    if (data.pendingMembers > 0) {
+                        const pendingAlert = document.createElement("div");
+                        pendingAlert.className = "alert alert-warning d-flex align-items-center";
+                        pendingAlert.textContent = `You have ${data.pendingMembers} pending membership approvals.`;
+                        alertsDiv.appendChild(pendingAlert);
+                    }
+                    if (data.expiredSubscriptions > 0) {
+                        const expiredAlert = document.createElement("div");
+                        expiredAlert.className = "alert alert-danger d-flex align-items-center";
+                        expiredAlert.textContent = `${data.expiredSubscriptions} subscriptions expired today.`;
+                        alertsDiv.appendChild(expiredAlert);
+                    }
+                }
+
+                // --- Fetch Recent Activity ---
+                const activityResponse = await fetch("http://localhost:5000/api/admin/recent-activity", {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                const activityResult = await activityResponse.json();
+                if (activityResult.success) {
+                    const ul = document.getElementById("recentActivityList");
+                    ul.innerHTML = "";
+                    activityResult.data.forEach(item => {
+                        const li = document.createElement("li");
+                        li.className = "list-group-item";
+                        li.textContent = `${item.activity} (${new Date(item.created_at).toLocaleString()})`;
+                        ul.appendChild(li);
+                    });
+                }
+
+                // --- Load announcements ---
+                loadAnnouncements(currentPage);
+
+            } catch (error) {
+                console.error("Error fetching dashboard data:", error);
+            }
+        }
+
+        async function loadAnnouncements(page = 1) {
+            try {
+                const token = localStorage.getItem("token");
+                if (!token) return console.error("No token found");
+
+                const response = await fetch(`http://localhost:5000/api/admin/announcements?page=${page}&limit=${pageSize}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                const result = await response.json();
+
+                const ul = document.getElementById("announcementsList");
+                ul.innerHTML = "";
+
+                if (result.success && result.announcements.length > 0) {
+                    result.announcements.forEach(item => {
+                        const li = document.createElement("li");
+                        li.className = "list-group-item";
+                        li.textContent = `${item.title} - ${item.message} (by ${item.admin_name}, ${new Date(item.created_at).toLocaleString()})`;
+                        ul.appendChild(li);
+                    });
+                } else {
+                    ul.innerHTML = "<li class='list-group-item'>No announcements found</li>";
+                }
+
+                // Pagination
+                document.getElementById("prevPage").disabled = page <= 1;
+                document.getElementById("nextPage").disabled = page >= result.totalPages;
+                document.getElementById("pageInfo").textContent = `Page ${page} of ${result.totalPages}`;
+                currentPage = page;
+
+            } catch (error) {
+                console.error("Error fetching announcements:", error);
+            }
+        }
+
+        document.getElementById("prevPage").addEventListener("click", () => {
+            if (currentPage > 1) loadAnnouncements(currentPage - 1);
+        });
+
+        document.getElementById("nextPage").addEventListener("click", () => {
+            loadAnnouncements(currentPage + 1);
+        });
+
+        window.addEventListener("load", loadDashboardData);
+    </script>
+
+</body>
+</html>
