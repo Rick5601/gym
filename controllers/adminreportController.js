@@ -97,10 +97,10 @@ exports.getPaymentReport = async (req, res) => {
         const [rows] = await pool.query(`
             SELECT p.payment_id,
                    CONCAT(m.first_name, ' ', m.last_name) AS member_name,
-                   p.amount,
+                   p.amount_paid,
                    p.status,
                    p.payment_date
-            FROM payments p
+            FROM payment_history p
             JOIN members m ON p.member_id = m.member_id
             ORDER BY p.payment_date DESC
         `);
@@ -116,10 +116,10 @@ exports.exportPaymentExcel = async (req, res) => {
     const [rows] = await pool.query(`
         SELECT p.payment_id AS "Receipt ID",
                CONCAT(m.first_name, ' ', m.last_name) AS "Member",
-               p.amount AS "Amount",
+               p.amount_paid AS "Amount",
                p.status AS "Status",
                p.payment_date AS "Date"
-        FROM payments p
+        FROM payment_history p
         JOIN members m ON p.member_id = m.member_id
     `);
     sendExcel(res, ["Receipt ID", "Member", "Amount", "Status", "Date"], rows, "payment_report");
@@ -129,10 +129,10 @@ exports.exportPaymentPDF = async (req, res) => {
     const [rows] = await pool.query(`
         SELECT p.payment_id AS "Receipt ID",
                CONCAT(m.first_name, ' ', m.last_name) AS "Member",
-               p.amount AS "Amount",
+               p.amount_paid AS "Amount",
                p.status AS "Status",
                p.payment_date AS "Date"
-        FROM payments p
+        FROM payment_history p
         JOIN members m ON p.member_id = m.member_id
     `);
     sendPDF(res, "Payment Report", ["Receipt ID", "Member", "Amount", "Status", "Date"], rows, "payment_report");
