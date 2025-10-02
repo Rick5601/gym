@@ -4,7 +4,7 @@ exports.verifyEmail = async (req, res) => {
     const { token } = req.query;
 
     if (!token) {
-        return res.status(400).json({ success: false, message: 'Token is required' });
+        return res.status(400).send('Token is required');
     }
 
     try {
@@ -15,19 +15,20 @@ exports.verifyEmail = async (req, res) => {
         );
 
         if (user.length === 0) {
-            return res.status(400).json({ success: false, message: 'Invalid or expired token' });
+            return res.status(400).send('Invalid or expired token');
         }
 
-        // Update user as verified
+        // Update user as verified and remove the token
         await db.query(
-            'UPDATE users SET is_verified = 1, verification_token = NULL, verification_expires = NULL WHERE id = ?',
-            [user[0].id]
+            'UPDATE users SET is_verified = 1, verification_token = NULL, verification_expires = NULL WHERE user_id = ?',
+            [user[0].user_id]
         );
 
-        return res.json({ success: true, message: 'Email verified successfully!' });
+        // Redirect to payments page after successful verification
+        return res.redirect('/payments.html');
 
     } catch (error) {
         console.error('Verification Error:', error);
-        return res.status(500).json({ success: false, message: 'Server error' });
+        return res.status(500).send('Server error');
     }
 };
