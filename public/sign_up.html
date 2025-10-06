@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Member Sign-Up</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/Nunito.css">
+    <link rel="stylesheet" href="assets/css/signup_custom.css">
 </head>
 
 <body class="bg-gradient-primary">
@@ -18,7 +18,7 @@
                     <div class="col-lg-12 col-xl-12 col-xxl-12">
                         <div class="p-5">
                             <div class="text-center">
-                                <h4 class="text-dark mb-4">Member Sign Up</h4>
+                                <h4 class="mb-4">Member Sign Up</h4>
                             </div>
                             <form class="user" id="signupForm">
                                 <!-- MEMBER DETAILS -->
@@ -27,21 +27,26 @@
                                         <p class="fw-semibold">MEMBER DETAILS</p>
                                     </div>
                                     <div class="card-body">
-                                        <div class="mb-3"><input class="form-control form-control-user" type="text"
-                                                id="FirstName" placeholder="First Name" name="first_name" required></div>
-                                        <div class="mb-3"><input class="form-control form-control-user" type="text"
-                                                id="LastName" placeholder="Last Name" name="last_name" required></div>
-                                        <div class="mb-3"><input class="form-control form-control-user" type="text"
-                                                id="StudentID" placeholder="Student ID" name="student_id" required></div>
-                                                <!-- MEMBER DETAILS section update -->
                                         <div class="mb-3">
-                                            <input class="form-control form-control-user" type="text"
-                                                id="RoomNumber" placeholder="Room Number" name="room_number" required>
+                                            <input class="form-control form-control-user" type="text" id="FirstName"
+                                                placeholder="First Name" name="first_name" required>
                                         </div>
-
-                                        <!-- NEW USERNAME FIELD -->
-                                        <div class="mb-3"><input class="form-control form-control-user" type="text"
-                                                id="Username" placeholder="Username" name="username" required></div>
+                                        <div class="mb-3">
+                                            <input class="form-control form-control-user" type="text" id="LastName"
+                                                placeholder="Last Name" name="last_name" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input class="form-control form-control-user" type="text" id="StudentID"
+                                                placeholder="Student ID" name="student_id" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input class="form-control form-control-user" type="text" id="RoomNumber"
+                                                placeholder="Room Number" name="room_number" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input class="form-control form-control-user" type="text" id="Username"
+                                                placeholder="Username" name="username" required>
+                                        </div>
                                         <div class="mb-3">
                                             <label class="form-label">Choose Gender:</label>
                                             <select class="form-select" id="gender" name="gender" required>
@@ -52,7 +57,8 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Subscription Plan:</label>
-                                            <select class="form-select" id="subscription" name="subscription_id" required>
+                                            <select class="form-select" id="subscription" name="subscription_id"
+                                                required>
                                                 <option value="" selected disabled>Select Plan</option>
                                             </select>
                                         </div>
@@ -69,11 +75,15 @@
                                         <p class="fw-semibold">CONTACTS</p>
                                     </div>
                                     <div class="card-body">
-                                        <div class="mb-3"><input class="form-control form-control-user" type="text"
-                                                id="PhoneNumber" placeholder="Phone Number" name="phone_number"></div>
-                                        <div class="mb-3"><input class="form-control form-control-user" type="email"
+                                        <div class="mb-3">
+                                            <input class="form-control form-control-user" type="text" id="PhoneNumber"
+                                                placeholder="Phone Number" name="phone_number">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input class="form-control form-control-user" type="email"
                                                 id="EmailAddress" placeholder="Email Address" name="email_address"
-                                                required></div>
+                                                required>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -84,16 +94,15 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row g-2">
-                                            <!-- Password -->
                                             <div class="col-sm-6">
                                                 <div class="input-group">
                                                     <input type="password" class="form-control form-control-user"
-                                                        id="PasswordInput" placeholder="Password" name="password" required>
+                                                        id="PasswordInput" placeholder="Password" name="password"
+                                                        required>
                                                     <button class="btn btn-outline-secondary" type="button"
                                                         onclick="togglePassword('PasswordInput', this)">Show</button>
                                                 </div>
                                             </div>
-                                            <!-- Repeat Password -->
                                             <div class="col-sm-6">
                                                 <div class="input-group">
                                                     <input type="password" class="form-control form-control-user"
@@ -112,7 +121,7 @@
 
                             <div class="row mt-3">
                                 <div class="col d-flex justify-content-between" style="padding: 0px;margin: 12px;">
-                                    <a class="btn btn-primary" role="button" href="admin_login.html">Back</a>
+                                    <a class="btn btn-primary" role="button" href="member_login.html">Back</a>
                                 </div>
                             </div>
                         </div>
@@ -123,8 +132,6 @@
     </div>
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/theme.js"></script>
 
     <script>
         const subscriptions = [
@@ -140,20 +147,14 @@
         // Toggle password visibility
         function togglePassword(inputId, btn) {
             const input = document.getElementById(inputId);
-            if (input.type === "password") {
-                input.type = "text";
-                btn.textContent = "Hide";
-            } else {
-                input.type = "password";
-                btn.textContent = "Show";
-            }
+            input.type = input.type === "password" ? "text" : "password";
+            btn.textContent = input.type === "password" ? "Show" : "Hide";
         }
 
         // Populate subscription options based on gender
         genderSelect.addEventListener('change', function () {
             const selectedGender = this.value;
             subscriptionSelect.innerHTML = '<option value="" selected disabled>Select Plan</option>';
-
             subscriptions.forEach(sub => {
                 if (sub.gender === 'all' || sub.gender === selectedGender) {
                     const option = document.createElement('option');
@@ -173,34 +174,36 @@
             planCost.value = selectedOption.dataset.cost + ' ZMW';
         });
 
-        // Handle form submission and send data to backend
+        // Handle form submission
         document.getElementById('signupForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const password = document.getElementById('PasswordInput').value;
             const passwordRepeat = document.getElementById('RepeatPasswordInput').value;
 
-            // Password confirmation check
             if (password !== passwordRepeat) {
-                alert('Passwords do not match!');
+                alert("Passwords do not match!");
                 return;
             }
 
             const selectedOption = subscriptionSelect.selectedOptions[0];
+            if (!selectedOption) {
+                alert("Please select a subscription plan.");
+                return;
+            }
 
             const formData = {
                 first_name: document.getElementById('FirstName').value,
                 last_name: document.getElementById('LastName').value,
                 student_id: document.getElementById('StudentID').value,
-                username: document.getElementById('Username').value, // NEW
+                username: document.getElementById('Username').value,
                 gender: genderSelect.value,
                 phone_number: document.getElementById('PhoneNumber').value,
                 email_address: document.getElementById('EmailAddress').value,
                 room_number: document.getElementById('RoomNumber').value,
                 password: password,
-                subscription_id: subscriptionSelect.value,
                 plan_name: selectedOption.dataset.planName,
-                price: selectedOption.dataset.cost,
+                amount: selectedOption.dataset.cost,
                 duration_days: selectedOption.dataset.duration
             };
 
@@ -218,10 +221,9 @@
                     document.getElementById('signupForm').reset();
                     planCost.value = '';
                 }
-
-            } catch (error) {
-                console.error('Signup error:', error);
-                alert('Signup failed. Check console for details.');
+            } catch (err) {
+                console.error("Signup error:", err);
+                alert("Signup failed. Check console for details.");
             }
         });
     </script>

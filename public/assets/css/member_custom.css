@@ -1,0 +1,77 @@
+/* style.css - Gym Palette */
+
+/* Background */
+body.bg-gradient-primary {
+    background: #0f1e3f !important;
+}
+
+/* Card */
+.card {
+    border: 1px solid #213a56;
+    border-radius: 12px;
+}
+
+/* Headings */
+h4.text-dark,
+h4 {
+    color: #213a56 !important;
+    font-weight: 700;
+}
+
+/* Inputs */
+.form-control {
+    border: 1px solid #997953;
+}
+.form-control:focus {
+    border-color: #cdaa80;
+    box-shadow: 0 0 0 0.2rem rgba(205, 170, 128, 0.5);
+}
+
+/* Remember me */
+.form-check-label {
+    color: #213a56;
+}
+
+/* Member Login button */
+.btn-primary {
+    background-color: #997953 !important;
+    border-color: #997953 !important;
+    color: #ffffff !important;
+}
+.btn-primary:hover {
+    background-color: #cdaa80 !important;
+    border-color: #cdaa80 !important;
+    color: #0f1e3f !important;
+}
+
+/* Admin Login button */
+a.btn-primary[href="admin_login.html"] {
+    background-color: #213a56 !important;
+    border-color: #213a56 !important;
+    color: #ffffff !important;
+}
+a.btn-primary[href="admin_login.html"]:hover {
+    background-color: #0f1e3f !important;
+    border-color: #0f1e3f !important;
+    color: #ffffff !important;
+}
+
+/* Sign Up button */
+a.btn-primary[href="signup.html"] {
+    background-color: #cdaa80 !important;
+    border-color: #cdaa80 !important;
+    color: #0f1e3f !important;
+}
+a.btn-primary[href="signup.html"]:hover {
+    background-color: #997953 !important;
+    border-color: #997953 !important;
+    color: #ffffff !important;
+}
+
+/* Forgot password link */
+a.small {
+    color: #997953 !important;
+}
+a.small:hover {
+    color: #cdaa80 !important;
+}
