@@ -1,0 +1,102 @@
+/* ===============================
+   UNZA GYM PROFILE PAGE STYLES
+   Palette: Navy (#0f1e3f, #1b2a54) + Gold (#997953, #cdaa80)
+   Font: Nunito
+   =============================== */
+
+/* ---------- Font ---------- */
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+/* ---------- Colors ---------- */
+.text-primary,
+h4, h5, h6 {
+    color: #1b2a54 !important;
+}
+
+.bg-gradient-primary,
+.sidebar {
+    background: #0f1e3f !important;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar .navbar-brand {
+    color: #fff !important;
+}
+.sidebar .navbar-brand .sidebar-brand-icon i {
+    color: #cdaa80 !important;
+}
+.sidebar .navbar-brand-text span {
+    color: #fff;
+    font-weight: 700;
+}
+.sidebar .nav-item .nav-link {
+    color: #cdaa80 !important;
+    font-weight: 600;
+}
+.sidebar .nav-item .nav-link.active,
+.sidebar .nav-item .nav-link:hover {
+    background-color: #1b2a54 !important;
+    color: #fff !important;
+    border-left: 4px solid #997953;
+}
+
+/* ---------- Topbar ---------- */
+.navbar.navbar-light.navbar-expand {
+    background-color: #1b2a54 !important;
+    border-bottom: none !important;
+}
+
+.navbar .nav-link,
+.navbar .text-gray-600,
+.navbar .dropdown-toggle {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.navbar .dropdown-menu {
+    background-color: #1b2a54 !important;
+    border: none;
+}
+
+.navbar .dropdown-item {
+    color: #ffffff !important;
+}
+
+.navbar .dropdown-item:hover {
+    background-color: #997953 !important;
+    color: #ffffff !important;
+}
+
+.navbar .fas {
+    color: #cdaa80 !important;
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+    background-color: #997953 !important;
+    border-color: #997953 !important;
+    color: #fff !important;
+}
+.btn-primary:hover {
+    background-color: #cdaa80 !important;
+    border-color: #cdaa80 !important;
+}
+
+/* ---------- Footer ---------- */
+footer.sticky-footer {
+    background-color: #1b2a54 !important;
+    color: #fff !important;
+}
+footer .copyright span {
+    color: #cdaa80 !important;
+}
+
+/* ---------- Scroll to Top ---------- */
+.scroll-to-top {
+    background: #997953 !important;
+}
+.scroll-to-top:hover {
+    background: #cdaa80 !important;
+}

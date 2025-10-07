@@ -1,111 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Login History - UNZAGYM</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Login History - UNZAGYM</title>
+<link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap">
+<link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+<link rel="stylesheet" href="../assets/css/profile.css">
 </head>
-
 <body id="page-top">
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-            <div class="container-fluid d-flex flex-column p-0">
-                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-weight-hanging"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span>UNZAGYM</span></div>
-                </a>
-                <hr class="sidebar-divider my-0">
-                <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="announcements.html"><i class="fas fa-bullhorn"></i><span>Announcements</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="login_history.html"><i class="fas fa-table"></i><span>Login History</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="payment_history.html"><i class="fas fa-money-check"></i><span>Payment History</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="report.html"><i class="fas fa-file-alt"></i><span>Report</span></a></li>
-                </ul>
-                <div class="text-center d-none d-md-inline">
-                    <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
-                </div>
+<div id="wrapper">
+    <!-- Sidebar -->
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+        <div class="container-fluid d-flex flex-column p-0">
+            <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-weight-hanging"></i></div>
+                <div class="sidebar-brand-text mx-3"><span>UNZAGYM</span></div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <li class="nav-item"><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="announcements.html"><i class="fas fa-bullhorn"></i><span>Announcements</span></a></li>
+                <li class="nav-item"><a class="nav-link active" href="login_history.html"><i class="fas fa-table"></i><span>Checkin & Login History</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="payment_history.html"><i class="fas fa-credit-card"></i><span>Payment History</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="report.html"><i class="fas fa-file-alt"></i><span>Report</span></a></li>
+            </ul>
+            <div class="text-center d-none d-md-inline">
+                <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
             </div>
-        </nav>
-
-        <!-- Content Wrapper -->
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <!-- Topbar -->
-                <nav class="navbar navbar-light navbar-expand shadow mb-4 topbar static-top">
-                    <div class="container-fluid">
-                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
-                            <i class="fas fa-bars"></i>
-                        </button>
-                        <ul class="navbar-nav flex-nowrap ms-auto">
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
-                                    <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
-                                    <span class="fs-6 fw-bold d-none d-lg-inline me-2 text-gray-600 small" id="username"></span>
-                                </a>
-                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
-                                    <a class="dropdown-item" href="profile.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>Profile</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>Logout</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-
-                <!-- Main Content -->
-                <div class="container-fluid">
-                    <div class="card shadow">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Login History</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive table mt-2">
-                                <table class="table my-0" id="dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Student ID</th>
-                                            <th>Username</th>
-                                            <th>Check-In</th>
-                                            <th>Check-Out</th>
-                                            <th>Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="loginHistoryBody">
-                                        <!-- Data populated dynamically -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright">
-                        <span>Copyright © UNZA 2025</span>
-                    </div>
-                </div>
-            </footer>
         </div>
+    </nav>
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <!-- Topbar -->
+            <nav class="navbar navbar-light navbar-expand shadow mb-4 topbar static-top">
+                <div class="container-fluid">
+                    <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <ul class="navbar-nav flex-nowrap ms-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="dropdown-toggle nav-link" id="logoutDropdown" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
+                                <span class="fs-6 fw-bold me-2 small" id="navbar_username"></span>
+                            </a>
+                            <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                                <a class="dropdown-item" href="profile.html">
+                                    <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Check-In / Check-Out Card -->
+            <div class="container-fluid">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary fw-bold mb-3">Gym Attendance</h5>
+                        <div class="d-flex justify-content-center gap-3">
+                            <button id="checkinBtn" class="btn btn-success px-4"><i class="fas fa-sign-in-alt me-2"></i>Check In</button>
+                            <button id="checkoutBtn" class="btn btn-danger px-4"><i class="fas fa-sign-out-alt me-2"></i>Check Out</button>
+                        </div>
+                        <p id="statusMessage" class="mt-3 fw-semibold text-secondary"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="container-fluid">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 fw-bold">Login History</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive table mt-2">
+                            <table class="table my-0" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Student ID</th>
+                                        <th>Username</th>
+                                        <th>Check-In</th>
+                                        <th>Check-Out</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="loginHistoryBody"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination: Previous / Next on edges -->
+                        <div class="d-flex justify-content-between mt-3">
+                            <button id="prevBtn" class="btn btn-primary">Previous</button>
+                            <span id="pageInfo" class="align-self-center"></span>
+                            <button id="nextBtn" class="btn btn-primary">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright">
+                    <span>Copyright © UNZA 2025</span>
+                </div>
+            </div>
+        </footer>
     </div>
+</div>
 
-    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+<a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/theme.js"></script>
-    <script src="memberAuth.js"></script>
+<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../assets/js/theme.js"></script>
+<script src="memberAuth.js"></script>
 
-    <script>
+<script>
 document.addEventListener("DOMContentLoaded", () => {
-    // --- Token Check & Logout --- handled by memberAuth.js
     const token = window.getMemberToken();
     if (!token) {
         alert("No token found. Please log in.");
@@ -113,44 +134,48 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // --- Populate Topbar Username ---
-    async function populateTopbarUsername() {
+    let currentPage = 1;
+    const limit = 5;
+    let totalPages = 1;
+
+    const tbody = document.getElementById("loginHistoryBody");
+    const pageInfo = document.getElementById("pageInfo");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const navbarUsernameEl = document.getElementById("navbar_username");
+    const statusMessage = document.getElementById("statusMessage");
+
+    async function loadUsername() {
         try {
-            const response = await fetch('http://localhost:5000/api/member/profile', {
-                headers: { 'Authorization': `Bearer ${token}` }
+            const res = await fetch("/api/member/profile", {
+                headers: { "Authorization": `Bearer ${token}` }
             });
-            const result = await response.json();
-            if (result.success && result.data) {
-                const usernameSpan = document.getElementById("username");
-                if (usernameSpan) usernameSpan.textContent = result.data.username;
-            }
-        } catch (error) {
-            console.error('Failed to fetch username:', error);
+            const data = await res.json();
+            navbarUsernameEl.textContent = (res.ok && data.success && data.user.username) ? data.user.username.toUpperCase() : "MEMBER";
+        } catch {
+            navbarUsernameEl.textContent = "MEMBER";
         }
     }
 
-    // --- Fetch Login History ---
-    async function fetchLoginHistory() {
+    async function fetchLoginHistory(page = 1) {
         try {
-            const response = await fetch('http://localhost:5000/api/member/login-history', {
+            const res = await fetch(`/api/member/login-history?page=${page}&limit=${limit}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-
-            const result = await response.json();
-            const tbody = document.getElementById('loginHistoryBody');
+            const data = await res.json();
             tbody.innerHTML = '';
 
-            if (!result.success) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center">Failed to load login history</td></tr>`;
-                return;
-            }
-
-            if (result.data.length === 0) {
+            if (!data.success || data.data.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="5" class="text-center">No login history found</td></tr>';
+                pageInfo.textContent = '';
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
                 return;
             }
 
-            result.data.forEach(row => {
+            totalPages = data.totalPages || Math.ceil(data.total / limit);
+
+            data.data.forEach(row => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${row.student_id}</td>
@@ -161,18 +186,66 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
                 tbody.appendChild(tr);
             });
-        } catch (error) {
-            console.error('Error fetching login history:', error);
-            const tbody = document.getElementById('loginHistoryBody');
-            tbody.innerHTML = `<tr><td colspan="5" class="text-center">Error fetching login history</td></tr>`;
+
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+        } catch (err) {
+            console.error('Error fetching login history:', err);
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center text-danger">Error fetching login history</td></tr>';
         }
     }
 
-    // --- Initialize page ---
-    populateTopbarUsername();
-    fetchLoginHistory();
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchLoginHistory(currentPage);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            fetchLoginHistory(currentPage);
+        }
+    });
+
+    async function checkIn() {
+        try {
+            const res = await fetch('/api/member/checkin', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+            });
+            const result = await res.json();
+            statusMessage.textContent = result.success ? "✅ Checked in successfully!" : result.message || "❌ Check-in failed.";
+            statusMessage.className = `mt-3 fw-semibold ${result.success ? 'text-success' : 'text-danger'}`;
+            fetchLoginHistory(currentPage);
+        } catch {
+            statusMessage.textContent = "⚠️ Error during check-in.";
+        }
+    }
+
+    async function checkOut() {
+        try {
+            const res = await fetch('/api/member/checkout', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+            });
+            const result = await res.json();
+            statusMessage.textContent = result.success ? "✅ Checked out successfully!" : result.message || "❌ Check-out failed.";
+            statusMessage.className = `mt-3 fw-semibold ${result.success ? 'text-success' : 'text-danger'}`;
+            fetchLoginHistory(currentPage);
+        } catch {
+            statusMessage.textContent = "⚠️ Error during check-out.";
+        }
+    }
+
+    // Initialize
+    loadUsername();
+    fetchLoginHistory(currentPage);
+    document.getElementById("checkinBtn").addEventListener("click", checkIn);
+    document.getElementById("checkoutBtn").addEventListener("click", checkOut);
 });
 </script>
-
 </body>
 </html>
