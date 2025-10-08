@@ -30,9 +30,10 @@
                                     <input class="form-control form-control-user" type="password" id="password"
                                         placeholder="Password" required>
                                 </div>
+                                <!-- Remember Me (kept for appearance only) -->
                                 <div class="mb-3">
                                     <div class="form-check small">
-                                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                                        <input class="form-check-input" type="checkbox" id="rememberMe" checked disabled>
                                         <label class="form-check-label" for="rememberMe">Remember Me</label>
                                     </div>
                                 </div>
@@ -59,7 +60,6 @@
 
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
-            const rememberMe = document.getElementById('rememberMe').checked;
             const message = document.getElementById('message');
 
             try {
@@ -76,12 +76,8 @@
                     localStorage.removeItem('token');
                     sessionStorage.removeItem('token');
 
-                    // Store token based on "Remember Me"
-                    if (rememberMe) {
-                        localStorage.setItem('token', data.token); // persistent
-                    } else {
-                        sessionStorage.setItem('token', data.token); // session-only
-                    }
+                    // Always remember the user (persistent login)
+                    localStorage.setItem('token', data.token);
 
                     // Redirect to admin dashboard
                     window.location.href = '/admin_pages/admin_dashboard.html';
