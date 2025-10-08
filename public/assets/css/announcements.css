@@ -1,0 +1,80 @@
+/* UNZA GYM ANNOUNCEMENTS PAGE STYLES */
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+/* Sidebar */
+.sidebar,
+.sidebar .navbar-nav,
+.sidebar .nav-item .nav-link,
+.sidebar .navbar-brand {
+    background-color: #0f1e3f !important; /* Dark navy */
+    color: #cdaa80 !important; /* Gold for links */
+}
+
+.sidebar .nav-item .nav-link.active,
+.sidebar .nav-item .nav-link:hover {
+    background-color: #1b2a54 !important; /* Slightly lighter navy */
+    color: #fff !important;
+    border-left: 4px solid #997953; /* Gold accent */
+}
+
+.sidebar .navbar-brand .sidebar-brand-icon i {
+    color: #cdaa80 !important;
+}
+.sidebar .navbar-brand-text span {
+    color: #fff !important;
+    font-weight: 700;
+}
+
+
+/* Topbar */
+.navbar.navbar-light.navbar-expand {
+    background-color: #1b2a54 !important;
+    border-bottom: none !important;
+}
+.navbar .nav-link,
+.navbar .dropdown-toggle {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+.navbar .dropdown-menu {
+    background-color: #1b2a54 !important;
+    border: none;
+}
+.navbar .dropdown-item {
+    color: #ffffff !important;
+}
+.navbar .dropdown-item:hover {
+    background-color: #997953 !important;
+    color: #ffffff !important;
+}
+.navbar .fas {
+    color: #cdaa80 !important;
+}
+
+/* Announcement cards */
+#announcementsContainer .card-header {
+    background-color: #1b2a54;
+    color: #cdaa80;
+}
+#announcementsContainer .card-body {
+    color: #0f1e3f;
+}
+
+/* Footer */
+footer.sticky-footer {
+    background-color: #1b2a54 !important;
+    color: #fff !important;
+}
+footer .copyright span {
+    color: #cdaa80 !important;
+}
+
+/* Scroll to top */
+.scroll-to-top {
+    background: #997953 !important;
+}
+.scroll-to-top:hover {
+    background: #cdaa80 !important;
+}

@@ -21,19 +21,30 @@ exports.submitReport = async (req, res) => {
     }
 };
 
-// GET /api/reports
+// GET /api/reports?page=1
 exports.getReports = async (req, res) => {
     try {
         const userId = req.member.id;
-        const [rows] = await db.query(
-            "SELECT report_id, subject, message, submitted_at FROM reports WHERE submitted_by_user_id = ? ORDER BY submitted_at DESC",
+        const page = parseInt(req.query.page) || 1;
+        const limit = 5; // number of reports per page
+        const offset = (page - 1) * limit;
+
+        // Get total count of reports
+        const [countResult] = await db.query(
+            "SELECT COUNT(*) as total FROM reports WHERE submitted_by_user_id = ?",
             [userId]
         );
+        const total = countResult[0].total;
 
-        res.json({ success: true, reports: rows });
+        // Fetch paginated reports
+        const [rows] = await db.query(
+            "SELECT report_id, subject, message, submitted_at FROM reports WHERE submitted_by_user_id = ? ORDER BY submitted_at DESC LIMIT ? OFFSET ?",
+            [userId, limit, offset]
+        );
+
+        res.json({ success: true, reports: rows, total });
     } catch (err) {
         console.error("Error fetching reports:", err);
         res.status(500).json({ success: false, message: "Server error" });
     }
 };
-

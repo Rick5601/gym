@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Dashboard - UNZAGYM</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
 </head>
 
 <body id="page-top">
@@ -90,15 +90,19 @@
                         </form>
                         <ul class="navbar-nav flex-nowrap ms-auto">
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown show no-arrow">
-                                    <a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown"
-                                        href="#"><span
-                                            class="d-none d-lg-inline me-2 text-gray-600 small">Admin Name</span><img
-                                            class="border rounded-circle img-profile" src="/assets/img/avatars/avatar1.jpeg"></a>
-                                    <div class="dropdown-menu show shadow dropdown-menu-end animated--grow-in"
-                                        data-bs-popper="none" id="logoutBtn"><a class="dropdown-item" href="#"><i
-                                                class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
-                                    </div>
+                                <a class="dropdown-toggle nav-link" id="logoutDropdown" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                    <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
+                                    <span class="fs-6 fw-bold me-2 small" id="navbar_username"></span>
+
+                                </a>
+                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                                    <a class="dropdown-item" href="admin_dashboard.html">
+                                        <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>Dashboard
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" id="logoutBtn">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>Logout
+                                    </a>
                                 </div>
                             </li>
                         </ul>
@@ -152,16 +156,6 @@
                         </div>
                     </div>
 
-                    <!-- Quick Actions -->
-                    <div class="mb-4">
-                        <h5>Quick Actions</h5>
-                        <div class="d-flex flex-wrap gap-3">
-                            <button class="btn btn-success" onclick="location.href='pending_members.html'">Approve Memberships</button>
-                            <button class="btn btn-warning text-white">Record Payment</button>
-                            <button class="btn btn-info text-white">Manage Subscriptions</button>
-                        </div>
-                    </div>
-
                     <!-- Recent Activity & Announcements -->
                     <div class="row">
                         <!-- Recent Activity -->
@@ -208,9 +202,8 @@
         <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
 
-    <script src="assets/bootstrap/js/bootstrap.min.js" defer></script>
-    <script src="assets/js/custom.js" defer></script>
-    <script src="assets/js/theme.js" defer></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js" defer></script>
+    <script src="../assets/js/theme.js" defer></script>
     <script src="adminAuth.js" defer></script>
 
     <script>

@@ -5,9 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Payment History - UNZAGYM</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
 </head>
 
 <body id="page-top">
@@ -23,46 +25,53 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="announcements.html"><i class="fas fa-bullhorn"></i><span>Announcements</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="login_history.html"><i class="fas fa-table"></i><span>Login History</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="login_history.html"><i class="fas fa-table"></i><span>Checkin & Login History</span></a></li>
                     <li class="nav-item"><a class="nav-link active" href="payment_history.html"><i class="fas fa-credit-card"></i><span>Payment History</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="report.html"><i class="fas fa-file-alt"></i><span>Report</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
+
         <!-- Content Wrapper -->
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- Topbar -->
                 <nav class="navbar navbar-light navbar-expand shadow mb-4 topbar static-top">
                     <div class="container-fluid">
-                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
                         <ul class="navbar-nav flex-nowrap ms-auto">
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow">
-                                    <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
-                                        <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
-                                        <span class="fs-6 fw-bold d-none d-lg-inline me-2 text-gray-600 small" id="username">Member</span>
+                                <a class="dropdown-toggle nav-link" id="logoutDropdown" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                    <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
+                                    <span class="fs-6 fw-bold me-2 small" id="navbar_username"></span>
+                                </a>
+                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                                    <a class="dropdown-item" href="profile.html">
+                                        <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>Profile
                                     </a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
-                                        <a class="dropdown-item" href="profile.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>Profile</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>Logout</a>
-                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" id="logoutBtn">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>Logout
+                                    </a>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </nav>
-                <!-- Page Content -->
+                <!-- End Topbar -->
+
                 <div class="container-fluid">
+                    <!-- Payment History Table -->
                     <div class="card shadow">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">Payment History</p>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive table mt-2" role="grid">
-                                <table class="table my-0" id="dataTable">
+                            <div class="table-responsive table mt-2">
+                                <table class="table my-0" id="paymentTable">
                                     <thead>
                                         <tr>
                                             <th>Student ID</th>
@@ -73,31 +82,21 @@
                                             <th>Amount</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <!-- Dynamic rows injected by JS -->
-                                    </tbody>
+                                    <tbody id="paymentBody"></tbody>
                                 </table>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 align-self-center">
-                                    <p id="dataTable_info" class="dataTables_info">Showing all records</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <nav class="d-lg-flex justify-content-lg-end">
-                                        <ul class="pagination">
-                                            <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">»</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
+
+                            <!-- Pagination -->
+                            <div class="d-flex justify-content-between mt-3">
+                                <button id="prevBtn" class="btn btn-primary">Previous</button>
+                                <span id="pageInfo" class="align-self-center"></span>
+                                <button id="nextBtn" class="btn btn-primary">Next</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- Footer -->
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
@@ -107,126 +106,126 @@
                 </div>
             </footer>
         </div>
-        <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/theme.js"></script>
-   
-    <!-- Dynamic Payment History Script -->
+    <script src="memberAuth.js"></script>
+
     <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-    const token = localStorage.getItem("memberToken") || sessionStorage.getItem("memberToken");
-    const tableBody = document.querySelector("#dataTable tbody");
-    const pagination = document.querySelector(".pagination"); // your existing UL
-    const entriesPerPage = 5;
-    let currentPage = 1;
-    let payments = [];
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = window.getMemberToken();
+            if (!token) {
+                alert("No token found. Please log in.");
+                window.location.replace("/member_login.html");
+                return;
+            }
 
-    try {
-        const res = await fetch("/api/member/payment-history", {
-            headers: { "Authorization": "Bearer " + token }
+            const navbarUsernameEl = document.getElementById("navbar_username");
+            const tbody = document.getElementById("paymentBody");
+            const pageInfo = document.getElementById("pageInfo");
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+
+            let currentPage = 1;
+            const limit = 5;
+            let totalPages = 1;
+            let payments = [];
+
+            // Fetch user profile for navbar
+            async function loadNavbarUsername() {
+                try {
+                    const res = await fetch("/api/member/profile", {
+                        headers: { "Authorization": "Bearer " + token }
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.success && data.user) {
+                        navbarUsernameEl.textContent = (data.user.username || "Member").toUpperCase();
+                    } else {
+                        navbarUsernameEl.textContent = "MEMBER";
+                    }
+                } catch (err) {
+                    console.error("Failed to fetch profile:", err);
+                    navbarUsernameEl.textContent = "MEMBER";
+                }
+            }
+
+            // Fetch payment history
+            async function fetchPayments() {
+                try {
+                    const res = await fetch(`/api/member/payment-history`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const data = await res.json();
+
+                    if (!data.success || !data.paymenthistory.length) {
+                        tbody.innerHTML = '<tr><td colspan="6" class="text-center">No payment history found</td></tr>';
+                        pageInfo.textContent = '';
+                        prevBtn.disabled = true;
+                        nextBtn.disabled = true;
+                        return;
+                    }
+
+                    payments = data.paymenthistory.sort((a, b) => new Date(b.last_payment_date) - new Date(a.last_payment_date));
+                    totalPages = Math.ceil(payments.length / limit);
+                    currentPage = 1;
+                    renderTable();
+                } catch (err) {
+                    console.error(err);
+                    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-danger">Error fetching payment history</td></tr>';
+                }
+            }
+
+            function renderTable() {
+                tbody.innerHTML = '';
+                const start = (currentPage - 1) * limit;
+                const end = start + limit;
+                const pageData = payments.slice(start, end);
+
+                pageData.forEach(p => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${p.student_id}</td>
+                        <td>${p.full_name || p.username}</td>
+                        <td>${p.plan}</td>
+                        <td>${p.last_payment_date}</td>
+                        <td>${p.expiry_date}</td>
+                        <td>${p.amount}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === totalPages;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable();
+                }
+            });
+
+            // Logout
+            document.getElementById("logoutBtn").addEventListener("click", () => {
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.replace("/member_login.html");
+            });
+
+            loadNavbarUsername();
+            fetchPayments();
         });
-        const data = await res.json();
-
-        if (res.ok && data.success && data.paymenthistory.length > 0) {
-            payments = data.paymenthistory.sort((a, b) => new Date(b.last_payment_date) - new Date(a.last_payment_date));
-            renderTable();
-            updatePagination();
-        } else {
-            tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">No payment history available.</td></tr>`;
-            pagination.style.display = "none";
-        }
-    } catch (err) {
-        console.error("Error fetching payment history:", err);
-        tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Failed to load payment history.</td></tr>`;
-    }
-
-    function renderTable() {
-        tableBody.innerHTML = "";
-        const start = (currentPage - 1) * entriesPerPage;
-        const end = start + entriesPerPage;
-        const pageData = payments.slice(start, end);
-
-        pageData.forEach(payment => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${payment.student_id}</td>
-                <td>${payment.username}</td>
-                <td>${payment.plan}</td>
-                <td>${payment.last_payment_date}</td>
-                <td>${payment.expiry_date}</td>
-                <td>${payment.amount}</td>
-            `;
-            tableBody.appendChild(row);
-        });
-    }
-
-    function updatePagination() {
-        const totalPages = Math.ceil(payments.length / entriesPerPage);
-        const pageItems = pagination.querySelectorAll("li");
-
-        // Update « Previous button
-        const prev = pageItems[0];
-        if (currentPage === 1) prev.classList.add("disabled");
-        else prev.classList.remove("disabled");
-
-        // Update page numbers
-        for (let i = 1; i <= totalPages; i++) {
-            let pageLi = pageItems[i];
-            if (!pageLi) {
-                pageLi = document.createElement("li");
-                pageLi.className = "page-item";
-                const a = document.createElement("a");
-                a.className = "page-link";
-                a.href = "#";
-                pageLi.appendChild(a);
-                pagination.insertBefore(pageLi, pageItems[pageItems.length - 1]);
-            }
-            pageLi.querySelector("a").innerText = i;
-            pageLi.classList.toggle("active", i === currentPage);
-            pageLi.querySelector("a").onclick = (e) => {
-                e.preventDefault();
-                currentPage = i;
-                renderTable();
-                updatePagination();
-            };
-        }
-
-        // Remove extra page numbers if totalPages decreased
-        while (pagination.children.length > totalPages + 2) {
-            pagination.removeChild(pagination.children[pagination.children.length - 2]);
-        }
-
-        // Update » Next button
-        const next = pagination.lastElementChild;
-        if (currentPage === totalPages) next.classList.add("disabled");
-        else next.classList.remove("disabled");
-
-        next.querySelector("a").onclick = (e) => {
-            e.preventDefault();
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderTable();
-                updatePagination();
-            }
-        };
-
-        prev.querySelector("a").onclick = (e) => {
-            e.preventDefault();
-            if (currentPage > 1) {
-                currentPage--;
-                renderTable();
-                updatePagination();
-            }
-        };
-    }
-});
-
     </script>
-     <script src="memberAuth.js"></script>
-
 </body>
-
 </html>

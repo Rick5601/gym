@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Announcements - UNZAGYM</title>
-    <link rel="stylesheet" href="/admin_pages/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="/admin_pages/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
 </head>
 <body id="page-top">
 <div id="wrapper">
@@ -22,7 +22,7 @@
 
       <!-- Dashboard -->
       <li class="nav-item">
-        <a class="nav-link active" href="admin_dashboard.html">
+        <a class="nav-link" href="admin_dashboard.html">
           <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
         </a>
       </li>
@@ -60,7 +60,7 @@
 
       <!-- Announcements -->
       <li class="nav-item">
-        <a class="nav-link" href="announcements.html">
+        <a class="nav-link active" href="announcements.html">
           <i class="fas fa-bullhorn"></i><span>Announcements</span>
         </a>
       </li>
@@ -79,20 +79,24 @@
             <!-- Topbar -->
             <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                 <div class="container-fluid">
-                    <ul class="navbar-nav flex-nowrap ms-auto">
-                        <li class="nav-item dropdown no-arrow">
-                            <div class="nav-item dropdown show no-arrow">
-                                <a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown"
-                                   href="#"><i class="fas fa-users fs-5"></i><span
-                                        class="d-none d-lg-inline me-2 text-gray-600 small" id="username">Admin</span></a>
-                                <div class="dropdown-menu show shadow dropdown-menu-end animated--grow-in"
-                                     data-bs-popper="none">
-                                    <a class="dropdown-item" href="#" id="logoutBtn"><i
-                                            class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                     <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="dropdown-toggle nav-link" id="logoutDropdown" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                    <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
+                                    <span class="fs-6 fw-bold me-2 small" id="navbar_username"></span>
+
+                                </a>
+                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                                    <a class="dropdown-item" href="admin_dashboard.html">
+                                        <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>Dashboard
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" id="logoutBtn">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>Logout
+                                    </a>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
+                            </li>
+                        </ul>
                 </div>
             </nav>
 
@@ -147,8 +151,8 @@
     <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 </div>
 
-<script src="/admin_pages/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="/admin_pages/assets/js/theme.js"></script>
+<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../assets/js/theme.js"></script>
 
 <!-- Announcements Script -->
 <script>

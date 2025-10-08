@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
+
+// Controllers
 const memberController = require("../controllers/memberController");
 const memberannouncementsController = require("../controllers/memberannouncementsController");
 const reportController = require("../controllers/reportController");
 const paymenthistoryController = require("../controllers/paymenthistoryController");
+const loginhistoryController = require("../controllers/loginhistoryController"); // import full controller
+
+// Middleware
 const { authenticateToken, authorizeRoles, verifyMember } = require("../middleware/authMiddleware");
-const { getLoginHistory } = require("../controllers/loginhistoryController");
 
 // -------------------- MEMBER PROFILE ROUTE --------------------
 router.get(
@@ -13,10 +17,6 @@ router.get(
   authenticateToken,
   authorizeRoles("member"),
   verifyMember,
-  (req, res, next) => {
-    console.log(`[${new Date().toISOString()}] /profile route hit by memberId: ${req.member?.id || 'unknown'}`);
-    next();
-  },
   memberController.getProfile
 );
 
@@ -26,10 +26,6 @@ router.get(
   authenticateToken,
   authorizeRoles("member"),
   verifyMember,
-  (req, res, next) => {
-    console.log(`[${new Date().toISOString()}] /announcements route hit by memberId: ${req.member?.id || 'unknown'}`);
-    next();
-  },
   memberannouncementsController.getAnnouncements
 );
 
@@ -39,10 +35,6 @@ router.get(
   authenticateToken,
   authorizeRoles("member"),
   verifyMember,
-  (req, res, next) => {
-    console.log(`[${new Date().toISOString()}] /reports GET route hit by memberId: ${req.member?.id || 'unknown'}`);
-    next();
-  },
   reportController.getReports
 );
 
@@ -51,10 +43,6 @@ router.post(
   authenticateToken,
   authorizeRoles("member"),
   verifyMember,
-  (req, res, next) => {
-    console.log(`[${new Date().toISOString()}] /reports POST route hit by memberId: ${req.member?.id || 'unknown'}`);
-    next();
-  },
   reportController.submitReport
 );
 
@@ -64,10 +52,6 @@ router.get(
   authenticateToken,
   authorizeRoles("member"),
   verifyMember,
-  (req, res, next) => {
-    console.log(`[${new Date().toISOString()}] /payment-history route hit by memberId: ${req.member?.id || 'unknown'}`);
-    next();
-  },
   paymenthistoryController.getPaymenthistory
 );
 
@@ -77,16 +61,29 @@ router.get(
   authenticateToken,
   authorizeRoles("member"),
   verifyMember,
-  (req, res, next) => {
-    console.log(`[${new Date().toISOString()}] /login-history route hit by memberId: ${req.member?.id || 'unknown'}`);
-    next();
-  },
-  getLoginHistory
+  loginhistoryController.getLoginHistory
 );
 
-// -------------------- Optional: test route --------------------
+// -------------------- MEMBER CHECK-IN ROUTE --------------------
+router.post(
+  "/checkin",
+  authenticateToken,
+  authorizeRoles("member"),
+  verifyMember,
+  loginhistoryController.checkIn
+);
+
+// -------------------- MEMBER CHECK-OUT ROUTE --------------------
+router.post(
+  "/checkout",
+  authenticateToken,
+  authorizeRoles("member"),
+  verifyMember,
+  loginhistoryController.checkOut
+);
+
+// -------------------- TEST ROUTE --------------------
 router.get("/test", authenticateToken, (req, res) => {
-  console.log(`[${new Date().toISOString()}] /test route hit by memberId: ${req.member?.id || 'unknown'}`);
   res.json({ success: true, message: "Member test route works!" });
 });
 

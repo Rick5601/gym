@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Profile - UNZAGYM</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
 </head>
 
 <body id="page-top">
@@ -25,7 +26,7 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link active" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="announcements.html"><i class="fas fa-bullhorn"></i><span>Announcements</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="login_history.html"><i class="fas fa-table"></i><span>Login History</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="login_history.html"><i class="fas fa-table"></i><span>Checkin & Login History</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="payment_history.html"><i class="fas fa-credit-card"></i><span>Payment History</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="report.html"><i class="fas fa-file-alt"></i><span>Report</span></a></li>
                 </ul>
@@ -48,8 +49,8 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="dropdown-toggle nav-link" id="logoutDropdown" aria-expanded="false" data-bs-toggle="dropdown" href="#">
                                     <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
-                                    <span class="fs-6 fw-bold d-none d-lg-inline me-2 text-gray-600 small"
-                                        id="navbar_username">Member</span>
+                                    <span class="fs-6 fw-bold me-2 small" id="navbar_username"></span>
+
                                 </a>
                                 <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
                                     <a class="dropdown-item" href="profile.html">
@@ -196,7 +197,7 @@
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Protected Profile Script -->
    <script>
@@ -214,15 +215,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // Get username from storage
-    const username = localStorage.getItem("memberName") || sessionStorage.getItem("memberName") || "Member";
-
-    // Set navbar username immediately
-    const navbarUsernameEl = document.getElementById("navbar_username");
-    if (navbarUsernameEl) {
-        navbarUsernameEl.textContent = username;
-    }
-
     // Optional: populate profile page fields if still fetching from API
     async function loadProfile() {
         try {
@@ -236,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (res.ok && data.success && data.user) {
                 const user = data.user;
 
-                // Populate fields on the profile page (not navbar)
+                // Populate fields on the profile page (cards)
                 const fields = [
                     "student_id",
                     "first_name",
@@ -250,8 +242,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 fields.forEach(id => {
                     const el = document.getElementById(id);
-                    if (el) el.textContent = user[id] || "-";
+                    if (el) {
+                        if (id === "username") {
+                            el.textContent = (user[id] || "-").toUpperCase(); // Uppercase username
+                        } else {
+                            el.textContent = user[id] || "-"; // Other fields unchanged
+                        }
+                    }
                 });
+
+                // ✅ Set navbar username directly from backend in uppercase
+                const navbarUsernameEl = document.getElementById("navbar_username");
+                if (navbarUsernameEl) {
+                    navbarUsernameEl.textContent = (user.username || "Member").toUpperCase();
+                }
 
                 console.log("Profile populated successfully!");
             } else {
@@ -276,12 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.replace("/member_login.html");
     });
 });
-
 </script>
-
-
-
-
 
 
 </body>
