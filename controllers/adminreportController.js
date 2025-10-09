@@ -49,24 +49,40 @@ const sendPDF = (res, title, headers, rows, filename) => {
 ------------------------- */
 exports.getMembershipReport = async (req, res) => {
     try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = (page - 1) * limit;
+
         const [rows] = await pool.query(`
             SELECT member_id,
                    CONCAT(first_name, ' ', last_name) AS name,
-                   CASE 
-                       WHEN end_date >= CURDATE() THEN 'Active'
-                       ELSE 'Expired'
-                   END AS status,
+                   CASE WHEN end_date >= CURDATE() THEN 'Active' ELSE 'Expired' END AS status,
                    end_date
             FROM members
             ORDER BY end_date ASC
-        `);
-        res.json({ success: true, data: rows });
+            LIMIT ? OFFSET ?
+        `, [limit, offset]);
+
+        // Total count for pagination
+        const [[{ count }]] = await pool.query(`SELECT COUNT(*) AS count FROM members`);
+
+        res.json({
+            success: true,
+            data: rows,
+            pagination: {
+                page,
+                limit,
+                total: count,
+                totalPages: Math.ceil(count / limit)
+            }
+        });
     } catch (error) {
         console.error("Membership report error:", error);
         res.status(500).json({ success: false, message: "Error fetching membership report" });
     }
 };
 
+// Export Excel / PDF remain unchanged (full data)
 exports.exportMembershipExcel = async (req, res) => {
     const [rows] = await pool.query(`
         SELECT member_id AS "Member ID",
@@ -94,6 +110,10 @@ exports.exportMembershipPDF = async (req, res) => {
 ------------------------- */
 exports.getPaymentReport = async (req, res) => {
     try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = (page - 1) * limit;
+
         const [rows] = await pool.query(`
             SELECT p.payment_id,
                    CONCAT(m.first_name, ' ', m.last_name) AS member_name,
@@ -103,15 +123,27 @@ exports.getPaymentReport = async (req, res) => {
             FROM payment_history p
             JOIN members m ON p.member_id = m.member_id
             ORDER BY p.payment_date DESC
-        `);
+            LIMIT ? OFFSET ?
+        `, [limit, offset]);
 
-        res.json({ success: true, data: rows });
+        const [[{ count }]] = await pool.query(`SELECT COUNT(*) AS count FROM payment_history`);
+        res.json({
+            success: true,
+            data: rows,
+            pagination: {
+                page,
+                limit,
+                total: count,
+                totalPages: Math.ceil(count / limit)
+            }
+        });
     } catch (error) {
         console.error("Payment report error:", error);
         res.status(500).json({ success: false, message: "Error fetching payment report" });
     }
 };
 
+// Export Excel / PDF remain unchanged
 exports.exportPaymentExcel = async (req, res) => {
     const [rows] = await pool.query(`
         SELECT p.payment_id AS "Receipt ID",
@@ -138,12 +170,15 @@ exports.exportPaymentPDF = async (req, res) => {
     sendPDF(res, "Payment Report", ["Receipt ID", "Member", "Amount", "Status", "Date"], rows, "payment_report");
 };
 
-
 /* -------------------------
    Attendance Report
 ------------------------- */
 exports.getAttendanceReport = async (req, res) => {
     try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = (page - 1) * limit;
+
         const [rows] = await pool.query(`
             SELECT c.checkin_id AS attendance_id,
                    CONCAT(m.first_name, ' ', m.last_name) AS member_name,
@@ -153,14 +188,28 @@ exports.getAttendanceReport = async (req, res) => {
             FROM checkins c
             JOIN members m ON c.member_id = m.member_id
             ORDER BY c.checkin_time DESC
-        `);
-        res.json({ success: true, data: rows });
+            LIMIT ? OFFSET ?
+        `, [limit, offset]);
+
+        const [[{ count }]] = await pool.query(`SELECT COUNT(*) AS count FROM checkins`);
+
+        res.json({
+            success: true,
+            data: rows,
+            pagination: {
+                page,
+                limit,
+                total: count,
+                totalPages: Math.ceil(count / limit)
+            }
+        });
     } catch (error) {
         console.error("Attendance report error:", error);
         res.status(500).json({ success: false, message: "Error fetching attendance report" });
     }
 };
 
+// Export Excel / PDF remain unchanged
 exports.exportAttendanceExcel = async (req, res) => {
     const [rows] = await pool.query(`
         SELECT c.checkin_id AS "Attendance ID",
@@ -186,4 +235,3 @@ exports.exportAttendancePDF = async (req, res) => {
     `);
     sendPDF(res, "Attendance Report", ["Attendance ID", "Member", "Date", "Check-in Time", "Check-out Time"], rows, "attendance_report");
 };
-

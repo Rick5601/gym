@@ -1,0 +1,152 @@
+/* ===============================
+   UNZA GYM COLOR PALETTE
+   Palette: Navy (#0f1e3f, #1b2a54) + Gold (#997953, #cdaa80)
+   =============================== */
+
+/* ---------- Body & Backgrounds ---------- */
+body.bg-gradient-primary {
+    background-color: #0f1e3f !important;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar,
+.sidebar .navbar-nav,
+.sidebar .nav-item .nav-link,
+.sidebar .navbar-brand {
+    background-color: #0f1e3f !important;
+    color: #cdaa80 !important;
+}
+
+.sidebar .nav-item .nav-link.active,
+.sidebar .nav-item .nav-link:hover {
+    background-color: #1b2a54 !important;
+    color: #ffffff !important;
+    border-left: 4px solid #997953;
+}
+
+.sidebar .navbar-brand .sidebar-brand-icon i {
+    color: #cdaa80 !important;
+}
+
+.sidebar .navbar-brand-text span {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+/* ---------- Topbar ---------- */
+.navbar.navbar-light.navbar-expand {
+    background-color: #1b2a54 !important;
+    border-bottom: none !important;
+}
+
+.navbar .nav-link,
+.navbar .dropdown-toggle {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.navbar .dropdown-menu {
+    background-color: #1b2a54 !important;
+    border: none;
+}
+
+.navbar .dropdown-item {
+    color: #ffffff !important;
+}
+
+.navbar .dropdown-item:hover {
+    background-color: #997953 !important;
+    color: #ffffff !important;
+}
+
+.navbar .fas {
+    color: #cdaa80 !important;
+}
+
+/* ---------- Cards ---------- */
+.card {
+    border: 1px solid #213a56; /* subtle border color */
+}
+
+.card.bg-primary {
+    background-color: #0f1e3f !important;
+    color: #ffffff !important;
+}
+
+.card.bg-success {
+    background-color: #1b2a54 !important;
+    color: #ffffff !important;
+}
+
+.card.bg-warning {
+    background-color: #997953 !important;
+    color: #ffffff !important;
+}
+
+.card.bg-info {
+    background-color: #cdaa80 !important;
+    color: #0f1e3f !important;
+}
+
+/* Card headers */
+.card-header {
+    background-color: #1b2a54 !important;
+    color: #cdaa80 !important;
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+    background-color: #997953 !important;
+    border-color: #997953 !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover {
+    background-color: #cdaa80 !important;
+    border-color: #cdaa80 !important;
+    color: #0f1e3f !important;
+}
+
+.btn-secondary {
+    background-color: #1b2a54 !important;
+    border-color: #1b2a54 !important;
+    color: #ffffff !important;
+}
+
+.btn-secondary:hover {
+    background-color: #997953 !important;
+    border-color: #997953 !important;
+    color: #ffffff !important;
+}
+
+/* ---------- Alerts ---------- */
+.alert-warning {
+    background-color: #997953 !important;
+    color: #ffffff !important;
+    border-color: #cdaa80 !important;
+}
+
+.alert-danger {
+    background-color: #cdaa80 !important;
+    color: #0f1e3f !important;
+    border-color: #997953 !important;
+}
+
+/* ---------- Scroll to Top ---------- */
+.scroll-to-top {
+    background-color: #997953 !important;
+}
+
+.scroll-to-top:hover {
+    background-color: #cdaa80 !important;
+}
+
+/* ---------- Footer ---------- */
+footer.sticky-footer {
+    background-color: #1b2a54 !important;
+    color: #ffffff !important;
+}
+
+footer .copyright span {
+    color: #cdaa80 !important;
+}

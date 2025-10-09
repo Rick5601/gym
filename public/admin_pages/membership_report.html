@@ -9,6 +9,7 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
   <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+  <link rel="stylesheet" href="../assets/css/profile.css">
 </head>
 
 <body id="page-top">
@@ -69,27 +70,14 @@
     </nav>
 
     <!-- Content Wrapper -->
-     <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <!-- Topbar -->
+    <div class="d-flex flex-column" id="content-wrapper">
+      <div id="content">
+        <!-- Topbar -->
         <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
           <div class="container-fluid">
-            <!-- Sidebar Toggle (Topbar) -->
             <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
               <i class="fas fa-bars"></i>
             </button>
-
-            <!-- Search Bar -->
-            <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
-              <div class="input-group">
-                <input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                <button class="btn btn-primary py-0" type="button">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-            </form>
-
-            <!-- User Info -->
             <ul class="navbar-nav flex-nowrap ms-auto">
               <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
@@ -97,8 +85,6 @@
                   <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
                   <span class="fs-6 fw-bold me-2 small" id="navbar_username"></span>
                 </a>
-
-                <!-- Dropdown Menu -->
                 <ul class="dropdown-menu shadow dropdown-menu-end animated--grow-in" aria-labelledby="userDropdown">
                   <li>
                     <a class="dropdown-item" href="admin_dashboard.html">
@@ -119,9 +105,7 @@
           </div>
         </nav>
 
-                
-    <div class="d-flex flex-column" id="content-wrapper">
-      <div id="content">
+        <!-- Main Content -->
         <div class="container-fluid">
           <div class="d-sm-flex justify-content-between align-items-center mb-4">
             <h3 class="fw-bold text-dark mb-0">Membership Report</h3>
@@ -129,19 +113,17 @@
 
           <!-- Report Table -->
           <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
               <h6 class="text-primary fw-bold m-0">Active vs Expired Members</h6>
-              <button class="btn btn-sm btn-success float-end me-2" onclick="exportTable('membershipReportTable')">
-                Export CSV
-              </button>
-              <button class="btn btn-sm btn-danger float-end me-2" onclick="exportPDF()">
-                Export PDF
-              </button>
+              <div>
+                <button class="btn btn-sm btn-success me-2" onclick="exportTable('membershipReportTable')">Export CSV</button>
+                <button class="btn btn-sm btn-danger" onclick="exportPDF()">Export PDF</button>
+              </div>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="membershipReportTable" width="100%" cellspacing="0">
-                  <thead>
+                  <thead class="table-primary">
                     <tr>
                       <th>Member ID</th>
                       <th>Name</th>
@@ -151,25 +133,29 @@
                   </thead>
                   <tbody id="membershipReportBody">
                     <tr>
-                      <td colspan="4">Loading...</td>
+                      <td colspan="4" class="text-center">Loading...</td>
                     </tr>
                   </tbody>
                 </table>
+
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between mt-3">
+                  <button id="prevBtn" class="btn btn-primary">Previous</button>
+                  <span id="pageInfo" class="align-self-center"></span>
+                  <button id="nextBtn" class="btn btn-primary">Next</button>
+                </div>
               </div>
             </div>
           </div>
-
         </div>
-      </div>
 
-      <!-- Footer -->
-      <footer class="bg-white sticky-footer">
-        <div class="container my-auto">
-          <div class="text-center my-auto copyright">
-            <span>Copyright © UNZAGYM 2025</span>
+        <!-- Footer -->
+        <footer class="bg-white sticky-footer">
+          <div class="container my-auto">
+            <div class="text-center my-auto copyright"><span>Copyright © UNZA 2025</span></div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   </div>
 
@@ -177,73 +163,119 @@
   <script src="../assets/bootstrap/js/bootstrap.min.js" defer></script>
   <script src="../assets/js/theme.js" defer></script>
   <script src="adminAuth.js" defer></script>
-  <!-- jsPDF + autoTable -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
   <script>
-    async function loadMembershipReport() {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) return console.error("No token found");
+    document.addEventListener("DOMContentLoaded", async () => {
+      const token = localStorage.getItem("token");
+      const tbody = document.getElementById("membershipReportBody");
+      const pageInfo = document.getElementById("pageInfo");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
 
+      let currentPage = 1;
+      const limit = 5;
+      let totalPages = 1;
+      let members = [];
+
+      try {
         const response = await fetch("http://localhost:5000/api/admin/membership-report", {
           headers: { Authorization: `Bearer ${token}` }
         });
         const result = await response.json();
 
-        const tbody = document.getElementById("membershipReportBody");
-        tbody.innerHTML = "";
-
-        if (result.success && result.data.length > 0) {
-          result.data.forEach(member => {
-            const row = `
-              <tr>
-                <td>${member.member_id}</td>
-                <td>${member.name}</td>
-                <td>${member.status}</td>
-                <td>${new Date(member.end_date).toLocaleDateString()}</td>
-              </tr>`;
-            tbody.insertAdjacentHTML("beforeend", row);
-          });
-        } else {
-          tbody.innerHTML = "<tr><td colspan='4'>No data found</td></tr>";
+        if (!result.success || !result.data.length) {
+          tbody.innerHTML = "<tr><td colspan='4' class='text-center'>No data found</td></tr>";
+          pageInfo.textContent = '';
+          prevBtn.disabled = true;
+          nextBtn.disabled = true;
+          return;
         }
+
+        members = result.data;
+        totalPages = Math.ceil(members.length / limit);
+        currentPage = 1;
+        renderTable();
+
       } catch (error) {
-        console.error("Error loading membership report:", error);
+        console.error(error);
+        tbody.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>Error loading data</td></tr>";
       }
-    }
 
-    function exportTable(tableId) {
-      const table = document.getElementById(tableId);
-      let csv = [];
-      for (let row of table.rows) {
-        let cols = [];
-        for (let cell of row.cells) cols.push(cell.innerText);
-        csv.push(cols.join(","));
+      function renderTable() {
+        tbody.innerHTML = '';
+        const start = (currentPage - 1) * limit;
+        const end = start + limit;
+        const pageData = members.slice(start, end);
+
+        pageData.forEach(member => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${member.member_id}</td>
+            <td>${member.name}</td>
+            <td>${member.status}</td>
+            <td>${new Date(member.end_date).toLocaleDateString()}</td>
+          `;
+          tbody.appendChild(row);
+        });
+
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
       }
-      const blob = new Blob([csv.join("\n")], { type: "text/csv" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = tableId + ".csv";
-      a.click();
-    }
 
-    function exportPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.text("Membership Report - UNZAGYM", 14, 20);
-      doc.autoTable({
-        startY: 30,
-        html: "#membershipReportTable",
-        theme: "grid",
-        headStyles: { fillColor: [40, 116, 166] },
+      prevBtn.addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderTable();
+        }
       });
-      doc.save("membership_report.pdf");
-    }
 
-    window.addEventListener("load", loadMembershipReport);
+      nextBtn.addEventListener("click", () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderTable();
+        }
+      });
+
+      // Export functions
+      window.exportTable = function(tableId) {
+        const table = document.getElementById(tableId);
+        let csv = [];
+        for (let row of table.rows) {
+          let cols = [];
+          for (let cell of row.cells) cols.push(cell.innerText);
+          csv.push(cols.join(","));
+        }
+        const blob = new Blob([csv.join("\n")], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = tableId + ".csv";
+        a.click();
+      };
+
+      window.exportPDF = function() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.text("Membership Report - UNZAGYM", 14, 20);
+        doc.autoTable({
+          startY: 30,
+          html: "#membershipReportTable",
+          theme: "grid",
+          headStyles: { fillColor: [40, 116, 166] },
+        });
+        doc.save("membership_report.pdf");
+      };
+
+      // Logout
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.replace("/member_login.html");
+      });
+    });
   </script>
 </body>
 </html>

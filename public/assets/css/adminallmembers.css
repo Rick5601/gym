@@ -1,0 +1,136 @@
+/* === table_custom.css === */
+
+/* ---------- Body ---------- */
+body.bg-gradient-primary {
+    background: #0f1e3f !important;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar,
+.sidebar .navbar-nav,
+.sidebar .nav-item .nav-link,
+.sidebar .navbar-brand {
+    background-color: #0f1e3f !important;
+    color: #cdaa80 !important;
+}
+
+.sidebar .nav-item .nav-link.active,
+.sidebar .nav-item .nav-link:hover {
+    background-color: #1b2a54 !important;
+    color: #ffffff !important;
+    border-left: 4px solid #997953;
+}
+
+.sidebar .navbar-brand .sidebar-brand-icon i {
+    color: #cdaa80 !important;
+}
+
+.sidebar .navbar-brand-text span {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+/* ---------- Topbar ---------- */
+.navbar.navbar-light.navbar-expand {
+    background-color: #1b2a54 !important;
+    border-bottom: none !important;
+}
+
+.navbar .nav-link,
+.navbar .dropdown-toggle {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.navbar .dropdown-menu {
+    background-color: #1b2a54 !important;
+    border: none;
+}
+
+.navbar .dropdown-item {
+    color: #ffffff !important;
+}
+
+.navbar .dropdown-item:hover {
+    background-color: #997953 !important;
+    color: #ffffff !important;
+}
+
+.navbar .fas {
+    color: #cdaa80 !important;
+}
+
+/* ---------- Cards ---------- */
+.card {
+    border: 1px solid #213a56;
+    border-radius: 12px;
+    background-color: #1b2a54 !important;
+    color: #ffffff !important;
+}
+
+.card-header {
+    background-color: #213a56;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ---------- Headings ---------- */
+h4, h3, h5 {
+    color: #213a56 !important;
+    font-weight: 700;
+}
+
+/* ---------- Inputs ---------- */
+.form-control {
+    border: 1px solid #997953;
+}
+
+.form-control:focus {
+    border-color: #cdaa80;
+    box-shadow: 0 0 0 0.2rem rgba(205, 170, 128, 0.5);
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+    background-color: #997953 !important;
+    border-color: #997953 !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover {
+    background-color: #cdaa80 !important;
+    border-color: #cdaa80 !important;
+    color: #ffffff !important;
+}
+
+/* Secondary buttons */
+a.btn-primary[href="member_login.html"] {
+    background-color: #213a56 !important;
+    border-color: #213a56 !important;
+    color: #ffffff !important;
+}
+
+a.btn-primary[href="member_login.html"]:hover {
+    background-color: #0f1e3f !important;
+    border-color: #0f1e3f !important;
+    color: #ffffff !important;
+}
+
+/* ---------- Footer ---------- */
+footer.sticky-footer {
+    background-color: #1b2a54 !important;
+    color: #ffffff !important;
+}
+
+footer .copyright span {
+    color: #cdaa80 !important;
+}
+
+/* ---------- Scroll to Top ---------- */
+.scroll-to-top {
+    background-color: #997953 !important;
+}
+
+.scroll-to-top:hover {
+    background-color: #cdaa80 !important;
+}

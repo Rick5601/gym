@@ -6,134 +6,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Pending Members - UNZAGYM</title>
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap">
     <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
 </head>
 
 <body id="page-top">
     <div id="wrapper">
         <!-- Sidebar -->
-<nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-  <div class="container-fluid d-flex flex-column p-0">
-    <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-      <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-dumbbell"></i></div>
-      <div class="sidebar-brand-text mx-3"><span>UNZAGYM</span></div>
-    </a>
-    <hr class="sidebar-divider my-0">
-    <ul class="navbar-nav text-light" id="accordionSidebar">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-dumbbell"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>UNZAGYM</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#collapseMembers" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapseMembers">
+                            <i class="fas fa-folder"></i>&nbsp;<span>Member Tables</span>
+                        </a>
+                        <div class="collapse show" id="collapseMembers" data-bs-parent="#accordionSidebar">
+                            <div class="bg-white border rounded py-2 collapse-inner">
+                                <h6 class="collapse-header">MEMBER TABLES:</h6>
+                                <a class="collapse-item" href="all_members.html">All Members</a>
+                                <a class="collapse-item active" href="pending_members.html">Pending Members</a>
+                                <a class="collapse-item" href="remove_members.html">Remove Member</a>
+                                <a class="collapse-item" href="member_status.html">Member Status</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#collapseReports" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseReports">
+                            <i class="fas fa-chart-bar"></i>&nbsp;<span>Reports</span>
+                        </a>
+                        <div class="collapse" id="collapseReports" data-bs-parent="#accordionSidebar">
+                            <div class="bg-white border rounded py-2 collapse-inner">
+                                <h6 class="collapse-header">Reports:</h6>
+                                <a class="collapse-item" href="attendance_report.html">Attendance Report</a>
+                                <a class="collapse-item" href="membership_report.html">Membership Report</a>
+                                <a class="collapse-item" href="payment_report.html">Payment Report</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="announcements.html">
+                            <i class="fas fa-bullhorn"></i><span>Announcements</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="text-center d-none d-md-inline">
+                    <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+                </div>
+            </div>
+        </nav>
 
-      <!-- Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="admin_dashboard.html">
-          <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
-        </a>
-      </li>
-
-      <!-- Member Tables Collapse -->
-      <li class="nav-item">
-        <a class="nav-link active" href="#collapseMembers" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseMembers">
-          <i class="fas fa-folder"></i>&nbsp;<span>Member Tables</span>
-        </a>
-        <div class="collapse" id="collapseMembers" data-bs-parent="#accordionSidebar">
-          <div class="bg-white border rounded py-2 collapse-inner">
-            <h6 class="collapse-header">MEMBER TABLES:</h6>
-            <a class="collapse-item" href="all_members.html">All Members</a>
-            <a class="collapse-item" href="pending_members.html">Pending Members</a>
-            <a class="collapse-item" href="remove_members.html">Remove Member</a>
-            <a class="collapse-item" href="member_status.html">Member Status</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Reports Collapse -->
-      <li class="nav-item">
-        <a class="nav-link" href="#collapseReports" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseReports">
-          <i class="fas fa-chart-bar"></i>&nbsp;<span>Reports</span>
-        </a>
-        <div class="collapse" id="collapseReports" data-bs-parent="#accordionSidebar">
-          <div class="bg-white border rounded py-2 collapse-inner">
-            <h6 class="collapse-header">Reports:</h6>
-            <a class="collapse-item" href="attendance_report.html">Attendance Report</a>
-            <a class="collapse-item" href="membership_report.html">Membership Report</a>
-            <a class="collapse-item" href="payment_report.html">Payment Report</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Announcements -->
-      <li class="nav-item">
-        <a class="nav-link" href="announcements.html">
-          <i class="fas fa-bullhorn"></i><span>Announcements</span>
-        </a>
-      </li>
-
-    </ul>
-    <div class="text-center d-none d-md-inline">
-      <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
-    </div>
-  </div>
-</nav>
         <!-- Content Wrapper -->
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- Topbar -->
-<nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-    <div class="container-fluid">
-        <!-- Sidebar Toggle (Topbar) -->
-        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
-            <i class="fas fa-bars"></i>
-        </button>
-
-        <!-- Search Bar -->
-        <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-                <input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                <button class="btn btn-primary py-0" type="button">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </form>
-
-        <!-- User Info -->
-        <ul class="navbar-nav flex-nowrap ms-auto">
-            <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
-                    <span class="fs-6 fw-bold me-2 small" id="navbar_username"></span>
-                </a>
-
-                <!-- Dropdown Menu -->
-                <ul class="dropdown-menu shadow dropdown-menu-end animated--grow-in" aria-labelledby="userDropdown">
-                    <li>
-                        <a class="dropdown-item" href="admin_dashboard.html">
-                            <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> Dashboard
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#" id="logoutBtn">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> Logout
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</nav>
+                <nav class="navbar navbar-light navbar-expand shadow mb-4 topbar static-top">
+                    <div class="container-fluid">
+                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="dropdown-toggle nav-link" id="logoutDropdown" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                    <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
+                                    <span class="fs-6 fw-bold me-2 small" id="navbar_username"></span>
+                                </a>
+                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                                    <a class="dropdown-item" href="admin_dashboard.html">
+                                        <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> Dashboard
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" id="logoutBtn">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> Logout
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
 
                 <!-- Page Content -->
                 <div class="container-fluid">
-                    <h3 class="text-start text-dark mb-4">Pending Members</h3>
                     <div class="card shadow">
-                        <div class="card-body text-start">
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTable">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Pending Members</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive table mt-2">
+                                <table class="table my-0" id="pendingTable">
                                     <thead>
-                                        <tr style="background: var(--bs-gray-400);">
+                                        <tr>
                                             <th>Student ID</th>
                                             <th>Username</th>
                                             <th>Full Name</th>
@@ -147,20 +120,27 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <!-- JS will populate rows here -->
-                                    </tbody>
-                                    <tfoot><tr></tr></tfoot>
+                                    <tbody id="pendingBody"></tbody>
                                 </table>
+                            </div>
+
+                            <!-- Pagination -->
+                            <div class="d-flex justify-content-between mt-3">
+                                <button id="prevBtn" class="btn btn-primary">Previous</button>
+                                <span id="pageInfo" class="align-self-center"></span>
+                                <button id="nextBtn" class="btn btn-primary">Next</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Footer -->
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © UNZA 2025</span></div>
+                    <div class="text-center my-auto copyright">
+                        <span>Copyright © UNZA 2025</span>
+                    </div>
                 </div>
             </footer>
         </div>
@@ -170,91 +150,123 @@
 
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../assets/js/theme.js"></script>
+    <script src="adminAuth.js"></script>
 
-    <!-- Dynamic Table Script -->
     <script>
-document.addEventListener("DOMContentLoaded", async () => {
-    const tableBody = document.querySelector("#dataTable tbody");
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+            const navbarUsernameEl = document.getElementById("navbar_username");
+            const tbody = document.getElementById("pendingBody");
+            const pageInfo = document.getElementById("pageInfo");
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
 
-    // Get token from localStorage or sessionStorage
-    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+            let currentPage = 1;
+            const limit = 5;
+            let totalPages = 1;
+            let members = [];
 
-    if (!token) {
-        tableBody.innerHTML = `<tr><td colspan="12" class="text-center text-danger">Access denied: No token provided. Please log in.</td></tr>`;
-        return;
-    }
-
-    try {
-        const res = await fetch("/api/admin/pending-members", {
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
+            if (!token) {
+                alert("No token found. Please log in.");
+                return;
             }
-        });
 
-        const data = await res.json();
+            async function loadNavbarUsername() {
+                try {
+                    const res = await fetch("/api/admin/profile", { headers: { "Authorization": `Bearer ${token}` } });
+                    const data = await res.json();
+                    navbarUsernameEl.textContent = (data.user?.username || "Admin").toUpperCase();
+                } catch {
+                    navbarUsernameEl.textContent = "ADMIN";
+                }
+            }
 
-        if (data.success && data.pendingMembers.length > 0) {
-            tableBody.innerHTML = ""; // clear existing rows
-            data.pendingMembers.forEach(member => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${member.student_id}</td>
-                    <td>${member.username}</td>
-                    <td>${member.full_name}</td>
-                    <td>${member.gender}</td>
-                    <td>${member.phone_number}</td>
-                    <td>${member.email}</td>
-                    <td>${member.DOR}</td>
-                    <td>${member.room_number}</td>
-                    <td>${member.amount}</td>
-                    <td>${member.plan}</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" onclick="approveMember('${member.username}')">Approve</button>
-                    </td>
-                `;
-                tableBody.appendChild(row);
+            async function fetchPendingMembers() {
+                try {
+                    const res = await fetch("/api/admin/pending-members", { headers: { "Authorization": `Bearer ${token}` } });
+                    const data = await res.json();
+
+                    if (!data.success || data.pendingMembers.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="11" class="text-center text-danger">No pending members found</td></tr>`;
+                        pageInfo.textContent = '';
+                        prevBtn.disabled = true;
+                        nextBtn.disabled = true;
+                        return;
+                    }
+
+                    members = data.pendingMembers;
+                    totalPages = Math.ceil(members.length / limit);
+                    currentPage = 1;
+                    renderTable();
+                } catch (err) {
+                    console.error(err);
+                    tbody.innerHTML = `<tr><td colspan="11" class="text-center text-danger">Failed to load pending members</td></tr>`;
+                }
+            }
+
+            function renderTable() {
+                tbody.innerHTML = '';
+                const start = (currentPage - 1) * limit;
+                const pageData = members.slice(start, start + limit);
+
+                pageData.forEach(m => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${m.student_id}</td>
+                        <td>${m.username}</td>
+                        <td>${m.full_name}</td>
+                        <td>${m.gender}</td>
+                        <td>${m.phone_number}</td>
+                        <td>${m.email}</td>
+                        <td>${m.DOR}</td>
+                        <td>${m.room_number}</td>
+                        <td>${m.amount}</td>
+                        <td>${m.plan}</td>
+                        <td><button class="btn btn-success btn-sm" onclick="approveMember('${m.username}')">Approve</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === totalPages;
+            }
+
+            prevBtn.addEventListener("click", () => {
+                if (currentPage > 1) { currentPage--; renderTable(); }
             });
-        } else {
-            tableBody.innerHTML = `<tr><td colspan="12" class="text-center text-danger">No pending members found</td></tr>`;
-        }
-    } catch (err) {
-        console.error("Error fetching pending members:", err);
-        tableBody.innerHTML = `<tr><td colspan="12" class="text-center text-danger">Failed to load pending members</td></tr>`;
-    }
-});
+            nextBtn.addEventListener("click", () => {
+                if (currentPage < totalPages) { currentPage++; renderTable(); }
+            });
 
-async function approveMember(username) {
-    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+            window.approveMember = async (username) => {
+                try {
+                    const res = await fetch(`/api/admin/approve-member/${username}`, {
+                        method: "PUT",
+                        headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" }
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        alert(`${username} approved successfully`);
+                        fetchPendingMembers();
+                    } else {
+                        alert("Failed to approve member");
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("Server error");
+                }
+            };
 
-    if (!token) {
-        alert("Access denied: No token provided. Please log in.");
-        return;
-    }
+            document.getElementById("logoutBtn").addEventListener("click", () => {
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.replace("/admin_login.html");
+            });
 
-    try {
-        const res = await fetch(`/api/admin/approve-member/${username}`, {
-            method: "PUT",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            }
+            loadNavbarUsername();
+            fetchPendingMembers();
         });
-
-        const data = await res.json();
-        if (data.success) {
-            alert(`${username} approved successfully`);
-            location.reload();
-        } else {
-            alert("Failed to approve member");
-        }
-    } catch (err) {
-        console.error(err);
-        alert("Server error");
-    }
-}
-</script>
-<script src="adminAuth.js"></script>
-
+    </script>
 </body>
 </html>
