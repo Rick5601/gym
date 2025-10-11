@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Member Profile - UNZAGYM</title>
+  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/profile.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap">
+  <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion p-0">
+      <div class="container-fluid d-flex flex-column p-0">
+        <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+          <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-dumbbell"></i></div>
+          <div class="sidebar-brand-text mx-3"><span>UNZAGYM</span></div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <ul class="navbar-nav text-light" id="accordionSidebar">
+          <li class="nav-item">
+            <a class="nav-link" href="admin_dashboard.html">
+              <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#collapseMembers" data-bs-toggle="collapse"
+              aria-expanded="false" aria-controls="collapseMembers">
+              <i class="fas fa-folder"></i>&nbsp;<span>Member Tables</span>
+            </a>
+            <div class="collapse" id="collapseMembers" data-bs-parent="#accordionSidebar">
+              <div class="bg-white border rounded py-2 collapse-inner">
+                <h6 class="collapse-header">MEMBER TABLES:</h6>
+                <a class="collapse-item" href="all_members.html">All Members</a>
+                <a class="collapse-item" href="pending_members.html">Pending Members</a>
+                <a class="collapse-item" href="remove_members.html">Remove Member</a>
+                <a class="collapse-item" href="member_status.html">Member Status</a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#collapseReports" data-bs-toggle="collapse" aria-expanded="false"
+              aria-controls="collapseReports">
+              <i class="fas fa-chart-bar"></i>&nbsp;<span>Reports</span>
+            </a>
+            <div class="collapse" id="collapseReports" data-bs-parent="#accordionSidebar">
+              <div class="bg-white border rounded py-2 collapse-inner">
+                <h6 class="collapse-header">Reports:</h6>
+                <a class="collapse-item" href="attendance_report.html">Attendance Report</a>
+                <a class="collapse-item" href="membership_report.html">Membership Report</a>
+                <a class="collapse-item" href="payment_report.html">Payment Report</a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="announcements.html">
+              <i class="fas fa-bullhorn"></i><span>Announcements</span>
+            </a>
+          </li>
+        </ul>
+        <div class="text-center d-none d-md-inline">
+          <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+        </div>
+      </div>
+    </nav> 
+
+    <!-- Content Wrapper -->
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid">
+                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop"
+                            type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-alt fs-4" id="profile_icon"></i>
+                                    <span class="fs-6 fw-bold me-2 small" id="navbar_username"></span>
+                                </a>
+
+                                <ul class="dropdown-menu shadow dropdown-menu-end animated--grow-in"
+                                    aria-labelledby="userDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="admin_dashboard.html">
+                                            <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> Dashboard
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#" id="logoutBtn">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Main Content -->
+<div class="container-fluid px-4 py-4">
+    <!-- User Details Card -->
+    <div class="card shadow mb-3">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold">User Details</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="text-primary m-0 fw-bold">Student ID</h6>
+                        </div>
+                        <div class="card-body">
+                            <p id="student_id" class="m-0">-</p>
+                        </div>
+                    </div>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="text-primary m-0 fw-bold">First Name</h6>
+                        </div>
+                        <div class="card-body">
+                            <p id="first_name" class="m-0">-</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="text-primary m-0 fw-bold">Username</h6>
+                        </div>
+                        <div class="card-body">
+                            <p id="username" class="m-0">-</p>
+                        </div>
+                    </div>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="text-primary m-0 fw-bold">Last Name</h6>
+                        </div>
+                        <div class="card-body">
+                            <p id="last_name" class="m-0">-</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="text-primary m-0 fw-bold">Email</h6>
+                        </div>
+                        <div class="card-body">
+                            <p id="email" class="m-0">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Details Card -->
+    <div class="card shadow mb-3">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold">Contact Details</p>
+        </div>
+        <div class="card-body">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="text-primary m-0 fw-bold">Phone Number</h6>
+                </div>
+                <div class="card-body">
+                    <p id="phone_number" class="m-0">-</p>
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="text-primary m-0 fw-bold">Room Number</h6>
+                </div>
+                <div class="card-body">
+                    <p id="room_number" class="m-0">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subscription Details Card -->
+    <div class="card shadow mb-3">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold">Subscription Details</p>
+        </div>
+        <div class="card-body">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="text-primary m-0 fw-bold">Subscription Type</h6>
+                </div>
+                <div class="card-body">
+                    <p id="subscription_type" class="m-0">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            <!-- Footer -->
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright">
+                        <span>Copyright © UNZA 2025</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+  <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- ✅ Updated Member Profile JS -->
+  <script>
+document.addEventListener("DOMContentLoaded", async () => {
+    console.log("Member Profile Script Loaded");
+
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("selectedUserId");
+
+    console.log("Token from localStorage:", token);
+    console.log("Selected User ID from localStorage:", userId);
+
+    // Check for missing token
+    if (!token) {
+        alert("Session expired. Please log in.");
+        window.location.replace("/member_login.html");
+        return;
+    }
+
+    // Check for missing selected user
+    if (!userId) {
+        alert("No member selected. Redirecting to All Members.");
+        window.location.replace("all_members.html");
+        return;
+    }
+
+    try {
+        console.log("Fetching member profile for ID:", userId);
+        const res = await fetch(`/api/member/profile?memberId=${userId}`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        console.log("API Response status:", res.status);
+
+        const data = await res.json();
+        console.log("API Response JSON:", data);
+
+        if (!res.ok || !data.success) {
+            console.warn("Failed to load member profile:", data.message);
+            alert(data.message || "Failed to load member profile.");
+            return;
+        }
+
+        const user = data.user;
+        console.log("User object from API:", user);
+
+        // Map user fields to elements
+        const fieldMap = {
+            student_id: "student_id",
+            first_name: "first_name",
+            last_name: "last_name",
+            username: "username",
+            email: "email",
+            phone_number: "phone_number",
+            room_number: "room_number",
+            subscription_type: "subscription_type"
+        };
+
+        Object.keys(fieldMap).forEach(key => {
+            const el = document.getElementById(fieldMap[key]);
+            if (el) el.textContent = user[key] || "-";
+        });
+
+        // Update navbar username
+        const navbarUsername = document.getElementById("navbar_username");
+        if (navbarUsername) navbarUsername.textContent = (user.username || "Member").toUpperCase();
+
+        console.log("Member profile loaded successfully!");
+
+    } catch (err) {
+        console.error("Error fetching member profile:", err);
+        alert("Error fetching member profile. Check console for details.");
+    }
+
+    // Logout functionality
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) logoutBtn.addEventListener("click", () => {
+        console.log("Logging out...");
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.replace("/member_login.html");
+    });
+});
+</script>
+
+</body>
+</html>

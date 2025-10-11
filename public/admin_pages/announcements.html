@@ -135,9 +135,9 @@
               </div>
               <!-- Pagination controls -->
               <div class="d-flex justify-content-between mt-3">
-                <button id="prevAnnouncementBtn" class="btn btn-sm btn-action">Previous</button>
+                <button id="prevAnnouncementBtn" class="btn btn-primary">Previous</button>
                 <span id="announcementPageInfo" class="align-self-center"></span>
-                <button id="nextAnnouncementBtn" class="btn btn-sm btn-action">Next</button>
+                <button id="nextAnnouncementBtn" class="btn btn-primary">Next</button>
               </div>
             </div>
           </div>
@@ -163,22 +163,23 @@
 <script>
 let currentPage = 1;
 const rowsPerPage = 5;
-let announcementsData = [];
+let totalPages = 1;
 
-async function loadAnnouncements() {
+async function loadAnnouncements(page = 1) {
   try {
     const token = localStorage.getItem("token");
     if (!token) return console.error("No token found");
 
-    const res = await fetch("/api/admin/announcements", {
+    const res = await fetch(`/api/admin/announcements?page=${page}&limit=${rowsPerPage}`, {
       headers: { "Authorization": `Bearer ${token}` }
     });
     const result = await res.json();
 
     if (result.success && result.announcements.length > 0) {
-      announcementsData = result.announcements.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
-      currentPage = 1;
-      renderPage(currentPage);
+      renderAnnouncements(result.announcements);
+      totalPages = result.totalPages;
+      currentPage = page;
+      updatePaginationControls();
     } else {
       document.getElementById("announcementList").innerHTML = "<p class='text-muted'>No announcements found.</p>";
       document.getElementById("announcementPageInfo").textContent = "";
@@ -191,15 +192,11 @@ async function loadAnnouncements() {
   }
 }
 
-function renderPage(page) {
-  const start = (page - 1) * rowsPerPage;
-  const end = start + rowsPerPage;
-  const pageData = announcementsData.slice(start, end);
-
+function renderAnnouncements(announcements) {
   const container = document.getElementById("announcementList");
   container.innerHTML = "";
 
-  pageData.forEach(a => {
+  announcements.forEach(a => {
     const card = document.createElement("div");
     card.className = "card mb-2 shadow";
     card.innerHTML = `
@@ -216,11 +213,7 @@ function renderPage(page) {
     container.appendChild(card);
   });
 
-  const totalPages = Math.ceil(announcementsData.length / rowsPerPage);
-  document.getElementById("announcementPageInfo").textContent = `Page ${currentPage} of ${totalPages}`;
-  document.getElementById("prevAnnouncementBtn").disabled = currentPage <= 1;
-  document.getElementById("nextAnnouncementBtn").disabled = currentPage >= totalPages;
-
+  // Attach archive button listeners
   document.querySelectorAll(".archive-btn").forEach(btn => {
     btn.addEventListener("click", async () => {
       const id = btn.dataset.id;
@@ -230,10 +223,11 @@ function renderPage(page) {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem("token")}`
-          }
+          },
+          body: JSON.stringify({ archive: btn.textContent === "Archive" })
         });
         const result = await res.json();
-        if (result.success) loadAnnouncements();
+        if (result.success) loadAnnouncements(currentPage);
         else alert("Failed: " + result.message);
       } catch (err) {
         console.error(err);
@@ -243,16 +237,21 @@ function renderPage(page) {
   });
 }
 
+function updatePaginationControls() {
+  document.getElementById("announcementPageInfo").textContent = `Page ${currentPage} of ${totalPages}`;
+  document.getElementById("prevAnnouncementBtn").disabled = currentPage <= 1;
+  document.getElementById("nextAnnouncementBtn").disabled = currentPage >= totalPages;
+}
+
+// Pagination buttons
 document.getElementById("prevAnnouncementBtn").addEventListener("click", () => {
-  if (currentPage > 1) { currentPage--; renderPage(currentPage); }
+  if (currentPage > 1) loadAnnouncements(currentPage - 1);
 });
-
 document.getElementById("nextAnnouncementBtn").addEventListener("click", () => {
-  if (currentPage < Math.ceil(announcementsData.length / rowsPerPage)) {
-    currentPage++; renderPage(currentPage);
-  }
+  if (currentPage < totalPages) loadAnnouncements(currentPage + 1);
 });
 
+// Announcement form submission
 document.getElementById("announcementForm").addEventListener("submit", async e => {
   e.preventDefault();
   const title = document.getElementById("announcementTitle").value.trim();
@@ -273,7 +272,7 @@ document.getElementById("announcementForm").addEventListener("submit", async e =
     const data = await res.json();
     if (data.success) {
       document.getElementById("announcementForm").reset();
-      loadAnnouncements();
+      loadAnnouncements(currentPage); // reload current page
     } else {
       alert("Failed: " + data.message);
     }
@@ -283,7 +282,9 @@ document.getElementById("announcementForm").addEventListener("submit", async e =
   }
 });
 
-window.addEventListener("load", loadAnnouncements);
+// Load first page on window load
+window.addEventListener("load", () => loadAnnouncements(1));
 </script>
+
 </body>
 </html>

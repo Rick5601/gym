@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <title>Payment Proof - UNZAGYM</title>
+  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../assets/css/profile.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900&display=swap" />
+  <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css" />
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion p-0">
+      <div class="container-fluid d-flex flex-column p-0">
+        <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+          <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-dumbbell"></i></div>
+          <div class="sidebar-brand-text mx-3"><span>UNZAGYM</span></div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <ul class="navbar-nav text-light" id="accordionSidebar">
+          <li class="nav-item">
+            <a class="nav-link" href="admin_dashboard.html">
+              <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#collapseMembers" data-bs-toggle="collapse" aria-expanded="false"
+              aria-controls="collapseMembers">
+              <i class="fas fa-folder"></i>&nbsp;<span>Member Tables</span>
+            </a>
+            <div class="collapse" id="collapseMembers" data-bs-parent="#accordionSidebar">
+              <div class="bg-white border rounded py-2 collapse-inner">
+                <h6 class="collapse-header">MEMBER TABLES:</h6>
+                <a class="collapse-item" href="all_members.html">All Members</a>
+                <a class="collapse-item" href="pending_members.html">Pending Members</a>
+                <a class="collapse-item" href="remove_members.html">Remove Member</a>
+                <a class="collapse-item" href="member_status.html">Member Status</a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#collapseReports" data-bs-toggle="collapse" aria-expanded="false"
+              aria-controls="collapseReports">
+              <i class="fas fa-chart-bar"></i>&nbsp;<span>Reports</span>
+            </a>
+            <div class="collapse" id="collapseReports" data-bs-parent="#accordionSidebar">
+              <div class="bg-white border rounded py-2 collapse-inner">
+                <h6 class="collapse-header">Reports:</h6>
+                <a class="collapse-item" href="attendance_report.html">Attendance Report</a>
+                <a class="collapse-item" href="membership_report.html">Membership Report</a>
+                <a class="collapse-item" href="payment_report.html">Payment Report</a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="announcements.html">
+              <i class="fas fa-bullhorn"></i><span>Announcements</span>
+            </a>
+          </li>
+        </ul>
+        <div class="text-center d-none d-md-inline">
+          <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+      <div id="content">
+        <!-- Topbar -->
+        <nav class="navbar navbar-light navbar-expand shadow mb-4 topbar static-top bg-white">
+          <div class="container-fluid">
+            <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
+              <i class="fas fa-bars"></i>
+            </button>
+            <h5 class="fw-bold text-primary m-0">Payment Proof</h5>
+            <ul class="navbar-nav flex-nowrap ms-auto">
+              <li class="nav-item dropdown no-arrow">
+                <a class="dropdown-toggle nav-link" id="logoutDropdown" aria-expanded="false" data-bs-toggle="dropdown"
+                  href="#">
+                  <i class="fas fa-user-alt fs-4"></i>
+                  <span class="fs-6 fw-bold me-2 small" id="navbar_username"></span>
+                </a>
+                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                  <a class="dropdown-item" href="admin_dashboard.html">
+                    <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> Dashboard
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> Logout
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container-fluid px-4 py-4">
+
+          <!-- User Details -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 fw-bold">User Details</p>
+            </div>
+            <div class="card-body" id="userDetails">
+              <p>Loading details...</p>
+            </div>
+          </div>
+
+          <!-- Contact & Account Details -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 fw-bold">Contact & Account Details</p>
+            </div>
+            <div class="card-body" id="contactDetails">
+              <p>Loading details...</p>
+            </div>
+          </div>
+
+          <!-- Payment & Subscription Details -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 fw-bold">Payment & Subscription Details</p>
+            </div>
+            <div class="card-body" id="paymentDetails">
+              <p>Loading details...</p>
+            </div>
+          </div>
+
+          <!-- Proof of Payment -->
+          <div class="card shadow mb-5">
+            <div class="card-header bg-info text-white fw-bold">
+              Proof of Payment
+            </div>
+            <div class="card-body text-center" id="proofSection">
+              <p>Loading proof of payment...</p>
+            </div>
+            <div class="card-footer text-center">
+              <button id="approveBtn" class="btn btn-success me-3">
+                <i class="fas fa-check"></i> Approve
+              </button>
+              <button id="rejectBtn" class="btn btn-danger">
+                <i class="fas fa-times"></i> Reject
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="bg-white sticky-footer mt-auto">
+        <div class="container my-auto">
+          <div class="text-center my-auto copyright">
+            <span>Copyright © UNZA 2025</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../assets/js/theme.js"></script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+  const userId = localStorage.getItem("selectedPendingUserId");
+
+  const userDetailsEl = document.getElementById("userDetails");
+  const contactDetailsEl = document.getElementById("contactDetails");
+  const paymentDetailsEl = document.getElementById("paymentDetails");
+  const proofSectionEl = document.getElementById("proofSection");
+
+  // Show loading
+  userDetailsEl.innerHTML = "<p>Loading...</p>";
+  contactDetailsEl.innerHTML = "<p>Loading...</p>";
+  paymentDetailsEl.innerHTML = "<p>Loading...</p>";
+  proofSectionEl.innerHTML = "<p>Loading proof of payment...</p>";
+
+  if (!token || !userId) {
+    userDetailsEl.innerHTML = "<p class='text-danger text-center'>Access denied. No user selected.</p>";
+    return setTimeout(() => {
+      window.location.href = "pending_members.html";
+    }, 2000);
+  }
+
+  try {
+    const apiUrl = `/api/admin/payment-proof/${userId}`;
+    console.log("Fetching payment proof from:", apiUrl);
+
+    const res = await fetch(apiUrl, { headers: { Authorization: `Bearer ${token}` } });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error ${res.status}: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    console.log("Payment Proof API Response:", data);
+
+    if (!data.success || !data.payment) {
+      userDetailsEl.innerHTML = `<p class='text-danger text-center'>No data found for this user.<br>${data.message || ""}</p>`;
+      contactDetailsEl.innerHTML = "";
+      paymentDetailsEl.innerHTML = "";
+      proofSectionEl.innerHTML = "";
+      return;
+    }
+
+    const p = data.payment;
+
+    // User Details
+    userDetailsEl.innerHTML = `
+      <div class="row">
+        <div class="col-md-4"><strong>Full Name:</strong> ${p.first_name} ${p.last_name}</div>
+        <div class="col-md-4"><strong>Student ID:</strong> ${p.student_id}</div>
+        <div class="col-md-4"><strong>Phone:</strong> ${p.phone || "N/A"}</div>
+      </div>
+    `;
+
+    // Contact & Account Details
+    contactDetailsEl.innerHTML = `
+      <div class="row">
+        <div class="col-md-4"><strong>Email:</strong> ${p.email}</div>
+        <div class="col-md-4"><strong>Role:</strong> ${p.role}</div>
+        <div class="col-md-4"><strong>Account Status:</strong> ${p.account_status}</div>
+      </div>
+    `;
+
+    // Payment & Subscription Details
+    paymentDetailsEl.innerHTML = `
+      <div class="row">
+        <div class="col-md-3"><strong>Payment Amount:</strong> ZMW ${p.payment_amount}</div>
+        <div class="col-md-3"><strong>Payment Method:</strong> ${p.payment_method}</div>
+        <div class="col-md-3"><strong>Payment Date:</strong> ${new Date(p.payment_date).toLocaleString()}</div>
+        <div class="col-md-3"><strong>Payment Option:</strong> ${p.payment_option || "N/A"}</div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-4"><strong>Subscription Plan:</strong> ${p.plan_name || "N/A"}</div>
+        <div class="col-md-4"><strong>Subscription Amount:</strong> ZMW ${p.plan_amount || "N/A"}</div>
+        <div class="col-md-4"><strong>Duration (days):</strong> ${p.duration_days || "N/A"}</div>
+      </div>
+    `;
+
+    // Proof of Payment
+    proofSectionEl.innerHTML = p.payment_proof
+      ? `<img src="${window.location.origin}/${p.payment_proof}" alt="Proof of Payment" class="img-fluid rounded shadow-sm border" style="max-height:500px; object-fit:contain;">`
+      : `<p class="text-muted">No proof image uploaded.</p>`;
+
+  } catch (err) {
+    console.error("Payment proof fetch error:", err);
+    userDetailsEl.innerHTML = `<p class="text-danger text-center">⚠️ Error fetching payment data:<br>${err.message}</p>`;
+    contactDetailsEl.innerHTML = "";
+    paymentDetailsEl.innerHTML = "";
+    proofSectionEl.innerHTML = "";
+  }
+
+  // Approve / Reject buttons
+  document.getElementById("approveBtn").addEventListener("click", () => {
+    if (confirm("Approve this payment?")) handleDecision("approve", userId, token);
+  });
+  document.getElementById("rejectBtn").addEventListener("click", () => {
+    if (confirm("Reject this payment?")) handleDecision("reject", userId, token);
+  });
+
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.replace("/admin_login.html");
+  });
+});
+
+// Function to handle approve/reject
+async function handleDecision(action, userId, token) {
+  const userDetailsEl = document.getElementById("userDetails");
+  try {
+    const apiUrl = `/api/admin/payment-${action}/${userId}`;
+    console.log(`Sending ${action} request to:`, apiUrl);
+
+    const res = await fetch(apiUrl, { method: "PUT", headers: { Authorization: `Bearer ${token}` } });
+
+    if (!res.ok) throw new Error(`HTTP error ${res.status}: ${res.statusText}`);
+
+    const data = await res.json();
+    console.log(`Payment ${action} Response:`, data);
+
+    if (data.success) {
+      alert(`Payment ${action === "approve" ? "approved" : "rejected"} successfully!`);
+      localStorage.removeItem("selectedPendingUserId");
+      window.location.href = "pending_members.html";
+    } else {
+      userDetailsEl.innerHTML = `<p class="text-danger text-center">Failed to ${action} payment:<br>${data.message || ""}</p>`;
+    }
+  } catch (err) {
+    console.error(`${action} payment network error:`, err);
+    userDetailsEl.innerHTML = `<p class="text-danger text-center">Server/network error while trying to ${action} payment:<br>${err.message}</p>`;
+  }
+}
+</script>
+
+
+
+
+</body>
+
+</html>

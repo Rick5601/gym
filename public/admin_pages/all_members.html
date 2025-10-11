@@ -7,7 +7,7 @@
     <title>All Members - UNZAGYM</title>
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap">
     <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="../assets/css/profile.css">
 </head>
@@ -23,7 +23,6 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-
                     <li class="nav-item">
                         <a class="nav-link" href="admin_dashboard.html">
                             <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
@@ -66,8 +65,8 @@
                             <i class="fas fa-bullhorn"></i><span>Announcements</span>
                         </a>
                     </li>
-
                 </ul>
+
                 <div class="text-center d-none d-md-inline">
                     <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
                 </div>
@@ -80,7 +79,8 @@
                 <!-- Topbar -->
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid">
-                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
+                        <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop"
+                            type="button">
                             <i class="fas fa-bars"></i>
                         </button>
 
@@ -114,8 +114,8 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="#" id="logoutBtn">
-                                            <i
-                                                class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> Logout
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
+                                            Logout
                                         </a>
                                     </li>
                                 </ul>
@@ -182,91 +182,105 @@
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../assets/js/theme.js"></script>
 
+    <!-- ✅ Updated JS for All Members with pagination and profile navigation -->
     <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-            const token = localStorage.getItem("token"); 
-            const tbody = document.getElementById("membersTableBody");
-            const pageInfo = document.getElementById("pageInfo");
-            const prevBtn = document.getElementById("prevBtn");
-            const nextBtn = document.getElementById("nextBtn");
+document.addEventListener("DOMContentLoaded", async () => {
+    const token = localStorage.getItem("token");
+    const tbody = document.getElementById("membersTableBody");
+    const pageInfo = document.getElementById("pageInfo");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
 
-            let currentPage = 1;
-            const limit = 5;
-            let totalPages = 1;
-            let members = [];
+    if (!token) {
+        alert("Session expired. Please login again.");
+        window.location.replace("/member_login.html");
+        return;
+    }
 
-            try {
-                const response = await fetch("/api/admin/all-members", {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    }
-                });
+    let members = [];
+    let currentPage = 1;
+    const limit = 5;
+    let totalPages = 1;
 
-                const data = await response.json();
-                if (!data.success || !data.members.length) {
-                    tbody.innerHTML = `<tr><td colspan="11" class="text-center">No members found</td></tr>`;
-                    pageInfo.textContent = '';
-                    prevBtn.disabled = true;
-                    nextBtn.disabled = true;
-                    return;
-                }
+    try {
+        const res = await fetch("/api/admin/all-members", {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (!data.success || !data.members.length) {
+            tbody.innerHTML = `<tr><td colspan="11" class="text-center">No members found</td></tr>`;
+            pageInfo.textContent = '';
+            prevBtn.disabled = true;
+            nextBtn.disabled = true;
+            return;
+        }
 
-                members = data.members;
-                totalPages = Math.ceil(members.length / limit);
-                currentPage = 1;
-                renderTable();
-            } catch (err) {
-                console.error(err);
-                tbody.innerHTML = `<tr><td colspan="11" class="text-center text-danger">Error loading members</td></tr>`;
-            }
+        members = data.members;
+        totalPages = Math.ceil(members.length / limit);
+        renderTable();
 
-            function renderTable() {
-                tbody.innerHTML = '';
-                const start = (currentPage - 1) * limit;
-                const end = start + limit;
-                const pageData = members.slice(start, end);
+    } catch (err) {
+        console.error(err);
+        tbody.innerHTML = `<tr><td colspan="11" class="text-center text-danger">Error loading members</td></tr>`;
+    }
 
-                pageData.forEach(member => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${member.student_id || ""}</td>
-                        <td>${member.username || ""}</td>
-                        <td>${member.full_name || ""}</td>
-                        <td>${member.gender || ""}</td>
-                        <td>${member.phone || ""}</td>
-                        <td>${member.email || ""}</td>
-                        <td>${new Date(member.date_of_registration).toLocaleDateString() || ""}</td>
-                        <td>${member.room_number || ""}</td>
-                        <td>${member.amount || ""}</td>
-                        <td>${member.plan_name || ""}</td>
-                        <td class="text-center">
-                            <button class="btn btn-primary btn-sm">View Profile</button>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
+    function renderTable() {
+        tbody.innerHTML = '';
+        const start = (currentPage - 1) * limit;
+        const end = start + limit;
+        const pageData = members.slice(start, end);
 
-                pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-                prevBtn.disabled = currentPage === 1;
-                nextBtn.disabled = currentPage === totalPages;
-            }
+        pageData.forEach(member => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${member.student_id || ""}</td>
+                <td>${member.username || ""}</td>
+                <td>${member.full_name || ""}</td>
+                <td>${member.gender || ""}</td>
+                <td>${member.phone || ""}</td>
+                <td>${member.email || ""}</td>
+                <td>${new Date(member.DOR).toLocaleDateString() || ""}</td>
+                <td>${member.room_number || ""}</td>
+                <td>${member.amount || ""}</td>
+                <td>${member.plan_name || ""}</td>
+                <td class="text-center">
+                    <button class="btn btn-primary btn-sm view-profile-btn" data-userid="${member.user_id}">
+                        View Profile
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
 
-            prevBtn.addEventListener('click', () => {
-                if (currentPage > 1) { currentPage--; renderTable(); }
-            });
-
-            nextBtn.addEventListener('click', () => {
-                if (currentPage < totalPages) { currentPage++; renderTable(); }
-            });
-
-            // Logout
-            document.getElementById("logoutBtn").addEventListener("click", () => {
-                localStorage.clear();
-                sessionStorage.clear();
-                window.location.replace("/member_login.html");
+        // Attach click events for profile buttons
+        document.querySelectorAll(".view-profile-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const userId = btn.getAttribute("data-userid");
+                if (!userId) return alert("User ID missing.");
+                localStorage.setItem("selectedUserId", userId);
+                window.location.href = "member_profile.html";
             });
         });
+
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+    }
+
+    prevBtn.addEventListener("click", () => {
+        if (currentPage > 1) { currentPage--; renderTable(); }
+    });
+
+    nextBtn.addEventListener("click", () => {
+        if (currentPage < totalPages) { currentPage++; renderTable(); }
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.replace("/member_login.html");
+    });
+});
     </script>
 </body>
 </html>

@@ -6,6 +6,7 @@ exports.getPendingMembers = async (req, res) => {
     try {
         const [rows] = await pool.query(
             `SELECT m.member_id,
+                    u.user_id,
                     u.username,
                     CONCAT(m.first_name, ' ', m.last_name) AS full_name,
                     m.student_id,

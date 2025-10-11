@@ -6,13 +6,11 @@ require("dotenv").config();
 const getToken = (req) => {
   let token = null;
 
-  // First check Authorization header
   const authHeader = req.headers["authorization"];
   if (authHeader && authHeader.startsWith("Bearer ")) {
     token = authHeader.split(" ")[1];
   }
 
-  // Optionally, also check cookies (if you ever store JWT in cookies)
   if (!token && req.cookies?.token) {
     token = req.cookies.token;
   }
@@ -34,11 +32,11 @@ module.exports = {
 
       // Attach decoded payload to req
       if (decoded.role === "member") {
-        req.member = decoded; // { id, full_name, role, ... }
+        req.member = decoded;
       } else if (decoded.role === "admin") {
-        req.admin = decoded; // { id, username, role, ... }
+        req.admin = decoded;
       } else {
-        req.user = decoded; // fallback for other roles
+        req.user = decoded;
       }
 
       next();
@@ -60,7 +58,16 @@ module.exports = {
     };
   },
 
-  // Specific middleware for member routes
+  // New middleware: allow member or admin
+  verifyMemberOrAdmin: (req, res, next) => {
+    if (req.member || req.admin) {
+      next();
+    } else {
+      return res.status(403).json({ message: "Access denied: Members or Admins only." });
+    }
+  },
+
+  // Middleware for member-only routes
   verifyMember: (req, res, next) => {
     if (!req.member || req.member.role !== "member") {
       return res.status(403).json({ message: "Access denied: Members only." });
@@ -68,7 +75,7 @@ module.exports = {
     next();
   },
 
-  // Specific middleware for admin routes
+  // Middleware for admin-only routes
   verifyAdmin: (req, res, next) => {
     if (!req.admin || req.admin.role !== "admin") {
       return res.status(403).json({ message: "Access denied: Admins only." });

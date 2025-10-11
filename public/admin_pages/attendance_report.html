@@ -185,126 +185,116 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
-    let currentPage = 1;
-    const rowsPerPage = 10;
-    let attendanceData = [];
+let currentPage = 1;
+const rowsPerPage = 10; // matches backend default
 
-    async function loadAttendanceReport() {
-      try {
-        const token = localStorage.getItem("token") || sessionStorage.getItem("token");
-        if (!token) return console.error("No token found");
+async function loadAttendanceReport(page = 1) {
+  try {
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+    if (!token) return console.error("No token found");
 
-        const response = await fetch("/api/admin/attendance-report", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        const result = await response.json();
-
-        if (result.success && result.data.length > 0) {
-          attendanceData = result.data;
-          displayPage(currentPage);
-        } else {
-          document.getElementById("attendanceReportBody").innerHTML = "<tr><td colspan='5'>No data found</td></tr>";
-        }
-      } catch (error) {
-        console.error("Error loading attendance report:", error);
-        document.getElementById("attendanceReportBody").innerHTML = "<tr><td colspan='5' class='text-danger'>Failed to load data</td></tr>";
-      }
-    }
-
-    function displayPage(page) {
-      const tbody = document.getElementById("attendanceReportBody");
-      tbody.innerHTML = "";
-
-      const start = (page - 1) * rowsPerPage;
-      const end = start + rowsPerPage;
-      const pageData = attendanceData.slice(start, end);
-
-      if (pageData.length === 0) {
-        tbody.innerHTML = "<tr><td colspan='5'>No data found</td></tr>";
-        return;
-      }
-
-      pageData.forEach(log => {
-        const row = `
-          <tr>
-            <td>${log.attendance_id}</td>
-            <td>${log.member_name}</td>
-            <td>${new Date(log.date).toLocaleDateString()}</td>
-            <td>${log.check_in_time}</td>
-            <td>${log.check_out_time || "-"}</td>
-          </tr>`;
-        tbody.insertAdjacentHTML("beforeend", row);
-      });
-
-      document.getElementById("pageInfo").innerText = `Page ${currentPage} of ${Math.ceil(attendanceData.length / rowsPerPage)}`;
-      document.getElementById("prevBtn").disabled = currentPage === 1;
-      document.getElementById("nextBtn").disabled = currentPage >= Math.ceil(attendanceData.length / rowsPerPage);
-    }
-
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      if (currentPage > 1) {
-        currentPage--;
-        displayPage(currentPage);
-      }
+    const response = await fetch(`/api/admin/attendance-report?page=${page}&limit=${rowsPerPage}`, {
+      headers: { Authorization: `Bearer ${token}` }
     });
 
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      if (currentPage < Math.ceil(attendanceData.length / rowsPerPage)) {
-        currentPage++;
-        displayPage(currentPage);
-      }
+    const result = await response.json();
+
+    if (result.success && result.data && result.data.length > 0) {
+      displayReports(result.data, page, result.pagination.totalPages, result.pagination.total);
+    } else {
+      document.getElementById("attendanceReportBody").innerHTML = "<tr><td colspan='5'>No data found</td></tr>";
+      document.getElementById("pageInfo").innerText = "";
+      document.getElementById("prevBtn").disabled = true;
+      document.getElementById("nextBtn").disabled = true;
+    }
+  } catch (error) {
+    console.error("Error loading attendance report:", error);
+    document.getElementById("attendanceReportBody").innerHTML =
+      "<tr><td colspan='5' class='text-danger'>Failed to load data</td></tr>";
+  }
+}
+
+function displayReports(reports, page, totalPages, totalReports) {
+  const tbody = document.getElementById("attendanceReportBody");
+  tbody.innerHTML = "";
+
+  reports.forEach(log => {
+    const row = `
+      <tr>
+        <td>${log.attendance_id}</td>
+        <td>${log.member_name}</td>
+        <td>${log.date}</td>
+        <td>${log.check_in_time}</td>
+        <td>${log.check_out_time || "-"}</td>
+      </tr>`;
+    tbody.insertAdjacentHTML("beforeend", row);
+  });
+
+  document.getElementById("pageInfo").innerText = `Page ${page} of ${totalPages} (Total: ${totalReports})`;
+  document.getElementById("prevBtn").disabled = page === 1;
+  document.getElementById("nextBtn").disabled = page >= totalPages;
+
+  currentPage = page;
+}
+
+// Pagination buttons
+document.getElementById("prevBtn").addEventListener("click", () => {
+  if (currentPage > 1) loadAttendanceReport(currentPage - 1);
+});
+document.getElementById("nextBtn").addEventListener("click", () => {
+  loadAttendanceReport(currentPage + 1);
+});
+
+// Export CSV
+function exportTable(tableId) {
+  const table = document.getElementById(tableId);
+  let csv = [];
+  const headers = Array.from(table.querySelectorAll("thead th")).map(th => th.innerText);
+  csv.push(headers.join(","));
+  Array.from(table.tBodies[0].rows).forEach(row => {
+    const cols = Array.from(row.cells).map(td => td.innerText);
+    csv.push(cols.join(","));
+  });
+  const blob = new Blob([csv.join("\n")], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = tableId + ".csv";
+  a.click();
+}
+
+// Export PDF
+async function exportPDF(tableId) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const table = document.getElementById(tableId);
+  const headers = Array.from(table.querySelectorAll("thead th")).map(th => th.innerText);
+  const rows = Array.from(table.tBodies[0].rows).map(tr => Array.from(tr.cells).map(td => td.innerText));
+
+  doc.setFontSize(18);
+  doc.text("Attendance Report", 105, 20, { align: "center" });
+  doc.setFontSize(12);
+
+  let startY = 30;
+  const rowHeight = 8;
+  const colWidth = [20, 50, 40, 40, 40];
+
+  headers.forEach((header, i) => {
+    doc.text(header, 10 + colWidth.slice(0, i).reduce((a, b) => a + b, 0), startY);
+  });
+
+  rows.forEach((row, rIdx) => {
+    row.forEach((cell, cIdx) => {
+      doc.text(cell, 10 + colWidth.slice(0, cIdx).reduce((a, b) => a + b, 0), startY + rowHeight * (rIdx + 1));
     });
+  });
 
-    function exportTable(tableId) {
-      const table = document.getElementById(tableId);
-      let csv = [];
+  doc.save("attendance_report.pdf");
+}
 
-      const headers = Array.from(table.querySelectorAll("thead th")).map(th => th.innerText);
-      csv.push(headers.join(","));
+// Load initial page
+window.addEventListener("load", () => loadAttendanceReport(1));
+</script>
 
-      Array.from(table.tBodies[0].rows).forEach(row => {
-        const cols = Array.from(row.cells).map(td => td.innerText);
-        csv.push(cols.join(","));
-      });
-
-      const blob = new Blob([csv.join("\n")], { type: "text/csv" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = tableId + ".csv";
-      a.click();
-    }
-
-    async function exportPDF(tableId) {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-
-      const table = document.getElementById(tableId);
-      const headers = Array.from(table.querySelectorAll("thead th")).map(th => th.innerText);
-      const rows = Array.from(table.tBodies[0].rows).map(tr => Array.from(tr.cells).map(td => td.innerText));
-
-      doc.setFontSize(18);
-      doc.text("Attendance Report", 105, 20, { align: "center" });
-      doc.setFontSize(12);
-
-      let startY = 30;
-      const rowHeight = 8;
-      const colWidth = [20, 50, 30, 30, 30];
-
-      headers.forEach((header, i) => {
-        doc.text(header, 10 + colWidth.slice(0, i).reduce((a, b) => a + b, 0), startY);
-      });
-
-      rows.forEach((row, rIdx) => {
-        row.forEach((cell, cIdx) => {
-          doc.text(cell, 10 + colWidth.slice(0, cIdx).reduce((a, b) => a + b, 0), startY + rowHeight * (rIdx + 1));
-        });
-      });
-
-      doc.save("attendance_report.pdf");
-    }
-
-    window.addEventListener("load", loadAttendanceReport);
-  </script>
 </body>
 </html>

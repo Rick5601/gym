@@ -8,7 +8,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const memberRoutes = require('./routes/memberRoutes'); 
 const signupRoutes = require('./routes/signupRoutes');
 const verifyRoute = require('./routes/verifyRoutes'); 
-const passwordRoutes = require('./routes/passwordRoutes');  // ✅ combined forgot/reset
+const passwordRoutes = require('./routes/passwordRoutes');  // combined forgot/reset
 const paymentRoutes = require('./routes/paymentRoutes');
 
 // Middleware
@@ -25,6 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files (CSS, JS, images, HTML)
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ✅ Serve uploaded files (payment proof images, etc.)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // -------------------- Logging middleware --------------------
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
@@ -38,8 +41,7 @@ app.use('/api/auth', authRoutes);        // login/register
 app.use('/api/signup', signupRoutes);   // signup
 app.use('/api', verifyRoute);           // verify routes
 app.use('/api/password', passwordRoutes); // forgot & reset password
-app.use('/api/payment', paymentRoutes);  //payment route
-
+app.use('/api/payment', paymentRoutes);  // payment route
 
 // Protected routes
 app.use('/api/admin', authenticateToken, adminRoutes);   // admin-only routes

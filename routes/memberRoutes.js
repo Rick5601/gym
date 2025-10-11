@@ -6,7 +6,7 @@ const memberController = require("../controllers/memberController");
 const memberannouncementsController = require("../controllers/memberannouncementsController");
 const reportController = require("../controllers/reportController");
 const paymenthistoryController = require("../controllers/paymenthistoryController");
-const loginhistoryController = require("../controllers/loginhistoryController"); // import full controller
+const loginhistoryController = require("../controllers/loginhistoryController");
 
 // Middleware
 const { authenticateToken, authorizeRoles, verifyMember } = require("../middleware/authMiddleware");
@@ -15,8 +15,7 @@ const { authenticateToken, authorizeRoles, verifyMember } = require("../middlewa
 router.get(
   "/profile",
   authenticateToken,
-  authorizeRoles("member"),
-  verifyMember,
+  authorizeRoles("member", "admin"),  // allow both roles
   memberController.getProfile
 );
 

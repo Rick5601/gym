@@ -21,8 +21,8 @@
                                 <h4 class="mb-4">Submit Payment</h4>
                             </div>
                             <form class="user" id="paymentForm" enctype="multipart/form-data">
-                                <!-- Hidden field for user_id -->
-                                <input type="hidden" name="user_id" id="user_id" value="PUT_USER_ID_HERE">
+                                <!-- Hidden field for student_id -->
+                                <input type="hidden" name="student_id" id="student_id" value="">
 
                                 <div class="card mb-3">
                                     <div class="card-header">
@@ -40,38 +40,22 @@
 
                                         <!-- Cash Fields -->
                                         <div id="cashFields" style="display:none;">
-                                            <div class="mb-3">
-                                                <input type="text" class="form-control" name="paid_to" placeholder="Paid To">
-                                            </div>
-                                            <div class="mb-3">
-                                                <input type="number" class="form-control" name="cash_amount" placeholder="Amount">
-                                            </div>
-                                            <div class="mb-3">
-                                                <input type="date" class="form-control" name="cash_date">
-                                            </div>
+                                            <input type="text" class="form-control mb-2" name="paid_to" placeholder="Paid To">
+                                            <input type="number" class="form-control mb-2" name="cash_amount" placeholder="Amount">
+                                            <input type="date" class="form-control mb-2" name="cash_date">
                                         </div>
 
                                         <!-- Mobile Money Fields -->
                                         <div id="mobileFields" style="display:none;">
-                                            <div class="mb-3">
-                                                <input type="text" class="form-control" name="phone" placeholder="Phone Number">
-                                            </div>
-                                            <div class="mb-3">
-                                                <input type="text" class="form-control" name="transaction_id" placeholder="Transaction ID">
-                                            </div>
-                                            <div class="mb-3">
-                                                <input type="number" class="form-control" name="mobile_amount" placeholder="Amount">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="payment_proof" class="form-label">Upload Proof:</label>
-                                                <input type="file" class="form-control" id="payment_proof" name="payment_proof" accept="image/*">
-                                            </div>
+                                            <input type="text" class="form-control mb-2" name="phone" placeholder="Phone Number">
+                                            <input type="text" class="form-control mb-2" name="transaction_id" placeholder="Transaction ID">
+                                            <input type="number" class="form-control mb-2" name="mobile_amount" placeholder="Amount">
+                                            <input type="file" class="form-control mb-2" id="payment_proof" name="payment_proof" accept="image/*">
                                         </div>
-
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary d-block btn-user w-100 mt-3">Submit Payment</button>
+                                <button type="submit" class="btn btn-primary d-block w-100 mt-3">Submit Payment</button>
                             </form>
                         </div>
                     </div>
@@ -82,59 +66,75 @@
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script>
+        // Populate student_id from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const studentId = urlParams.get('student_id');
+        const studentInput = document.getElementById('student_id');
+
+        if (studentId) {
+            studentInput.value = studentId;
+        } else {
+            alert("No student ID found in URL!");
+            window.location.href = "/member_login.html";
+        }
+
         const paymentMethod = document.getElementById('payment_method');
         const cashFields = document.getElementById('cashFields');
         const mobileFields = document.getElementById('mobileFields');
         const paymentProof = document.getElementById('payment_proof');
 
-        paymentMethod.addEventListener('change', function () {
-            if (this.value === 'mobile_money') {
+        // Toggle fields based on payment method
+        paymentMethod.addEventListener('change', () => {
+            if (paymentMethod.value === 'mobile_money') {
                 mobileFields.style.display = 'block';
                 cashFields.style.display = 'none';
                 paymentProof.required = true;
-            } else {
-                mobileFields.style.display = 'none';
+            } else if (paymentMethod.value === 'cash') {
                 cashFields.style.display = 'block';
+                mobileFields.style.display = 'none';
                 paymentProof.required = false;
             }
         });
 
         document.getElementById('paymentForm').addEventListener('submit', async function (e) {
             e.preventDefault();
+
             const formData = new FormData();
+            formData.append('student_id', studentInput.value);
+            formData.append('payment_method', paymentMethod.value);
 
-            const user_id = document.getElementById('user_id').value;
-            const method = paymentMethod.value;
+            let details = {};
 
-            formData.append('user_id', user_id);
-            formData.append('payment_method', method);
+            if (paymentMethod.value === 'cash') {
+                details = {
+                    paid_to: this.querySelector('[name="paid_to"]').value,
+                    amount: this.querySelector('[name="cash_amount"]').value,
+                    date: this.querySelector('[name="cash_date"]').value
+                };
+                formData.append('amount', details.amount);
+            } else if (paymentMethod.value === 'mobile_money') {
+                details = {
+                    phone: this.querySelector('[name="phone"]').value,
+                    transaction_id: this.querySelector('[name="transaction_id"]').value,
+                    amount: this.querySelector('[name="mobile_amount"]').value
+                };
+                formData.append('amount', details.amount);
 
-            if (method === 'cash') {
-                const paid_to = this.querySelector('[name="paid_to"]').value;
-                const amount = this.querySelector('[name="cash_amount"]').value;
-                const date = this.querySelector('[name="cash_date"]').value;
-
-                formData.append('amount', amount);
-                formData.append('details', JSON.stringify({ paid_to, date, amount }));
-            } else if (method === 'mobile_money') {
-                const phone = this.querySelector('[name="phone"]').value;
-                const transaction_id = this.querySelector('[name="transaction_id"]').value;
-                const amount = this.querySelector('[name="mobile_amount"]').value;
-                const file = this.querySelector('[name="payment_proof"]').files[0];
-
-                formData.append('amount', amount);
-                formData.append('details', JSON.stringify({ phone, transaction_id, amount }));
+                const file = paymentProof.files[0];
                 if (file) formData.append('payment_proof', file);
             } else {
-                alert('Select a payment method');
+                alert('Please select a payment method.');
                 return;
             }
+
+            formData.append('details', JSON.stringify(details));
 
             try {
                 const response = await fetch('http://localhost:5000/api/payment', {
                     method: 'POST',
                     body: formData
                 });
+
                 const result = await response.json();
                 alert(result.message);
 
@@ -151,5 +151,4 @@
         });
     </script>
 </body>
-
 </html>

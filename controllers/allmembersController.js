@@ -7,8 +7,11 @@ exports.getAllMembers = async (req, res) => {
     const [rows] = await pool.query(`
       SELECT 
           m.member_id,
+          u.user_id,  -- ✅ include user_id here
           u.username,
           CONCAT(m.first_name, ' ', m.last_name) AS full_name,
+          m.first_name,
+          m.last_name,
           m.student_id,
           m.gender,
           m.phone,

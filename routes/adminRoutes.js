@@ -5,12 +5,13 @@ const { authenticateToken, authorizeRoles } = require("../middleware/authMiddlew
 
 // Import Controllers
 const pendingMembersController = require("../controllers/pendingMembersController");
-const allMembersController = require("../controllers/allmembersController"); // fixed capitalization
-const memberStatusController = require("../controllers/memberstatusController"); // new controller
+const allMembersController = require("../controllers/allmembersController"); 
+const memberStatusController = require("../controllers/memberstatusController"); 
 const summaryCardController = require("../controllers/summarycardController");
 const recentActivityController = require("../controllers/recentactivityController.js");
 const announcementController = require("../controllers/announcementController");
-const reportController = require("../controllers/adminreportController"); // ✅ Reports controller
+const reportController = require("../controllers/adminreportController"); 
+const adminPaymentController = require("../controllers/adminpaymentController");// ✅ Payment controller
 
 // ------------------ HTML Pages ------------------ //
 // Serve Admin Dashboard HTML
@@ -88,13 +89,14 @@ router.get(
   pendingMembersController.getPendingMembers
 );
 
-// Approve a pending member
-router.put(
-  "/approve-member/:username",
-  authenticateToken,
-  authorizeRoles("admin"),
-  pendingMembersController.approveMember
-);
+  // Approve a pending member
+  router.put(
+    "/approve-member/:user_id",
+    authenticateToken,
+    authorizeRoles("admin"),
+    pendingMembersController.approveMember
+  );
+  
 
 // Get member status (admin only)
 router.get(
@@ -203,6 +205,31 @@ router.get(
   authenticateToken,
   authorizeRoles("admin"),
   reportController.exportAttendancePDF
+);
+
+// ------------------ Payment Proof Endpoints ------------------ //
+// Get payment proof + user details
+router.get(
+  "/payment-proof/:user_id",
+  authenticateToken,
+  authorizeRoles("admin"),
+  adminPaymentController.getPaymentProof
+);
+
+// Approve payment
+router.put(
+  "/payment-approve/:user_id",
+  authenticateToken,
+  authorizeRoles("admin"),
+  adminPaymentController.approvePayment
+);
+
+// Reject payment
+router.put(
+  "/payment-reject/:user_id",
+  authenticateToken,
+  authorizeRoles("admin"),
+  adminPaymentController.rejectPayment
 );
 
 module.exports = router;

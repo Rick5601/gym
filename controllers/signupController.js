@@ -19,11 +19,12 @@ exports.registerMember = async (req, res) => {
             password,
             plan_name,
             amount,
-            duration_days
+            duration_days,
+            payment_option   // ✅ Add this field
         } = req.body;
 
         // Validate required fields
-        if (!first_name || !last_name || !gender || !email_address || !username || !password || !plan_name || !amount || !duration_days) {
+        if (!first_name || !last_name || !gender || !email_address || !username || !password || !plan_name || !amount || !duration_days || !payment_option) {
             return res.status(400).json({ success: false, message: 'Please fill all required fields' });
         }
 
@@ -56,12 +57,12 @@ exports.registerMember = async (req, res) => {
         );
         const subscription_id = subResult.insertId;
 
-        // Insert member
+        // Insert member including payment_option
         await db.query(
             `INSERT INTO members 
-            (user_id, first_name, last_name, student_id, email, gender, phone, subscription_id, status, DOR, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW(), NOW(), NOW())`,
-            [user_id, first_name, last_name, student_id, email_address, gender, phone_number, subscription_id]
+            (user_id, first_name, last_name, student_id, email, gender, phone, subscription_id, payment_option, status, DOR, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW(), NOW(), NOW())`,
+            [user_id, first_name, last_name, student_id, email_address, gender, phone_number, subscription_id, payment_option]
         );
 
         // Prepare verification email
