@@ -33,16 +33,38 @@ exports.login = async (req, res) => {
         const user = results[0];
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(401).json({ success: false, message: 'Incorrect password' });
+        if (!isMatch)
+            return res.status(401).json({ success: false, message: 'Incorrect password' });
 
-        // Member status checks
+        // -------------------- MEMBER STATUS CHECKS --------------------
         if (user.role === 'member') {
-            if (user.status === 'pending') return res.redirect('/pending.html');
-            if (user.status === 'rejected') return res.redirect('/rejected.html');
-            if (user.status !== 'active') return res.redirect('/invalid.html');
+            // Check recent payments for this user
+            const [paymentResults] = await db.query(
+                'SELECT * FROM payments WHERE user_id = ? ORDER BY created_at DESC LIMIT 1',
+                [user.user_id]
+            );
+
+            const recentPayment = paymentResults && paymentResults.length > 0 ? paymentResults[0] : null;
+
+            if (user.status === 'pending') {
+                // If user has no payment record, send to make_payment.html
+                if (!recentPayment) {
+                    return res.json({ success: false, redirect: '/make_payment.html' });
+                }
+                // If payment exists, redirect to normal pending page
+                return res.json({ success: false, redirect: '/pending.html' });
+            }
+
+            if (user.status === 'rejected') {
+                return res.json({ success: false, redirect: '/rejected.html' });
+            }
+
+            if (user.status !== 'active') {
+                return res.json({ success: false, redirect: '/invalid.html' });
+            }
         }
 
-        // Generate JWT
+        // -------------------- GENERATE JWT --------------------
         const token = jwt.sign(
             {
                 id: user.user_id,

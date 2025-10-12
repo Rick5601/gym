@@ -61,50 +61,56 @@
 
     <!-- Login functionality script -->
     <script>
-    document.getElementById("memberLoginForm").addEventListener("submit", async function(e) {
-        e.preventDefault();
+document.getElementById("memberLoginForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value.trim();
-        const rememberMe = document.getElementById("formCheck-1").checked;
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const rememberMe = document.getElementById("formCheck-1").checked;
 
-        if (!username || !password) {
-            alert("Please enter both username and password.");
-            return;
+    if (!username || !password) {
+        alert("Please enter both username and password.");
+        return;
+    }
+
+    try {
+        const res = await fetch("/api/auth/member-login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        // 🟢 Handle backend redirect responses
+        if (data.redirect) {
+            window.location.href = data.redirect;
+            return; // stop further processing
         }
 
-        try {
-            const res = await fetch("/api/auth/member-login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password })
-            });
-
-            const data = await res.json();
-
-            if (res.ok && data.success && data.token) {
-                // Store JWT
-                if (rememberMe) {
-                    localStorage.setItem("memberToken", data.token);
-                } else {
-                    sessionStorage.setItem("memberToken", data.token);
-                }
-
-                // Store user info
-                localStorage.setItem("memberInfo", JSON.stringify(data.user));
-
-                // Redirect to profile
-                window.location.href = "/member_pages/profile.html";
+        // 🟢 Normal successful login
+        if (res.ok && data.success && data.token) {
+            if (rememberMe) {
+                localStorage.setItem("memberToken", data.token);
             } else {
-                alert(data.message || "Login failed");
+                sessionStorage.setItem("memberToken", data.token);
             }
 
-        } catch (err) {
-            console.error("Login error:", err);
-            alert("Something went wrong. Please try again later.");
+            localStorage.setItem("memberInfo", JSON.stringify(data.user));
+            window.location.href = "/member_pages/profile.html";
+        } 
+        // 🟠 Otherwise show backend message
+        else {
+            alert(data.message || "Login failed");
         }
-    });
-    </script>
+
+    } catch (err) {
+        console.error("Login error:", err);
+        alert("Something went wrong. Please try again later.");
+    }
+});
+</script>
+
 </body>
 
 </html>

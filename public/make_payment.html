@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Make Payment - UNZA Gym</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/Nunito.css" />
+
+  <style>
+    /* ===============================
+       UNZA GYM PAYMENT PAGE STYLES
+       Palette: Navy (#0f1e3f, #1b2a54) + Gold (#997953, #cdaa80)
+       =============================== */
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #0f1e3f, #1b2a54);
+      color: #1b2a54;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .card img {
+      width: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .card h4 {
+      color: #1b2a54;
+      font-weight: 700;
+    }
+
+    .card p {
+      color: #333;
+      font-size: 1rem;
+    }
+
+    .btn-pay-now {
+      background-color: #997953 !important;
+      border: none;
+      font-weight: 600;
+      color: #fff !important;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-pay-now:hover {
+      background-color: #cdaa80 !important;
+    }
+
+    .btn-later {
+      background-color: #1b2a54 !important;
+      color: #fff !important;
+      font-weight: 600;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-later:hover {
+      background-color: #0f1e3f !important;
+    }
+
+    .text-muted {
+      color: #6c757d !important;
+    }
+
+    small {
+      color: #997953 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <img src="assets/img/gym_logo.png" alt="UNZA Gym Logo" />
+    <h4>Payment Required</h4>
+    <p>
+      Your account is currently <strong>pending activation</strong> because you
+      haven’t made a recent payment.
+    </p>
+    <p>Would you like to make your membership payment now to activate your account?</p>
+
+    <div class="d-flex justify-content-center mt-4 gap-3">
+      <a href="payment.html" class="btn btn-pay-now px-4 py-2">Pay Now</a>
+      <a href="member_login.html" class="btn btn-later px-4 py-2">Later</a>
+    </div>
+
+    <div class="text-center mt-4">
+      <small>You can always complete your payment later from your profile page.</small>
+    </div>
+  </div>
+
+  <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

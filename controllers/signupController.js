@@ -20,11 +20,16 @@ exports.registerMember = async (req, res) => {
             plan_name,
             amount,
             duration_days,
-            payment_option   // ✅ Add this field
+            payment_option,
+            room_number   // ✅ Added room_number
         } = req.body;
 
         // Validate required fields
-        if (!first_name || !last_name || !gender || !email_address || !username || !password || !plan_name || !amount || !duration_days || !payment_option) {
+        if (
+            !first_name || !last_name || !gender || !email_address ||
+            !username || !password || !plan_name || !amount ||
+            !duration_days || !payment_option
+        ) {
             return res.status(400).json({ success: false, message: 'Please fill all required fields' });
         }
 
@@ -57,12 +62,12 @@ exports.registerMember = async (req, res) => {
         );
         const subscription_id = subResult.insertId;
 
-        // Insert member including payment_option
+        // Insert member including room_number
         await db.query(
             `INSERT INTO members 
-            (user_id, first_name, last_name, student_id, email, gender, phone, subscription_id, payment_option, status, DOR, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW(), NOW(), NOW())`,
-            [user_id, first_name, last_name, student_id, email_address, gender, phone_number, subscription_id, payment_option]
+            (user_id, first_name, last_name, student_id, email, gender, phone, room_number, subscription_id, payment_option, status, DOR, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW(), NOW(), NOW())`,
+            [user_id, first_name, last_name, student_id, email_address, gender, phone_number, room_number || null, subscription_id, payment_option]
         );
 
         // Prepare verification email
@@ -78,12 +83,11 @@ exports.registerMember = async (req, res) => {
                 <p>This link will expire in 24 hours.</p>
             `);
 
-        // Send email
         await mailerSend.email.send(emailParams);
 
-        return res.status(201).json({ 
-            success: true, 
-            message: 'Member registered successfully! Please check your email to verify your account.' 
+        return res.status(201).json({
+            success: true,
+            message: 'Member registered successfully! Please check your email to verify your account.'
         });
 
     } catch (error) {
