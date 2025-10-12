@@ -2,169 +2,176 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Payment Submission</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/Nunito.css">
-    <link rel="stylesheet" href="assets/css/payment_custom.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Payment Submission</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/Nunito.css">
+  <link rel="stylesheet" href="assets/css/payment_custom.css">
 </head>
 
 <body class="bg-gradient-primary">
-    <div class="container">
-        <div class="card shadow-lg o-hidden border-0 my-5">
-            <div class="card-body p-0">
-                <div class="row">
-                    <div class="col-lg-12 col-xl-12 col-xxl-12">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h4 class="mb-4">Submit Payment</h4>
-                            </div>
-                            <form class="user" id="paymentForm" enctype="multipart/form-data">
-                                <!-- Hidden field for student_id -->
-                                <input type="hidden" name="student_id" id="student_id" value="">
+  <div class="container">
+    <div class="card shadow-lg o-hidden border-0 my-5">
+      <div class="card-body p-0">
+        <div class="row">
+          <div class="col-lg-12 col-xl-12 col-xxl-12">
+            <div class="p-5">
+              <div class="text-center">
+                <h4 class="mb-4">Submit Payment</h4>
+              </div>
+              <form class="user" id="paymentForm" enctype="multipart/form-data">
+                <!-- Hidden field for student_id -->
+                <input type="hidden" name="student_id" id="student_id" value="">
 
-                                <div class="card mb-3">
-                                    <div class="card-header">
-                                        <p class="fw-semibold">PAYMENT DETAILS</p>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <label class="form-label">Payment Method:</label>
-                                            <select class="form-select" id="payment_method" name="payment_method" required>
-                                                <option value="" selected disabled>Select Payment Method</option>
-                                                <option value="cash">Cash</option>
-                                                <option value="mobile_money">Mobile Money</option>
-                                            </select>
-                                        </div>
-
-                                        <!-- Cash Fields -->
-                                        <div id="cashFields" style="display:none;">
-                                            <input type="text" class="form-control mb-2" name="paid_to" placeholder="Paid To">
-                                            <input type="number" class="form-control mb-2" name="cash_amount" placeholder="Amount">
-                                            <input type="date" class="form-control mb-2" name="cash_date">
-                                        </div>
-
-                                        <!-- Mobile Money Fields -->
-                                        <div id="mobileFields" style="display:none;">
-                                            <input type="text" class="form-control mb-2" name="phone" placeholder="Phone Number">
-                                            <input type="text" class="form-control mb-2" name="transaction_id" placeholder="Transaction ID">
-                                            <input type="number" class="form-control mb-2" name="mobile_amount" placeholder="Amount">
-                                            <input type="file" class="form-control mb-2" id="payment_proof" name="payment_proof" accept="image/*">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary d-block w-100 mt-3">Submit Payment</button>
-                            </form>
-                        </div>
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <p class="fw-semibold">PAYMENT DETAILS</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <label class="form-label">Payment Method:</label>
+                      <select class="form-select" id="payment_method" name="payment_method" required>
+                        <option value="" selected disabled>Select Payment Method</option>
+                        <option value="cash">Cash</option>
+                        <option value="mobile_money">Mobile Money</option>
+                      </select>
                     </div>
+
+                    <!-- Cash Fields -->
+                    <div id="cashFields" style="display:none;">
+                      <input type="text" class="form-control mb-2" name="paid_to" placeholder="Paid To">
+                      <input type="number" class="form-control mb-2" name="cash_amount" placeholder="Amount">
+                      <input type="date" class="form-control mb-2" name="cash_date">
+                    </div>
+
+                    <!-- Mobile Money Fields -->
+                    <div id="mobileFields" style="display:none;">
+                      <input type="text" class="form-control mb-2" name="phone" placeholder="Phone Number">
+                      <input type="text" class="form-control mb-2" name="transaction_id" placeholder="Transaction ID">
+                      <input type="number" class="form-control mb-2" name="mobile_amount" placeholder="Amount">
+                      <input type="file" class="form-control mb-2" id="payment_proof" name="payment_proof" accept="image/*">
+                    </div>
+                  </div>
                 </div>
+
+                <button type="submit" class="btn btn-primary d-block w-100 mt-3">Submit Payment</button>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script>
-        // ===========================
-        // Populate student_id
-        // ===========================
-        const urlParams = new URLSearchParams(window.location.search);
-        let studentId = urlParams.get('student_id');
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+    // ===========================
+    // AUTO-DETECT BASE URL
+    // ===========================
+    const baseURL = window.location.hostname.includes("localhost")
+      ? "http://localhost:5000"
+      : "https://unzagym.onrender.com";
 
-        // Fallback: use sessionStorage if no student_id in URL
-        if (!studentId) {
-            studentId = sessionStorage.getItem('student_id') || localStorage.getItem('student_id');
-        }
+    // ===========================
+    // Populate student_id
+    // ===========================
+    const urlParams = new URLSearchParams(window.location.search);
+    let studentId = urlParams.get('student_id');
 
-        const studentInput = document.getElementById('student_id');
+    // Fallback: use sessionStorage if no student_id in URL
+    if (!studentId) {
+      studentId = sessionStorage.getItem('student_id') || localStorage.getItem('student_id');
+    }
 
-        if (studentId) {
-            studentInput.value = studentId;
-        } else {
-            alert("You must be logged in to make a payment!");
-            window.location.href = "/member_login.html";
-        }
+    const studentInput = document.getElementById('student_id');
 
-        // ===========================
-        // Payment method toggle
-        // ===========================
-        const paymentMethod = document.getElementById('payment_method');
-        const cashFields = document.getElementById('cashFields');
-        const mobileFields = document.getElementById('mobileFields');
-        const paymentProof = document.getElementById('payment_proof');
+    if (studentId) {
+      studentInput.value = studentId;
+    } else {
+      alert("You must be logged in to make a payment!");
+      window.location.href = `${baseURL}/member_login.html`;
+    }
 
-        paymentMethod.addEventListener('change', () => {
-            if (paymentMethod.value === 'mobile_money') {
-                mobileFields.style.display = 'block';
-                cashFields.style.display = 'none';
-                paymentProof.required = true;
-            } else if (paymentMethod.value === 'cash') {
-                cashFields.style.display = 'block';
-                mobileFields.style.display = 'none';
-                paymentProof.required = false;
-            }
+    // ===========================
+    // Payment method toggle
+    // ===========================
+    const paymentMethod = document.getElementById('payment_method');
+    const cashFields = document.getElementById('cashFields');
+    const mobileFields = document.getElementById('mobileFields');
+    const paymentProof = document.getElementById('payment_proof');
+
+    paymentMethod.addEventListener('change', () => {
+      if (paymentMethod.value === 'mobile_money') {
+        mobileFields.style.display = 'block';
+        cashFields.style.display = 'none';
+        paymentProof.required = true;
+      } else if (paymentMethod.value === 'cash') {
+        cashFields.style.display = 'block';
+        mobileFields.style.display = 'none';
+        paymentProof.required = false;
+      }
+    });
+
+    // ===========================
+    // Form submission
+    // ===========================
+    document.getElementById('paymentForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData();
+      formData.append('student_id', studentInput.value);
+      formData.append('payment_method', paymentMethod.value);
+
+      let details = {};
+
+      if (paymentMethod.value === 'cash') {
+        details = {
+          paid_to: this.querySelector('[name="paid_to"]').value,
+          amount: this.querySelector('[name="cash_amount"]').value,
+          date: this.querySelector('[name="cash_date"]').value
+        };
+        formData.append('amount', details.amount);
+      } else if (paymentMethod.value === 'mobile_money') {
+        details = {
+          phone: this.querySelector('[name="phone"]').value,
+          transaction_id: this.querySelector('[name="transaction_id"]').value,
+          amount: this.querySelector('[name="mobile_amount"]').value
+        };
+        formData.append('amount', details.amount);
+
+        const file = paymentProof.files[0];
+        if (file) formData.append('payment_proof', file);
+      } else {
+        alert('Please select a payment method.');
+        return;
+      }
+
+      formData.append('details', JSON.stringify(details));
+
+      try {
+        const response = await fetch(`${baseURL}/api/payment`, {
+          method: 'POST',
+          body: formData
         });
 
-        // ===========================
-        // Form submission
-        // ===========================
-        document.getElementById('paymentForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
+        const result = await response.json();
+        alert(result.message);
 
-            const formData = new FormData();
-            formData.append('student_id', studentInput.value);
-            formData.append('payment_method', paymentMethod.value);
+        if (result.success) {
+          this.reset();
+          cashFields.style.display = 'none';
+          mobileFields.style.display = 'none';
+          paymentProof.required = false;
 
-            let details = {};
-
-            if (paymentMethod.value === 'cash') {
-                details = {
-                    paid_to: this.querySelector('[name="paid_to"]').value,
-                    amount: this.querySelector('[name="cash_amount"]').value,
-                    date: this.querySelector('[name="cash_date"]').value
-                };
-                formData.append('amount', details.amount);
-            } else if (paymentMethod.value === 'mobile_money') {
-                details = {
-                    phone: this.querySelector('[name="phone"]').value,
-                    transaction_id: this.querySelector('[name="transaction_id"]').value,
-                    amount: this.querySelector('[name="mobile_amount"]').value
-                };
-                formData.append('amount', details.amount);
-
-                const file = paymentProof.files[0];
-                if (file) formData.append('payment_proof', file);
-            } else {
-                alert('Please select a payment method.');
-                return;
-            }
-
-            formData.append('details', JSON.stringify(details));
-
-            try {
-                const response = await fetch('http://localhost:5000/api/payment', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-                alert(result.message);
-
-                if (result.success) {
-                    this.reset();
-                    cashFields.style.display = 'none';
-                    mobileFields.style.display = 'none';
-                    paymentProof.required = false;
-
-                    // Redirect to member login page
-                    window.location.replace("http://localhost:5000/member_login.html");
-                }
-            } catch (err) {
-                console.error("Payment submission error:", err);
-                alert("Payment submission failed. Check console for details.");
-            }
-        });
-    </script>
+          // Redirect after success
+          window.location.replace(`${baseURL}/member_login.html`);
+        }
+      } catch (err) {
+        console.error("Payment submission error:", err);
+        alert("Payment submission failed. Check console for details.");
+      }
+    });
+  </script>
 </body>
 </html>
