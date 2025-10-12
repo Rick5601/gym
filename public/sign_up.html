@@ -2,247 +2,256 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Member Sign-Up</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/Nunito.css">
-    <link rel="stylesheet" href="assets/css/signup_custom.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Member Sign-Up</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/Nunito.css">
+  <link rel="stylesheet" href="assets/css/signup_custom.css">
 </head>
 
 <body class="bg-gradient-primary">
-    <div class="container">
-        <div class="card shadow-lg o-hidden border-0 my-5">
-            <div class="card-body p-0">
-                <div class="row">
-                    <div class="col-lg-12 col-xl-12 col-xxl-12">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h4 class="mb-4">Member Sign Up</h4>
-                            </div>
-                            <form class="user" id="signupForm">
-                                <!-- MEMBER DETAILS -->
-                                <div class="card mb-3">
-                                    <div class="card-header">
-                                        <p class="fw-semibold">MEMBER DETAILS</p>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <input class="form-control form-control-user" type="text" id="FirstName"
-                                                placeholder="First Name" name="first_name" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <input class="form-control form-control-user" type="text" id="LastName"
-                                                placeholder="Last Name" name="last_name" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <input class="form-control form-control-user" type="text" id="StudentID"
-                                                placeholder="Student ID" name="student_id" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <input class="form-control form-control-user" type="text" id="RoomNumber"
-                                                placeholder="Room Number" name="room_number" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <input class="form-control form-control-user" type="text" id="Username"
-                                                placeholder="Username" name="username" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Choose Gender:</label>
-                                            <select class="form-select" id="gender" name="gender" required>
-                                                <option value="" selected disabled>Select Gender</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Subscription Plan:</label>
-                                            <select class="form-select" id="subscription" name="subscription_id"
-                                                required>
-                                                <option value="" selected disabled>Select Plan</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Plan Cost</label>
-                                            <input type="text" class="form-control" id="planCost" readonly>
-                                        </div>
-
-                                        <!-- Pay Now / Pay Later -->
-                                        <div class="mb-3">
-                                            <label class="form-label">Payment Option:</label>
-                                            <select class="form-select" id="paymentOption" name="payment_option" required>
-                                                <option value="" selected disabled>Select Option</option>
-                                                <option value="now">Pay Now</option>
-                                                <option value="later">Pay Later</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- CONTACTS -->
-                                <div class="card mb-3">
-                                    <div class="card-header">
-                                        <p class="fw-semibold">CONTACTS</p>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <input class="form-control form-control-user" type="text" id="PhoneNumber"
-                                                placeholder="Phone Number" name="phone_number">
-                                        </div>
-                                        <div class="mb-3">
-                                            <input class="form-control form-control-user" type="email"
-                                                id="EmailAddress" placeholder="Email Address" name="email_address"
-                                                required>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- PASSWORD -->
-                                <div class="card mb-3">
-                                    <div class="card-header">
-                                        <p class="fw-semibold">PASSWORD</p>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row g-2">
-                                            <div class="col-sm-6">
-                                                <div class="input-group">
-                                                    <input type="password" class="form-control form-control-user"
-                                                        id="PasswordInput" placeholder="Password" name="password"
-                                                        required>
-                                                    <button class="btn btn-outline-secondary" type="button"
-                                                        onclick="togglePassword('PasswordInput', this)">Show</button>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="input-group">
-                                                    <input type="password" class="form-control form-control-user"
-                                                        id="RepeatPasswordInput" placeholder="Repeat Password"
-                                                        name="password_repeat" required>
-                                                    <button class="btn btn-outline-secondary" type="button"
-                                                        onclick="togglePassword('RepeatPasswordInput', this)">Show</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button class="btn btn-primary d-block btn-user w-100 mt-3" type="submit">Sign Up</button>
-                            </form>
-
-                            <div class="row mt-3">
-                                <div class="col d-flex justify-content-between" style="padding: 0px;margin: 12px;">
-                                    <a class="btn btn-primary" role="button" href="member_login.html">Back</a>
-                                </div>
-                            </div>
-                        </div>
+  <div class="container">
+    <div class="card shadow-lg o-hidden border-0 my-5">
+      <div class="card-body p-0">
+        <div class="row">
+          <div class="col-lg-12 col-xl-12 col-xxl-12">
+            <div class="p-5">
+              <div class="text-center">
+                <h4 class="mb-4">Member Sign Up</h4>
+              </div>
+              <form class="user" id="signupForm">
+                <!-- MEMBER DETAILS -->
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <p class="fw-semibold">MEMBER DETAILS</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <input class="form-control form-control-user" type="text" id="FirstName"
+                        placeholder="First Name" name="first_name" required>
                     </div>
+                    <div class="mb-3">
+                      <input class="form-control form-control-user" type="text" id="LastName"
+                        placeholder="Last Name" name="last_name" required>
+                    </div>
+                    <div class="mb-3">
+                      <input class="form-control form-control-user" type="text" id="StudentID"
+                        placeholder="Student ID" name="student_id" required>
+                    </div>
+                    <div class="mb-3">
+                      <input class="form-control form-control-user" type="text" id="RoomNumber"
+                        placeholder="Room Number" name="room_number" required>
+                    </div>
+                    <div class="mb-3">
+                      <input class="form-control form-control-user" type="text" id="Username"
+                        placeholder="Username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Choose Gender:</label>
+                      <select class="form-select" id="gender" name="gender" required>
+                        <option value="" selected disabled>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Subscription Plan:</label>
+                      <select class="form-select" id="subscription" name="subscription_id" required>
+                        <option value="" selected disabled>Select Plan</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Plan Cost</label>
+                      <input type="text" class="form-control" id="planCost" readonly>
+                    </div>
+
+                    <!-- Pay Now / Pay Later -->
+                    <div class="mb-3">
+                      <label class="form-label">Payment Option:</label>
+                      <select class="form-select" id="paymentOption" name="payment_option" required>
+                        <option value="" selected disabled>Select Option</option>
+                        <option value="now">Pay Now</option>
+                        <option value="later">Pay Later</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
+
+                <!-- CONTACTS -->
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <p class="fw-semibold">CONTACTS</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <input class="form-control form-control-user" type="text" id="PhoneNumber"
+                        placeholder="Phone Number" name="phone_number">
+                    </div>
+                    <div class="mb-3">
+                      <input class="form-control form-control-user" type="email" id="EmailAddress"
+                        placeholder="Email Address" name="email_address" required>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PASSWORD -->
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <p class="fw-semibold">PASSWORD</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-2">
+                      <div class="col-sm-6">
+                        <div class="input-group">
+                          <input type="password" class="form-control form-control-user" id="PasswordInput"
+                            placeholder="Password" name="password" required>
+                          <button class="btn btn-outline-secondary" type="button"
+                            onclick="togglePassword('PasswordInput', this)">Show</button>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="input-group">
+                          <input type="password" class="form-control form-control-user" id="RepeatPasswordInput"
+                            placeholder="Repeat Password" name="password_repeat" required>
+                          <button class="btn btn-outline-secondary" type="button"
+                            onclick="togglePassword('RepeatPasswordInput', this)">Show</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn btn-primary d-block btn-user w-100 mt-3" type="submit">Sign Up</button>
+              </form>
+
+              <div class="row mt-3">
+                <div class="col d-flex justify-content-between" style="padding: 0px;margin: 12px;">
+                  <a class="btn btn-primary" role="button" href="member_login.html">Back</a>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
-    <script>
-        const subscriptions = [
-            { id: 1, name: "2 Weeks", cost: 150, gender: "all", duration_days: 14 },
-            { id: 2, name: "Semester", cost: 300, gender: "male", duration_days: 120 },
-            { id: 3, name: "Semester", cost: 350, gender: "female", duration_days: 120 }
-        ];
+  <script>
+    // ===========================
+    // AUTO-DETECT BASE URL
+    // ===========================
+    const baseURL = window.location.hostname.includes("localhost")
+      ? "http://localhost:5000"
+      : "https://unzagym.onrender.com";
 
-        const genderSelect = document.getElementById('gender');
-        const subscriptionSelect = document.getElementById('subscription');
-        const planCost = document.getElementById('planCost');
+    // ===========================
+    // Subscription Plan Options
+    // ===========================
+    const subscriptions = [
+      { id: 1, name: "2 Weeks", cost: 150, gender: "all", duration_days: 14 },
+      { id: 2, name: "Semester", cost: 300, gender: "male", duration_days: 120 },
+      { id: 3, name: "Semester", cost: 350, gender: "female", duration_days: 120 }
+    ];
 
-        function togglePassword(inputId, btn) {
-            const input = document.getElementById(inputId);
-            input.type = input.type === "password" ? "text" : "password";
-            btn.textContent = input.type === "password" ? "Show" : "Hide";
+    const genderSelect = document.getElementById('gender');
+    const subscriptionSelect = document.getElementById('subscription');
+    const planCost = document.getElementById('planCost');
+
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      input.type = input.type === "password" ? "text" : "password";
+      btn.textContent = input.type === "password" ? "Show" : "Hide";
+    }
+
+    genderSelect.addEventListener('change', function () {
+      const selectedGender = this.value;
+      subscriptionSelect.innerHTML = '<option value="" selected disabled>Select Plan</option>';
+      subscriptions.forEach(sub => {
+        if (sub.gender === 'all' || sub.gender === selectedGender) {
+          const option = document.createElement('option');
+          option.value = sub.id;
+          option.text = `${sub.name} (${sub.cost} ZMW)`;
+          option.dataset.cost = sub.cost;
+          option.dataset.planName = sub.name;
+          option.dataset.duration = sub.duration_days;
+          subscriptionSelect.appendChild(option);
         }
+      });
+      planCost.value = '';
+    });
 
-        genderSelect.addEventListener('change', function () {
-            const selectedGender = this.value;
-            subscriptionSelect.innerHTML = '<option value="" selected disabled>Select Plan</option>';
-            subscriptions.forEach(sub => {
-                if (sub.gender === 'all' || sub.gender === selectedGender) {
-                    const option = document.createElement('option');
-                    option.value = sub.id;
-                    option.text = `${sub.name} (${sub.cost} ZMW)`;
-                    option.dataset.cost = sub.cost;
-                    option.dataset.planName = sub.name;
-                    option.dataset.duration = sub.duration_days;
-                    subscriptionSelect.appendChild(option);
-                }
-            });
-            planCost.value = '';
+    subscriptionSelect.addEventListener('change', function () {
+      const selectedOption = this.selectedOptions[0];
+      planCost.value = selectedOption.dataset.cost + ' ZMW';
+    });
+
+    // ===========================
+    // Sign-up Submission
+    // ===========================
+    document.getElementById('signupForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const password = document.getElementById('PasswordInput').value;
+      const passwordRepeat = document.getElementById('RepeatPasswordInput').value;
+
+      if (password !== passwordRepeat) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      const selectedOption = subscriptionSelect.selectedOptions[0];
+      if (!selectedOption) {
+        alert("Please select a subscription plan.");
+        return;
+      }
+
+      const paymentOption = document.getElementById('paymentOption').value;
+      if (!paymentOption) {
+        alert("Please select a payment option.");
+        return;
+      }
+
+      const formData = {
+        first_name: document.getElementById('FirstName').value,
+        last_name: document.getElementById('LastName').value,
+        student_id: document.getElementById('StudentID').value,
+        username: document.getElementById('Username').value,
+        gender: genderSelect.value,
+        phone_number: document.getElementById('PhoneNumber').value,
+        email_address: document.getElementById('EmailAddress').value,
+        room_number: document.getElementById('RoomNumber').value,
+        password: password,
+        plan_name: selectedOption.dataset.planName,
+        amount: selectedOption.dataset.cost,
+        duration_days: selectedOption.dataset.duration,
+        payment_option: paymentOption
+      };
+
+      try {
+        const response = await fetch(`${baseURL}/api/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
         });
 
-        subscriptionSelect.addEventListener('change', function () {
-            const selectedOption = this.selectedOptions[0];
-            planCost.value = selectedOption.dataset.cost + ' ZMW';
-        });
+        const result = await response.json();
+        alert(result.message);
 
-        document.getElementById('signupForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const password = document.getElementById('PasswordInput').value;
-            const passwordRepeat = document.getElementById('RepeatPasswordInput').value;
-
-            if (password !== passwordRepeat) {
-                alert("Passwords do not match!");
-                return;
-            }
-
-            const selectedOption = subscriptionSelect.selectedOptions[0];
-            if (!selectedOption) {
-                alert("Please select a subscription plan.");
-                return;
-            }
-
-            const paymentOption = document.getElementById('paymentOption').value;
-            if (!paymentOption) {
-                alert("Please select a payment option.");
-                return;
-            }
-
-            const formData = {
-                first_name: document.getElementById('FirstName').value,
-                last_name: document.getElementById('LastName').value,
-                student_id: document.getElementById('StudentID').value,
-                username: document.getElementById('Username').value,
-                gender: genderSelect.value,
-                phone_number: document.getElementById('PhoneNumber').value,
-                email_address: document.getElementById('EmailAddress').value,
-                room_number: document.getElementById('RoomNumber').value,
-                password: password,
-                plan_name: selectedOption.dataset.planName,
-                amount: selectedOption.dataset.cost,
-                duration_days: selectedOption.dataset.duration,
-                payment_option: paymentOption
-            };
-
-            try {
-                const response = await fetch('http://localhost:5000/api/signup', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-
-                const result = await response.json();
-                alert(result.message);
-
-                if (result.success) {
-                    document.getElementById('signupForm').reset();
-                    planCost.value = '';
-                    // ✅ Do NOT redirect here — backend will handle Pay Now after email verification
-                }
-            } catch (err) {
-                console.error("Signup error:", err);
-                alert("Signup failed. Check console for details.");
-            }
-        });
-    </script>
+        if (result.success) {
+          document.getElementById('signupForm').reset();
+          planCost.value = '';
+          // ✅ Do NOT redirect here — backend handles Pay Now after verification
+        }
+      } catch (err) {
+        console.error("Signup error:", err);
+        alert("Signup failed. Check console for details.");
+      }
+    });
+  </script>
 </body>
 
 </html>
