@@ -181,106 +181,112 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-            const token = localStorage.getItem("token");
-            const tbody = document.getElementById("paymentReportBody");
-            const pageInfo = document.getElementById("pageInfo");
-            const prevBtn = document.getElementById("prevBtn");
-            const nextBtn = document.getElementById("nextBtn");
+    document.addEventListener("DOMContentLoaded", async () => {
+        const APP_URL = "https://unzagym.onrender.com"; // replace with your deployed URL
+        const baseURL = window.location.hostname.includes("localhost")
+            ? "http://localhost:5000"
+            : APP_URL;
 
-            let currentPage = 1;
-            const limit = 5;
-            let totalPages = 1;
-            let payments = [];
+        const token = localStorage.getItem("token");
+        const tbody = document.getElementById("paymentReportBody");
+        const pageInfo = document.getElementById("pageInfo");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
 
-            try {
-                const response = await fetch("http://localhost:5000/api/admin/payment-report", {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                const result = await response.json();
-                if (!result.success || !result.data.length) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="text-center">No data found</td></tr>`;
-                    pageInfo.textContent = '';
-                    prevBtn.disabled = true;
-                    nextBtn.disabled = true;
-                    return;
-                }
+        let currentPage = 1;
+        const limit = 5;
+        let totalPages = 1;
+        let payments = [];
 
-                payments = result.data;
-                totalPages = Math.ceil(payments.length / limit);
-                currentPage = 1;
-                renderTable();
-            } catch (err) {
-                console.error(err);
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-danger">Error loading payments</td></tr>`;
+        try {
+            const response = await fetch(`${baseURL}/api/admin/payment-report`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const result = await response.json();
+            if (!result.success || !result.data.length) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center">No data found</td></tr>`;
+                pageInfo.textContent = '';
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+                return;
             }
 
-            function renderTable() {
-                tbody.innerHTML = '';
-                const start = (currentPage - 1) * limit;
-                const end = start + limit;
-                const pageData = payments.slice(start, end);
+            payments = result.data;
+            totalPages = Math.ceil(payments.length / limit);
+            currentPage = 1;
+            renderTable();
+        } catch (err) {
+            console.error(err);
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center text-danger">Error loading payments</td></tr>`;
+        }
 
-                pageData.forEach(payment => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${payment.payment_id}</td>
-                        <td>${payment.member_name}</td>
-                        <td>${payment.amount_paid}</td>
-                        <td>${payment.status}</td>
-                        <td>${new Date(payment.payment_date).toLocaleDateString()}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
+        function renderTable() {
+            tbody.innerHTML = '';
+            const start = (currentPage - 1) * limit;
+            const end = start + limit;
+            const pageData = payments.slice(start, end);
 
-                pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-                prevBtn.disabled = currentPage === 1;
-                nextBtn.disabled = currentPage === totalPages;
-            }
-
-            prevBtn.addEventListener('click', () => {
-                if (currentPage > 1) { currentPage--; renderTable(); }
+            pageData.forEach(payment => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${payment.payment_id}</td>
+                    <td>${payment.member_name}</td>
+                    <td>${payment.amount_paid}</td>
+                    <td>${payment.status}</td>
+                    <td>${new Date(payment.payment_date).toLocaleDateString()}</td>
+                `;
+                tbody.appendChild(tr);
             });
 
-            nextBtn.addEventListener('click', () => {
-                if (currentPage < totalPages) { currentPage++; renderTable(); }
-            });
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+        }
 
-            document.getElementById("logoutBtn").addEventListener("click", () => {
-                localStorage.clear();
-                sessionStorage.clear();
-                window.location.replace("/member_login.html");
-            });
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) { currentPage--; renderTable(); }
         });
 
-        function exportTable(tableId) {
-            const table = document.getElementById(tableId);
-            let csv = [];
-            for (let row of table.rows) {
-                let cols = [];
-                for (let cell of row.cells) cols.push(cell.innerText);
-                csv.push(cols.join(","));
-            }
-            const blob = new Blob([csv.join("\n")], { type: "text/csv" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = tableId + ".csv";
-            a.click();
-        }
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) { currentPage++; renderTable(); }
+        });
 
-        function exportPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.text("Payment Report - UNZAGYM", 14, 20);
-            doc.autoTable({
-                startY: 30,
-                html: "#paymentReportTable",
-                theme: "grid",
-                headStyles: { fillColor: [40, 116, 166] },
-            });
-            doc.save("payment_report.pdf");
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.replace("/member_login.html");
+        });
+    });
+
+    function exportTable(tableId) {
+        const table = document.getElementById(tableId);
+        let csv = [];
+        for (let row of table.rows) {
+            let cols = [];
+            for (let cell of row.cells) cols.push(cell.innerText);
+            csv.push(cols.join(","));
         }
-    </script>
+        const blob = new Blob([csv.join("\n")], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = tableId + ".csv";
+        a.click();
+    }
+
+    function exportPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.text("Payment Report - UNZAGYM", 14, 20);
+        doc.autoTable({
+            startY: 30,
+            html: "#paymentReportTable",
+            theme: "grid",
+            headStyles: { fillColor: [40, 116, 166] },
+        });
+        doc.save("payment_report.pdf");
+    }
+</script>
+
 </body>
 </html>

@@ -208,113 +208,122 @@
     <script src="adminAuth.js" defer></script>
 
     <script>
-        let currentPage = 1;
-        const pageSize = 5; // <-- now shows 5 announcements per page
+    let currentPage = 1;
+    const pageSize = 5; // <-- now shows 5 announcements per page
 
-        async function loadDashboardData() {
-            try {
-                const token = localStorage.getItem("token");
-                if (!token) return console.error("No token found");
+    // ===========================
+    // AUTO-DETECT BASE URL
+    // ===========================
+    const APP_URL = "https://unzagym.onrender.com"; // replace with your deployed URL
+    const baseURL = window.location.hostname.includes("localhost")
+        ? "http://localhost:5000"
+        : APP_URL;
 
-                // --- Fetch Summary Cards ---
-                const summaryResponse = await fetch("http://localhost:5000/api/admin/summary", {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                const summaryResult = await summaryResponse.json();
+    async function loadDashboardData() {
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) return console.error("No token found");
 
-                if (summaryResult.success) {
-                    const data = summaryResult.data;
-                    document.getElementById("totalMembers").textContent = data.totalMembers;
-                    document.getElementById("activeMembers").textContent = data.activeMembers;
-                    document.getElementById("pendingMembers").textContent = data.pendingMembers;
-                    document.getElementById("totalSubscriptions").textContent = data.totalSubscriptions;
+            // --- Fetch Summary Cards ---
+            const summaryResponse = await fetch(`${baseURL}/api/admin/summary`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const summaryResult = await summaryResponse.json();
 
-                    // --- Dynamic Alerts ---
-                    const alertsDiv = document.getElementById("dashboardAlerts");
-                    alertsDiv.innerHTML = "";
-                    if (data.pendingMembers > 0) {
-                        const pendingAlert = document.createElement("div");
-                        pendingAlert.className = "alert alert-warning d-flex align-items-center";
-                        pendingAlert.textContent = `You have ${data.pendingMembers} pending membership approvals.`;
-                        alertsDiv.appendChild(pendingAlert);
-                    }
-                    if (data.expiredSubscriptions > 0) {
-                        const expiredAlert = document.createElement("div");
-                        expiredAlert.className = "alert alert-danger d-flex align-items-center";
-                        expiredAlert.textContent = `${data.expiredSubscriptions} subscriptions expired today.`;
-                        alertsDiv.appendChild(expiredAlert);
-                    }
+            if (summaryResult.success) {
+                const data = summaryResult.data;
+                document.getElementById("totalMembers").textContent = data.totalMembers;
+                document.getElementById("activeMembers").textContent = data.activeMembers;
+                document.getElementById("pendingMembers").textContent = data.pendingMembers;
+                document.getElementById("totalSubscriptions").textContent = data.totalSubscriptions;
+
+                // --- Dynamic Alerts ---
+                const alertsDiv = document.getElementById("dashboardAlerts");
+                alertsDiv.innerHTML = "";
+                if (data.pendingMembers > 0) {
+                    const pendingAlert = document.createElement("div");
+                    pendingAlert.className = "alert alert-warning d-flex align-items-center";
+                    pendingAlert.textContent = `You have ${data.pendingMembers} pending membership approvals.`;
+                    alertsDiv.appendChild(pendingAlert);
                 }
-
-                // --- Fetch Recent Activity ---
-                const activityResponse = await fetch("http://localhost:5000/api/admin/recent-activity", {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                const activityResult = await activityResponse.json();
-                if (activityResult.success) {
-                    const ul = document.getElementById("recentActivityList");
-                    ul.innerHTML = "";
-                    activityResult.data.forEach(item => {
-                        const li = document.createElement("li");
-                        li.className = "list-group-item";
-                        li.textContent = `${item.activity} (${new Date(item.created_at).toLocaleString()})`;
-                        ul.appendChild(li);
-                    });
+                if (data.expiredSubscriptions > 0) {
+                    const expiredAlert = document.createElement("div");
+                    expiredAlert.className = "alert alert-danger d-flex align-items-center";
+                    expiredAlert.textContent = `${data.expiredSubscriptions} subscriptions expired today.`;
+                    alertsDiv.appendChild(expiredAlert);
                 }
-
-                // --- Load announcements ---
-                loadAnnouncements(currentPage);
-
-            } catch (error) {
-                console.error("Error fetching dashboard data:", error);
             }
-        }
 
-        async function loadAnnouncements(page = 1) {
-            try {
-                const token = localStorage.getItem("token");
-                if (!token) return console.error("No token found");
-
-                const response = await fetch(`http://localhost:5000/api/admin/announcements?page=${page}&limit=${pageSize}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                const result = await response.json();
-
-                const ul = document.getElementById("announcementsList");
+            // --- Fetch Recent Activity ---
+            const activityResponse = await fetch(`${baseURL}/api/admin/recent-activity`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const activityResult = await activityResponse.json();
+            if (activityResult.success) {
+                const ul = document.getElementById("recentActivityList");
                 ul.innerHTML = "";
-
-                if (result.success && result.announcements.length > 0) {
-                    result.announcements.forEach(item => {
-                        const li = document.createElement("li");
-                        li.className = "list-group-item";
-                        li.textContent = `${item.title} - ${item.message} (by ${item.admin_name}, ${new Date(item.created_at).toLocaleString()})`;
-                        ul.appendChild(li);
-                    });
-                } else {
-                    ul.innerHTML = "<li class='list-group-item'>No announcements found</li>";
-                }
-
-                // Pagination
-                document.getElementById("prevPage").disabled = page <= 1;
-                document.getElementById("nextPage").disabled = page >= result.totalPages;
-                document.getElementById("pageInfo").textContent = `Page ${page} of ${result.totalPages}`;
-                currentPage = page;
-
-            } catch (error) {
-                console.error("Error fetching announcements:", error);
+                activityResult.data.forEach(item => {
+                    const li = document.createElement("li");
+                    li.className = "list-group-item";
+                    li.textContent = `${item.activity} (${new Date(item.created_at).toLocaleString()})`;
+                    ul.appendChild(li);
+                });
             }
+
+            // --- Load announcements ---
+            loadAnnouncements(currentPage);
+
+        } catch (error) {
+            console.error("Error fetching dashboard data:", error);
         }
+    }
 
-        document.getElementById("prevPage").addEventListener("click", () => {
-            if (currentPage > 1) loadAnnouncements(currentPage - 1);
-        });
+    async function loadAnnouncements(page = 1) {
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) return console.error("No token found");
 
-        document.getElementById("nextPage").addEventListener("click", () => {
-            loadAnnouncements(currentPage + 1);
-        });
+            const response = await fetch(`${baseURL}/api/admin/announcements?page=${page}&limit=${pageSize}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const result = await response.json();
 
-        window.addEventListener("load", loadDashboardData);
-    </script>
+            const ul = document.getElementById("announcementsList");
+            ul.innerHTML = "";
+
+            if (result.success && result.announcements.length > 0) {
+                result.announcements.forEach(item => {
+                    const li = document.createElement("li");
+                    li.className = "list-group-item";
+                    li.textContent = `${item.title} - ${item.message} (by ${item.admin_name}, ${new Date(item.created_at).toLocaleString()})`;
+                    ul.appendChild(li);
+                });
+            } else {
+                ul.innerHTML = "<li class='list-group-item'>No announcements found</li>";
+            }
+
+            // Pagination
+            document.getElementById("prevPage").disabled = page <= 1;
+            document.getElementById("nextPage").disabled = page >= result.totalPages;
+            document.getElementById("pageInfo").textContent = `Page ${page} of ${result.totalPages}`;
+            currentPage = page;
+
+        } catch (error) {
+            console.error("Error fetching announcements:", error);
+        }
+    }
+
+    document.getElementById("prevPage").addEventListener("click", () => {
+        if (currentPage > 1) loadAnnouncements(currentPage - 1);
+    });
+
+    document.getElementById("nextPage").addEventListener("click", () => {
+        loadAnnouncements(currentPage + 1);
+    });
+
+    window.addEventListener("load", loadDashboardData);
+</script>
+
 
 </body>
 </html>

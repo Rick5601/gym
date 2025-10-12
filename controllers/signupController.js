@@ -21,10 +21,9 @@ exports.registerMember = async (req, res) => {
             amount,
             duration_days,
             payment_option,
-            room_number   // ✅ Added room_number
+            room_number
         } = req.body;
 
-        // Validate required fields
         if (
             !first_name || !last_name || !gender || !email_address ||
             !username || !password || !plan_name || !amount ||
@@ -33,7 +32,6 @@ exports.registerMember = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Please fill all required fields' });
         }
 
-        // Check if email or username already exists
         const [existingUser] = await db.query(
             'SELECT * FROM users WHERE email = ? OR username = ?',
             [email_address, username]
@@ -44,25 +42,21 @@ exports.registerMember = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Generate verification token
         const verificationToken = crypto.randomBytes(32).toString('hex');
         const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24h
 
-        // Insert into users
         const [userResult] = await db.query(
             'INSERT INTO users (username, email, password, role, verification_token, verification_expires, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
             [username, email_address, hashedPassword, 'member', verificationToken, verificationExpires]
         );
         const user_id = userResult.insertId;
 
-        // Insert subscription
         const [subResult] = await db.query(
             'INSERT INTO subscriptions (plan_name, amount, duration_days, is_archived, created_at, updated_at) VALUES (?, ?, ?, 0, NOW(), NOW())',
             [plan_name, amount, duration_days]
         );
         const subscription_id = subResult.insertId;
 
-        // Insert member including room_number
         await db.query(
             `INSERT INTO members 
             (user_id, first_name, last_name, student_id, email, gender, phone, room_number, subscription_id, payment_option, status, DOR, created_at, updated_at)
@@ -70,8 +64,9 @@ exports.registerMember = async (req, res) => {
             [user_id, first_name, last_name, student_id, email_address, gender, phone_number, room_number || null, subscription_id, payment_option]
         );
 
-        // Prepare verification email
-        const verificationLink = `http://localhost:5000/api/verify-email?token=${verificationToken}`;
+        // ✅ Updated to use APP_URL
+        const appURL = process.env.APP_URL || "http://localhost:5000";
+        const verificationLink = `${appURL}/api/verify-email?token=${verificationToken}`;
         const emailParams = new EmailParams()
             .setFrom({ email: process.env.MAILERSEND_FROM_EMAIL, name: 'UNZA Gym' })
             .setTo([{ email: email_address, name: first_name }])

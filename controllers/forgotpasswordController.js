@@ -13,7 +13,6 @@ const sendResetEmail = async (req, res) => {
 
   const { email } = req.body;
 
-  // 1️⃣ Validate request
   if (!email || email.trim() === "") {
     return res
       .status(400)
@@ -21,7 +20,6 @@ const sendResetEmail = async (req, res) => {
   }
 
   try {
-    // 2️⃣ Check if user exists
     const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [
       email,
     ]);
@@ -31,20 +29,18 @@ const sendResetEmail = async (req, res) => {
         .json({ success: false, message: "No account found with that email." });
     }
 
-    // 3️⃣ Generate reset token and expiry
     const token = crypto.randomBytes(20).toString("hex");
     const expiry = Date.now() + 3600000; // 1 hour
 
-    // 4️⃣ Save token & expiry in DB
     await db.query(
       "UPDATE users SET reset_token = ?, token_expiry = ? WHERE email = ?",
       [token, expiry, email]
     );
 
-    // 5️⃣ Generate reset link
-    const resetLink = `http://localhost:5000/reset_password.html?token=${token}`;
+    // ✅ Use APP_URL env variable
+    const appURL = process.env.APP_URL || "http://localhost:5000";
+    const resetLink = `${appURL}/reset_password.html?token=${token}`;
 
-    // 6️⃣ Setup MailerSend email params
     const sentFrom = new Sender(
       process.env.MAILERSEND_FROM_EMAIL, // must be verified/test domain
       "Gym System"
@@ -67,7 +63,6 @@ const sendResetEmail = async (req, res) => {
         `You requested a password reset. Reset link (valid 1 hour): ${resetLink}`
       );
 
-    // 7️⃣ Send email
     await mailerSend.email.send(emailParams);
 
     console.log(`✅ Password reset email sent to ${email}`);

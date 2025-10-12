@@ -167,115 +167,116 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      const token = localStorage.getItem("token");
-      const tbody = document.getElementById("membershipReportBody");
-      const pageInfo = document.getElementById("pageInfo");
-      const prevBtn = document.getElementById("prevBtn");
-      const nextBtn = document.getElementById("nextBtn");
+  document.addEventListener("DOMContentLoaded", async () => {
+    const APP_URL = "https://unzagym.onrender.com"; // replace with your deployed URL
+    const baseURL = window.location.hostname.includes("localhost")
+      ? "http://localhost:5000"
+      : APP_URL;
 
-      let currentPage = 1;
-      const limit = 5;
-      let totalPages = 1;
-      let members = [];
+    const token = localStorage.getItem("token");
+    const tbody = document.getElementById("membershipReportBody");
+    const pageInfo = document.getElementById("pageInfo");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
 
-      try {
-        const response = await fetch("http://localhost:5000/api/admin/membership-report", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        const result = await response.json();
+    let currentPage = 1;
+    const limit = 5;
+    let totalPages = 1;
+    let members = [];
 
-        if (!result.success || !result.data.length) {
-          tbody.innerHTML = "<tr><td colspan='4' class='text-center'>No data found</td></tr>";
-          pageInfo.textContent = '';
-          prevBtn.disabled = true;
-          nextBtn.disabled = true;
-          return;
-        }
+    try {
+      const response = await fetch(`${baseURL}/api/admin/membership-report`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const result = await response.json();
 
-        members = result.data;
-        totalPages = Math.ceil(members.length / limit);
-        currentPage = 1;
-        renderTable();
-
-      } catch (error) {
-        console.error(error);
-        tbody.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>Error loading data</td></tr>";
+      if (!result.success || !result.data.length) {
+        tbody.innerHTML = "<tr><td colspan='4' class='text-center'>No data found</td></tr>";
+        pageInfo.textContent = '';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
       }
 
-      function renderTable() {
-        tbody.innerHTML = '';
-        const start = (currentPage - 1) * limit;
-        const end = start + limit;
-        const pageData = members.slice(start, end);
+      members = result.data;
+      totalPages = Math.ceil(members.length / limit);
+      currentPage = 1;
+      renderTable();
 
-        pageData.forEach(member => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${member.member_id}</td>
-            <td>${member.name}</td>
-            <td>${member.status}</td>
-            <td>${new Date(member.end_date).toLocaleDateString()}</td>
-          `;
-          tbody.appendChild(row);
-        });
+    } catch (error) {
+      console.error(error);
+      tbody.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>Error loading data</td></tr>";
+    }
 
-        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-        prevBtn.disabled = currentPage === 1;
-        nextBtn.disabled = currentPage === totalPages;
-      }
+    function renderTable() {
+      tbody.innerHTML = '';
+      const start = (currentPage - 1) * limit;
+      const end = start + limit;
+      const pageData = members.slice(start, end);
 
-      prevBtn.addEventListener("click", () => {
-        if (currentPage > 1) {
-          currentPage--;
-          renderTable();
-        }
+      pageData.forEach(member => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${member.member_id}</td>
+          <td>${member.name}</td>
+          <td>${member.status}</td>
+          <td>${new Date(member.end_date).toLocaleDateString()}</td>
+        `;
+        tbody.appendChild(row);
       });
 
-      nextBtn.addEventListener("click", () => {
-        if (currentPage < totalPages) {
-          currentPage++;
-          renderTable();
-        }
-      });
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages;
+    }
 
-      // Export functions
-      window.exportTable = function(tableId) {
-        const table = document.getElementById(tableId);
-        let csv = [];
-        for (let row of table.rows) {
-          let cols = [];
-          for (let cell of row.cells) cols.push(cell.innerText);
-          csv.push(cols.join(","));
-        }
-        const blob = new Blob([csv.join("\n")], { type: "text/csv" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = tableId + ".csv";
-        a.click();
-      };
-
-      window.exportPDF = function() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        doc.text("Membership Report - UNZAGYM", 14, 20);
-        doc.autoTable({
-          startY: 30,
-          html: "#membershipReportTable",
-          theme: "grid",
-          headStyles: { fillColor: [40, 116, 166] },
-        });
-        doc.save("membership_report.pdf");
-      };
-
-      // Logout
-      document.getElementById("logoutBtn").addEventListener("click", () => {
-        localStorage.clear();
-        sessionStorage.clear();
-        window.location.replace("/member_login.html");
-      });
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 1) { currentPage--; renderTable(); }
     });
-  </script>
+
+    nextBtn.addEventListener("click", () => {
+      if (currentPage < totalPages) { currentPage++; renderTable(); }
+    });
+
+    // Export CSV
+    window.exportTable = function(tableId) {
+      const table = document.getElementById(tableId);
+      let csv = [];
+      for (let row of table.rows) {
+        let cols = [];
+        for (let cell of row.cells) cols.push(cell.innerText);
+        csv.push(cols.join(","));
+      }
+      const blob = new Blob([csv.join("\n")], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = tableId + ".csv";
+      a.click();
+    };
+
+    // Export PDF
+    window.exportPDF = function() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.text("Membership Report - UNZAGYM", 14, 20);
+      doc.autoTable({
+        startY: 30,
+        html: "#membershipReportTable",
+        theme: "grid",
+        headStyles: { fillColor: [40, 116, 166] },
+      });
+      doc.save("membership_report.pdf");
+    };
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.replace("/member_login.html");
+    });
+  });
+</script>
+
 </body>
 </html>

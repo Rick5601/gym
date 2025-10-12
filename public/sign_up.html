@@ -141,117 +141,119 @@
   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
   <script>
-    // ===========================
-    // AUTO-DETECT BASE URL
-    // ===========================
-    const baseURL = window.location.hostname.includes("localhost")
-      ? "http://localhost:5000"
-      : "https://unzagym.onrender.com";
+  // ===========================
+  // AUTO-DETECT BASE URL
+  // ===========================
+  const APP_URL = "https://unzagym.onrender.com"; // replace with your deployed URL
+  const baseURL = window.location.hostname.includes("localhost")
+    ? "http://localhost:5000"
+    : APP_URL;
 
-    // ===========================
-    // Subscription Plan Options
-    // ===========================
-    const subscriptions = [
-      { id: 1, name: "2 Weeks", cost: 150, gender: "all", duration_days: 14 },
-      { id: 2, name: "Semester", cost: 300, gender: "male", duration_days: 120 },
-      { id: 3, name: "Semester", cost: 350, gender: "female", duration_days: 120 }
-    ];
+  // ===========================
+  // Subscription Plan Options
+  // ===========================
+  const subscriptions = [
+    { id: 1, name: "2 Weeks", cost: 150, gender: "all", duration_days: 14 },
+    { id: 2, name: "Semester", cost: 300, gender: "male", duration_days: 120 },
+    { id: 3, name: "Semester", cost: 350, gender: "female", duration_days: 120 }
+  ];
 
-    const genderSelect = document.getElementById('gender');
-    const subscriptionSelect = document.getElementById('subscription');
-    const planCost = document.getElementById('planCost');
+  const genderSelect = document.getElementById('gender');
+  const subscriptionSelect = document.getElementById('subscription');
+  const planCost = document.getElementById('planCost');
 
-    function togglePassword(inputId, btn) {
-      const input = document.getElementById(inputId);
-      input.type = input.type === "password" ? "text" : "password";
-      btn.textContent = input.type === "password" ? "Show" : "Hide";
+  function togglePassword(inputId, btn) {
+    const input = document.getElementById(inputId);
+    input.type = input.type === "password" ? "text" : "password";
+    btn.textContent = input.type === "password" ? "Show" : "Hide";
+  }
+
+  genderSelect.addEventListener('change', function () {
+    const selectedGender = this.value;
+    subscriptionSelect.innerHTML = '<option value="" selected disabled>Select Plan</option>';
+    subscriptions.forEach(sub => {
+      if (sub.gender === 'all' || sub.gender === selectedGender) {
+        const option = document.createElement('option');
+        option.value = sub.id;
+        option.text = `${sub.name} (${sub.cost} ZMW)`;
+        option.dataset.cost = sub.cost;
+        option.dataset.planName = sub.name;
+        option.dataset.duration = sub.duration_days;
+        subscriptionSelect.appendChild(option);
+      }
+    });
+    planCost.value = '';
+  });
+
+  subscriptionSelect.addEventListener('change', function () {
+    const selectedOption = this.selectedOptions[0];
+    planCost.value = selectedOption.dataset.cost + ' ZMW';
+  });
+
+  // ===========================
+  // Sign-up Submission
+  // ===========================
+  document.getElementById('signupForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const password = document.getElementById('PasswordInput').value;
+    const passwordRepeat = document.getElementById('RepeatPasswordInput').value;
+
+    if (password !== passwordRepeat) {
+      alert("Passwords do not match!");
+      return;
     }
 
-    genderSelect.addEventListener('change', function () {
-      const selectedGender = this.value;
-      subscriptionSelect.innerHTML = '<option value="" selected disabled>Select Plan</option>';
-      subscriptions.forEach(sub => {
-        if (sub.gender === 'all' || sub.gender === selectedGender) {
-          const option = document.createElement('option');
-          option.value = sub.id;
-          option.text = `${sub.name} (${sub.cost} ZMW)`;
-          option.dataset.cost = sub.cost;
-          option.dataset.planName = sub.name;
-          option.dataset.duration = sub.duration_days;
-          subscriptionSelect.appendChild(option);
-        }
+    const selectedOption = subscriptionSelect.selectedOptions[0];
+    if (!selectedOption) {
+      alert("Please select a subscription plan.");
+      return;
+    }
+
+    const paymentOption = document.getElementById('paymentOption').value;
+    if (!paymentOption) {
+      alert("Please select a payment option.");
+      return;
+    }
+
+    const formData = {
+      first_name: document.getElementById('FirstName').value,
+      last_name: document.getElementById('LastName').value,
+      student_id: document.getElementById('StudentID').value,
+      username: document.getElementById('Username').value,
+      gender: genderSelect.value,
+      phone_number: document.getElementById('PhoneNumber').value,
+      email_address: document.getElementById('EmailAddress').value,
+      room_number: document.getElementById('RoomNumber').value,
+      password: password,
+      plan_name: selectedOption.dataset.planName,
+      amount: selectedOption.dataset.cost,
+      duration_days: selectedOption.dataset.duration,
+      payment_option: paymentOption
+    };
+
+    try {
+      const response = await fetch(`${baseURL}/api/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
       });
-      planCost.value = '';
-    });
 
-    subscriptionSelect.addEventListener('change', function () {
-      const selectedOption = this.selectedOptions[0];
-      planCost.value = selectedOption.dataset.cost + ' ZMW';
-    });
+      const result = await response.json();
+      alert(result.message);
 
-    // ===========================
-    // Sign-up Submission
-    // ===========================
-    document.getElementById('signupForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      const password = document.getElementById('PasswordInput').value;
-      const passwordRepeat = document.getElementById('RepeatPasswordInput').value;
-
-      if (password !== passwordRepeat) {
-        alert("Passwords do not match!");
-        return;
+      if (result.success) {
+        document.getElementById('signupForm').reset();
+        planCost.value = '';
+        // ✅ Do NOT redirect here — backend handles Pay Now after verification
       }
+    } catch (err) {
+      console.error("Signup error:", err);
+      alert("Signup failed. Check console for details.");
+    }
+  });
+</script>
 
-      const selectedOption = subscriptionSelect.selectedOptions[0];
-      if (!selectedOption) {
-        alert("Please select a subscription plan.");
-        return;
-      }
-
-      const paymentOption = document.getElementById('paymentOption').value;
-      if (!paymentOption) {
-        alert("Please select a payment option.");
-        return;
-      }
-
-      const formData = {
-        first_name: document.getElementById('FirstName').value,
-        last_name: document.getElementById('LastName').value,
-        student_id: document.getElementById('StudentID').value,
-        username: document.getElementById('Username').value,
-        gender: genderSelect.value,
-        phone_number: document.getElementById('PhoneNumber').value,
-        email_address: document.getElementById('EmailAddress').value,
-        room_number: document.getElementById('RoomNumber').value,
-        password: password,
-        plan_name: selectedOption.dataset.planName,
-        amount: selectedOption.dataset.cost,
-        duration_days: selectedOption.dataset.duration,
-        payment_option: paymentOption
-      };
-
-      try {
-        const response = await fetch(`${baseURL}/api/signup`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-
-        const result = await response.json();
-        alert(result.message);
-
-        if (result.success) {
-          document.getElementById('signupForm').reset();
-          planCost.value = '';
-          // ✅ Do NOT redirect here — backend handles Pay Now after verification
-        }
-      } catch (err) {
-        console.error("Signup error:", err);
-        alert("Signup failed. Check console for details.");
-      }
-    });
-  </script>
 </body>
 
 </html>
