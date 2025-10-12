@@ -67,9 +67,9 @@
   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
   <script>
     // ===========================
-    // AUTO-DETECT BASE URL
+    // Base API URL setup
     // ===========================
-    const baseURL = window.location.hostname.includes("localhost")
+    const API_BASE_URL = window.location.hostname.includes("localhost")
       ? "http://localhost:5000"
       : "https://unzagym.onrender.com";
 
@@ -90,7 +90,7 @@
       studentInput.value = studentId;
     } else {
       alert("You must be logged in to make a payment!");
-      window.location.href = `${baseURL}/member_login.html`;
+      window.location.href = "/member_login.html";
     }
 
     // ===========================
@@ -150,7 +150,7 @@
       formData.append('details', JSON.stringify(details));
 
       try {
-        const response = await fetch(`${baseURL}/api/payment`, {
+        const response = await fetch(`${API_BASE_URL}/api/payment`, {
           method: 'POST',
           body: formData
         });
@@ -164,8 +164,8 @@
           mobileFields.style.display = 'none';
           paymentProof.required = false;
 
-          // Redirect after success
-          window.location.replace(`${baseURL}/member_login.html`);
+          // Redirect to member login page
+          window.location.replace(`${API_BASE_URL}/member_login.html`);
         }
       } catch (err) {
         console.error("Payment submission error:", err);
