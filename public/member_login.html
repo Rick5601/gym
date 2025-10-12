@@ -14,7 +14,6 @@
 <body class="bg-gradient-primary">
     <div class="container">
         <div class="row justify-content-center">
-            <!-- Updated column sizes for responsiveness -->
             <div class="col-12 col-md-10 col-lg-8 col-xl-6">
                 <div class="card shadow-lg o-hidden border-0 my-5">
                     <div class="card-body p-0">
@@ -22,7 +21,6 @@
                             <div class="text-center mb-4">
                                 <h4>Member Login</h4>
                             </div>
-                            <!-- Added id for JS functionality -->
                             <form class="user" id="memberLoginForm">
                                 <div class="mb-3">
                                     <input class="form-control form-control-user" type="text" placeholder="Username" name="username" id="username" autocomplete="username" required>
@@ -82,13 +80,18 @@ document.getElementById("memberLoginForm").addEventListener("submit", async func
 
         const data = await res.json();
 
-        // 🟢 Handle backend redirect responses
-        if (data.redirect) {
+        // ------------------- Handle backend redirect for pending payment -------------------
+        if (data.redirect === "/make_payment.html" && data.userData) {
+            // Store user_id and student_id in sessionStorage
+            sessionStorage.setItem("user_id", data.userData.user_id);
+            sessionStorage.setItem("student_id", data.userData.student_id);
+
+            // Redirect to make_payment page
             window.location.href = data.redirect;
-            return; // stop further processing
+            return;
         }
 
-        // 🟢 Normal successful login
+        // ------------------- Normal successful login -------------------
         if (res.ok && data.success && data.token) {
             if (rememberMe) {
                 localStorage.setItem("memberToken", data.token);
@@ -99,7 +102,7 @@ document.getElementById("memberLoginForm").addEventListener("submit", async func
             localStorage.setItem("memberInfo", JSON.stringify(data.user));
             window.location.href = "/member_pages/profile.html";
         } 
-        // 🟠 Otherwise show backend message
+        // ------------------- Show error message -------------------
         else {
             alert(data.message || "Login failed");
         }
@@ -112,5 +115,4 @@ document.getElementById("memberLoginForm").addEventListener("submit", async func
 </script>
 
 </body>
-
 </html>

@@ -66,24 +66,34 @@
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script>
-        // Populate student_id from URL
+        // ===========================
+        // Populate student_id
+        // ===========================
         const urlParams = new URLSearchParams(window.location.search);
-        const studentId = urlParams.get('student_id');
+        let studentId = urlParams.get('student_id');
+
+        // Fallback: use sessionStorage if no student_id in URL
+        if (!studentId) {
+            studentId = sessionStorage.getItem('student_id') || localStorage.getItem('student_id');
+        }
+
         const studentInput = document.getElementById('student_id');
 
         if (studentId) {
             studentInput.value = studentId;
         } else {
-            alert("No student ID found in URL!");
+            alert("You must be logged in to make a payment!");
             window.location.href = "/member_login.html";
         }
 
+        // ===========================
+        // Payment method toggle
+        // ===========================
         const paymentMethod = document.getElementById('payment_method');
         const cashFields = document.getElementById('cashFields');
         const mobileFields = document.getElementById('mobileFields');
         const paymentProof = document.getElementById('payment_proof');
 
-        // Toggle fields based on payment method
         paymentMethod.addEventListener('change', () => {
             if (paymentMethod.value === 'mobile_money') {
                 mobileFields.style.display = 'block';
@@ -96,6 +106,9 @@
             }
         });
 
+        // ===========================
+        // Form submission
+        // ===========================
         document.getElementById('paymentForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -143,6 +156,9 @@
                     cashFields.style.display = 'none';
                     mobileFields.style.display = 'none';
                     paymentProof.required = false;
+
+                    // Redirect to member login page
+                    window.location.replace("http://localhost:5000/member_login.html");
                 }
             } catch (err) {
                 console.error("Payment submission error:", err);

@@ -38,18 +38,32 @@ exports.login = async (req, res) => {
 
         // -------------------- MEMBER STATUS CHECKS --------------------
         if (user.role === 'member') {
+            // Get member record to fetch student_id
+            const [memberResults] = await db.query(
+                'SELECT * FROM members WHERE user_id = ?',
+                [user.user_id]
+            );
+            const member = memberResults && memberResults.length > 0 ? memberResults[0] : null;
+            const studentId = member ? member.student_id : null;
+
             // Check recent payments for this user
             const [paymentResults] = await db.query(
                 'SELECT * FROM payments WHERE user_id = ? ORDER BY created_at DESC LIMIT 1',
                 [user.user_id]
             );
-
             const recentPayment = paymentResults && paymentResults.length > 0 ? paymentResults[0] : null;
 
             if (user.status === 'pending') {
-                // If user has no payment record, send to make_payment.html
+                // If user has no payment record, send to make_payment.html with IDs
                 if (!recentPayment) {
-                    return res.json({ success: false, redirect: '/make_payment.html' });
+                    return res.json({
+                        success: false,
+                        redirect: '/make_payment.html',
+                        userData: {
+                            user_id: user.user_id,
+                            student_id: studentId
+                        }
+                    });
                 }
                 // If payment exists, redirect to normal pending page
                 return res.json({ success: false, redirect: '/pending.html' });

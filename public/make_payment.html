@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Make Payment - UNZA Gym</title>
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="assets/css/Nunito.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
   <style>
     /* ===============================
        UNZA GYM PAYMENT PAGE STYLES
        Palette: Navy (#0f1e3f, #1b2a54) + Gold (#997953, #cdaa80)
        =============================== */
-
     body {
       font-family: 'Nunito', sans-serif;
       background: linear-gradient(135deg, #0f1e3f, #1b2a54);
@@ -80,12 +81,20 @@
     small {
       color: #997953 !important;
     }
+
+    .page-icon {
+      font-size: 50px;
+      color: #997953;
+      margin-bottom: 1rem;
+    }
   </style>
 </head>
 
 <body>
   <div class="card">
-    <img src="assets/img/gym_logo.png" alt="UNZA Gym Logo" />
+    <div class="page-icon">
+      <i class="fas fa-dumbbell"></i>
+    </div>
     <h4>Payment Required</h4>
     <p>
       Your account is currently <strong>pending activation</strong> because you
@@ -94,7 +103,7 @@
     <p>Would you like to make your membership payment now to activate your account?</p>
 
     <div class="d-flex justify-content-center mt-4 gap-3">
-      <a href="payment.html" class="btn btn-pay-now px-4 py-2">Pay Now</a>
+      <a href="#" id="payNowBtn" class="btn btn-pay-now px-4 py-2">Pay Now</a>
       <a href="member_login.html" class="btn btn-later px-4 py-2">Later</a>
     </div>
 
@@ -104,5 +113,23 @@
   </div>
 
   <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Get user_id and student_id from sessionStorage
+    const userId = sessionStorage.getItem('user_id');
+    const studentId = sessionStorage.getItem('student_id');
+
+    const payNowBtn = document.getElementById('payNowBtn');
+
+    if (!userId || !studentId) {
+      alert("You must be logged in to make a payment!");
+      payNowBtn.disabled = true; // prevent clicking
+    } else {
+      // Attach IDs to payment.html URL
+      payNowBtn.addEventListener('click', () => {
+        window.location.href = `payment.html?user_id=${userId}&student_id=${studentId}`;
+      });
+    }
+  </script>
 </body>
+
 </html>
