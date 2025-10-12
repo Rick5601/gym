@@ -4,7 +4,7 @@ const path = require("path");
 const { authenticateToken, authorizeRoles } = require("../middleware/authMiddleware");
 
 // Import Controllers
-const pendingMembersController = require("../controllers/pendingMembersController");
+const pendingMembersController = require("../controllers/pendingmembersController");
 const allMembersController = require("../controllers/allmembersController"); 
 const memberStatusController = require("../controllers/memberstatusController"); 
 const summaryCardController = require("../controllers/summarycardController");
