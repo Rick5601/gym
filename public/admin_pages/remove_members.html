@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 try {
                     const res = await fetch(`/api/admin/remove-member/${userId}`, {
-                        method: 'DELETE',
+                        method: 'PUT',
                         headers: { Authorization: `Bearer ${token}` }
                     });
                     const data = await res.json();
