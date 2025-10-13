@@ -12,6 +12,7 @@ const recentActivityController = require("../controllers/recentactivityControlle
 const announcementController = require("../controllers/announcementController");
 const reportController = require("../controllers/adminreportController"); 
 const adminPaymentController = require("../controllers/adminpaymentController");// ✅ Payment controller
+const removeMembersController = require("../controllers/removemembersController");
 
 // ------------------ HTML Pages ------------------ //
 // Serve Admin Dashboard HTML
@@ -128,6 +129,14 @@ router.get(
   authenticateToken,
   authorizeRoles("admin"),
   announcementController.getAllAnnouncements
+);
+
+// Soft-delete a member (mark as inactive)
+router.put(
+  "/remove-member/:user_id",
+  authenticateToken,
+  authorizeRoles("admin"),
+  removeMembersController.removeMember
 );
 
 // Create announcement (admin)
