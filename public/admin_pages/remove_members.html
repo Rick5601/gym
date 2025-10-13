@@ -220,8 +220,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${m.gender}</td>
                 <td>${m.phone}</td>
                 <td>${m.email}</td>
-                <td>${new Date(m.date_registered).toLocaleDateString()}</td>
-                <td>${m.plan}</td>
+                <td>${new Date(m.DOR).toLocaleDateString()}</td>
+                <td>${m.plan_name}</td>
                 <td>
                     <button class="btn btn-danger btn-sm remove-btn" data-id="${m.user_id}">Remove</button>
                 </td>
