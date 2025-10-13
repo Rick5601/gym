@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function fetchMembers() {
         try {
-            const res = await fetch("/api/admin/members", { headers: { Authorization: `Bearer ${token}` } });
+            const res = await fetch("/api/admin/all-members", { headers: { Authorization: `Bearer ${token}` } });
             const data = await res.json();
 
             if (!data.success || data.members.length === 0) {
