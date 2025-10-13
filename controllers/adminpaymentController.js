@@ -141,18 +141,34 @@ exports.approvePayment = async (req, res) => {
         );
 
         // Insert into payment_history
-        await pool.query(
-            `INSERT INTO payment_history (payment_id, member_id, subscription_id, amount_paid, payment_date, status, transaction_id)
-             VALUES (?, ?, ?, ?, ?, 'paid', ?)`,
-            [
-                payment.payment_id,
-                member.member_id,
-                member.subscription_id || null,
-                payment.payment_amount,
-                payment.payment_date,
-                payment.details || `TX-${payment.payment_id}`,
-            ]
-        );
+        let transactionId = `TX-${payment.payment_id}`; // fallback default
+
+try {
+  // If payment.details is JSON, parse it and extract only the transaction_id field
+  const details = JSON.parse(payment.details);
+  if (details.transaction_id) {
+    transactionId = details.transaction_id;
+  }
+} catch (err) {
+  // If it's not JSON, assume it might already be a plain string (like Txn 12345)
+  if (payment.details && typeof payment.details === "string") {
+    transactionId = payment.details;
+  }
+}
+
+await pool.query(
+  `INSERT INTO payment_history (payment_id, member_id, subscription_id, amount_paid, payment_date, status, transaction_id)
+   VALUES (?, ?, ?, ?, ?, 'paid', ?)`,
+  [
+    payment.payment_id,
+    member.member_id,
+    member.subscription_id || null,
+    payment.payment_amount,
+    payment.payment_date,
+    transactionId, // cleaned-up version
+  ]
+);
+
 
         // Send approval email
         const emailHtml = `
