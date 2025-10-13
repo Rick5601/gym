@@ -4,7 +4,7 @@ const pool = require("../config/db");
 exports.getSummaryData = async (req, res) => {
   try {
     const [[{ totalMembers }]] = await pool.query(
-      "SELECT COUNT(*) AS totalMembers FROM members"
+      "SELECT COUNT(*) AS totalMembers FROM members WHERE status = 'active'"
     );
 
     const [[{ activeMembers }]] = await pool.query(
