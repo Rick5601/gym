@@ -42,6 +42,7 @@ exports.removeMember = async (req, res) => {
 
         // Soft-delete: mark the user as inactive
         await pool.query("UPDATE users SET status = 'inactive' WHERE user_id = ?", [user_id]);
+         await pool.query("UPDATE members SET status = 'inactive' WHERE user_id = ?", [user_id]);
 
         res.json({ success: true, message: "Member marked as inactive (soft-deleted). Subscriptions and payment history remain intact." });
     } catch (err) {
