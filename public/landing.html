@@ -4,79 +4,104 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UNZA Gym & Fitness Centre</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ============ GLOBAL STYLES ============ */
+    /* ===============================
+       UNZA GYM LANDING PAGE STYLES
+       Palette: Navy (#0f1e3f, #1b2a54) + Gold (#997953, #cdaa80)
+       Font: Nunito
+    =============================== */
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      color: #222;
+      color: #1b2a54;
       background-color: #fff;
       line-height: 1.6;
     }
 
+    /* ---------- Header ---------- */
     header {
-      background: #002147;
+      background: #0f1e3f;
       color: #fff;
       padding: 15px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     header h1 {
-      font-size: 1.5em;
+      font-size: 1.6em;
+      font-weight: 700;
     }
 
     nav a {
-      color: #fff;
+      color: #cdaa80;
       text-decoration: none;
       margin: 0 10px;
-      font-weight: 500;
-      transition: 0.3s;
+      font-weight: 600;
+      transition: color 0.3s, text-shadow 0.3s;
     }
 
     nav a:hover {
-      color: #FFD700;
+      color: #fff;
+      text-shadow: 0 0 8px #cdaa80;
     }
 
+    /* ---------- Hero Section ---------- */
     .hero {
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+      background: linear-gradient(rgba(15, 30, 63, 0.7), rgba(15, 30, 63, 0.7)),
                   url('https://images.unsplash.com/photo-1594737625785-cd0a4f9f34e8?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
       color: white;
       text-align: center;
       padding: 100px 20px;
+      position: relative;
+      overflow: hidden;
     }
 
     .hero h2 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
+      font-size: 2.8em;
+      margin-bottom: 15px;
+      color: #fff;
     }
 
     .hero p {
       font-size: 1.2em;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      color: #f5f5f5;
     }
 
     .btn {
-      background: #FFD700;
-      color: #002147;
+      background: #997953;
+      color: #fff;
       padding: 12px 25px;
       border-radius: 25px;
       text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 0 rgba(153, 121, 83, 0);
     }
 
     .btn:hover {
-      background: #ffce00;
+      background: #cdaa80;
+      box-shadow: 0 0 15px 3px rgba(205, 170, 128, 0.7);
+      transform: translateY(-2px);
     }
 
+    /* ---------- Sections ---------- */
     section {
       padding: 60px 20px;
       max-width: 1100px;
@@ -86,14 +111,27 @@
     section h3 {
       text-align: center;
       font-size: 2em;
-      color: #002147;
+      color: #0f1e3f;
       margin-bottom: 20px;
+      font-weight: 700;
+      position: relative;
     }
 
-    .about, .facilities, .contact, .plans, .testimonials {
+    section h3::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #997953;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    .about, .facilities, .contact, .plans, .testimonials, .hours {
       text-align: center;
     }
 
+    /* ---------- Membership Plans ---------- */
     .plans table {
       width: 100%;
       border-collapse: collapse;
@@ -106,10 +144,15 @@
     }
 
     .plans th {
-      background: #002147;
+      background: #1b2a54;
       color: #fff;
     }
 
+    .plans td {
+      background: #fafafa;
+    }
+
+    /* ---------- Facilities ---------- */
     .facilities ul {
       list-style: none;
       padding: 0;
@@ -124,21 +167,33 @@
       border: 1px solid #ddd;
       padding: 15px;
       border-radius: 10px;
+      transition: 0.3s;
     }
 
+    .facilities li:hover {
+      border-color: #997953;
+      box-shadow: 0 0 10px rgba(153, 121, 83, 0.5);
+      transform: translateY(-3px);
+    }
+
+    /* ---------- Testimonials ---------- */
     .testimonials blockquote {
       background: #f1f1f1;
       padding: 20px;
-      border-left: 5px solid #002147;
+      border-left: 5px solid #997953;
       margin: 15px auto;
       width: 80%;
       font-style: italic;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: 0.3s;
     }
 
-    .hours {
-      text-align: center;
+    .testimonials blockquote:hover {
+      box-shadow: 0 4px 10px rgba(153, 121, 83, 0.3);
+      transform: scale(1.02);
     }
 
+    /* ---------- Contact Section ---------- */
     .contact form {
       max-width: 500px;
       margin: 20px auto;
@@ -151,39 +206,51 @@
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .contact input:focus, .contact textarea:focus {
+      border-color: #997953;
+      box-shadow: 0 0 8px rgba(205, 170, 128, 0.4);
+      outline: none;
     }
 
     .contact button {
-      background: #002147;
+      background: #997953;
       color: #fff;
       border: none;
       padding: 12px;
       border-radius: 25px;
       font-weight: bold;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s ease;
     }
 
     .contact button:hover {
-      background: #0047ab;
+      background: #cdaa80;
+      box-shadow: 0 0 12px rgba(205, 170, 128, 0.6);
+      transform: translateY(-2px);
     }
 
+    /* ---------- Footer ---------- */
     footer {
-      background: #002147;
-      color: white;
+      background: #1b2a54;
+      color: #fff;
       text-align: center;
-      padding: 20px;
+      padding: 25px;
       margin-top: 40px;
     }
 
     footer a {
-      color: #FFD700;
+      color: #cdaa80;
       text-decoration: none;
       margin: 0 8px;
+      transition: text-shadow 0.3s;
     }
 
     footer a:hover {
-      text-decoration: underline;
+      color: #fff;
+      text-shadow: 0 0 8px #cdaa80;
     }
 
     @media (max-width: 768px) {
@@ -192,22 +259,22 @@
         text-align: center;
       }
 
-      .plans table, .facilities ul {
-        font-size: 0.9em;
+      .hero h2 {
+        font-size: 2.2em;
       }
 
-      .hero h2 {
-        font-size: 2em;
+      .plans table, .facilities ul {
+        font-size: 0.9em;
       }
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
     <h1>UNZA Gym & Fitness Centre</h1>
     <nav>
-      <a href="landing.html">Home</a>
+      <a href="#home">Home</a>
       <a href="#about">About Us</a>
       <a href="#plans">Membership Plans</a>
       <a href="#facilities">Facilities</a>
@@ -217,7 +284,7 @@
     </nav>
   </header>
 
-  <section class="hero">
+  <section id="home" class="hero">
     <h2>Train Hard. Stay Fit. Be UNZA Strong.</h2>
     <p>Welcome to the University of Zambia Gym — your destination for fitness, health, and wellness.</p>
     <a href="#plans" class="btn">Join Now</a>
@@ -248,13 +315,13 @@
         <td>Male</td>
         <td>Semester</td>
         <td>K300</td>
-        <td>Access during open hours for the whole semester</td>
+        <td>Access during open hours for the whole semester.</td>
       </tr>
       <tr>
         <td>Female</td>
         <td>Semester</td>
         <td>K350</td>
-        <td>Access during open hours for the whole semester</td>
+        <td>Access during open hours for the whole semester.</td>
       </tr>
     </table>
   </section>
@@ -308,8 +375,7 @@
       <a href="#">Facebook</a> |
       <a href="#">Instagram</a>
     </p>
-    <p><a href="#">Home</a> | <a href="#">About</a> | <a href="#">Membership</a> | <a href="#">Contact</a> | <a href="#">Privacy Policy</a></p>
+    <p><a href="#home">Home</a> | <a href="#about">About</a> | <a href="#plans">Membership</a> | <a href="#contact">Contact</a> | <a href="#">Privacy Policy</a></p>
   </footer>
-
 </body>
 </html>
