@@ -6,16 +6,10 @@
   <title>UNZA Gym & Fitness Centre</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ===============================
-       UNZA GYM LANDING PAGE STYLES
-       Palette: Navy (#0f1e3f, #1b2a54) + Gold (#997953, #cdaa80)
-       Font: Nunito
-    =============================== */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
     html { scroll-behavior: smooth; }
     body { color: #1b2a54; background-color: #fff; line-height: 1.6; }
 
-    /* ---------- Header ---------- */
     header {
       background: #0f1e3f; color: #fff; padding: 15px 40px;
       display: flex; align-items: center; justify-content: space-between;
@@ -30,7 +24,6 @@
     nav a.active { color: #fff; border-bottom: 2px solid #cdaa80; text-shadow: 0 0 8px #cdaa80; }
     nav a:hover { color: #fff; text-shadow: 0 0 8px #cdaa80; }
 
-    /* ---------- Hero Section ---------- */
     .hero {
       background: linear-gradient(rgba(15, 30, 63, 0.7), rgba(15, 30, 63, 0.7)),
                   url('https://images.unsplash.com/photo-1594737625785-cd0a4f9f34e8?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
@@ -47,13 +40,12 @@
       background: #cdaa80; box-shadow: 0 0 15px 3px rgba(205, 170, 128, 0.7); transform: translateY(-2px);
     }
 
-    /* ---------- Sections ---------- */
     section { 
       padding: 60px 20px; 
       max-width: 1100px; 
       margin: auto; 
       transition: background-color 0.5s ease; 
-      scroll-margin-top: 120px; /* <-- Adjusted for sticky header + padding */
+      scroll-margin-top: 120px; 
     }
     section.active-section { background-color: #fff9f0; } /* light gold highlight */
     section h3 {
@@ -66,13 +58,11 @@
     }
     .about, .facilities, .contact, .plans, .testimonials, .hours { text-align: center; }
 
-    /* ---------- Membership Plans ---------- */
     .plans table { width: 100%; border-collapse: collapse; margin-top: 20px; }
     .plans th, .plans td { border: 1px solid #ccc; padding: 12px; }
     .plans th { background: #1b2a54; color: #fff; }
     .plans td { background: #fafafa; }
 
-    /* ---------- Facilities ---------- */
     .facilities ul {
       list-style: none; padding: 0; display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; text-align: left;
@@ -82,14 +72,6 @@
     }
     .facilities li:hover { border-color: #997953; box-shadow: 0 0 10px rgba(153, 121, 83, 0.5); transform: translateY(-3px); }
 
-    /* ---------- Testimonials ---------- */
-    .testimonials blockquote {
-      background: #f1f1f1; padding: 20px; border-left: 5px solid #997953;
-      margin: 15px auto; width: 80%; font-style: italic; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: 0.3s;
-    }
-    .testimonials blockquote:hover { box-shadow: 0 4px 10px rgba(153, 121, 83, 0.3); transform: scale(1.02); }
-
-    /* ---------- Contact Section ---------- */
     .contact form { max-width: 500px; margin: 20px auto; display: flex; flex-direction: column; }
     .contact input, .contact textarea {
       margin: 8px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px; transition: 0.3s;
@@ -101,7 +83,6 @@
     }
     .contact button:hover { background: #cdaa80; box-shadow: 0 0 12px rgba(205, 170, 128, 0.6); transform: translateY(-2px); }
 
-    /* ---------- Footer ---------- */
     footer { background: #1b2a54; color: #fff; text-align: center; padding: 25px; margin-top: 40px; }
     footer a { color: #cdaa80; text-decoration: none; margin: 0 8px; transition: text-shadow 0.3s; }
     footer a:hover { color: #fff; text-shadow: 0 0 8px #cdaa80; }
@@ -110,140 +91,115 @@
       header { flex-direction: column; text-align: center; }
       .hero h2 { font-size: 2.2em; }
       .plans table, .facilities ul { font-size: 0.9em; }
-      section { scroll-margin-top: 100px; } /* smaller offset for mobile */
+      section { scroll-margin-top: 100px; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>UNZA Gym & Fitness Centre</h1>
-    <nav>
-      <a href="#home" class="active">Home</a>
-      <a href="#about">About Us</a>
-      <a href="#plans">Membership Plans</a>
-      <a href="#facilities">Facilities</a>
-      <a href="#contact">Contact</a>
-      <a href="member_login.html">Login / Register</a>
-      <a href="admin_login.html">Admin Login</a>
-    </nav>
-  </header>
+<header>
+  <h1>UNZA Gym & Fitness Centre</h1>
+  <nav>
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About Us</a>
+    <a href="#plans">Membership Plans</a>
+    <a href="#facilities">Facilities</a>
+    <a href="#contact">Contact</a>
+    <a href="member_login.html">Login / Register</a>
+    <a href="admin_login.html">Admin Login</a>
+  </nav>
+</header>
 
-  <section class="hero" id="home">
-    <h2>Welcome to UNZA Gym & Fitness Centre</h2>
-    <p>Promoting health, wellness, and fitness for students and staff.</p>
-    <a href="#login" class="btn">Join Now</a>
-  </section>
+<section class="hero" id="home">
+  <h2>Welcome to UNZA Gym & Fitness Centre</h2>
+  <p>Promoting health, wellness, and fitness for students and staff.</p>
+  <a href="#login" class="btn">Join Now</a>
+</section>
 
-  <section id="about" class="about">
-    <h3>About Us</h3>
-    <p>The UNZA Gym & Fitness Centre promotes health and wellness among students and staff. We provide modern equipment, professional trainers, and affordable membership plans for all fitness levels.</p>
-    <p><strong>Mission:</strong> Empowering the UNZA community to live healthier, stronger, and more confident lives.</p>
-  </section>
+<section id="about" class="about">
+  <h3>About Us</h3>
+  <p>The UNZA Gym & Fitness Centre promotes health and wellness among students and staff. We provide modern equipment, professional trainers, and affordable membership plans for all fitness levels.</p>
+  <p><strong>Mission:</strong> Empowering the UNZA community to live healthier, stronger, and more confident lives.</p>
+</section>
 
-  <section id="plans" class="plans">
-    <h3>Membership Plans</h3>
-    <table>
-      <tr><th>Plan</th><th>Duration</th><th>Price (ZMW)</th><th>Benefits</th></tr>
-      <tr><td>Daily</td><td>1 Day</td><td>K20</td><td>Full gym access for one day.</td></tr>
-      <tr><td>Male</td><td>Semester</td><td>K300</td><td>Access during open hours for the whole semester.</td></tr>
-      <tr><td>Female</td><td>Semester</td><td>K350</td><td>Access during open hours for the whole semester.</td></tr>
-    </table>
-  </section>
+<section id="plans" class="plans">
+  <h3>Membership Plans</h3>
+  <table>
+    <tr><th>Plan</th><th>Duration</th><th>Price (ZMW)</th><th>Benefits</th></tr>
+    <tr><td>Daily</td><td>1 Day</td><td>K20</td><td>Full gym access for one day.</td></tr>
+    <tr><td>Male</td><td>Semester</td><td>K300</td><td>Access during open hours for the whole semester.</td></tr>
+    <tr><td>Female</td><td>Semester</td><td>K350</td><td>Access during open hours for the whole semester.</td></tr>
+  </table>
+</section>
 
-  <section id="facilities" class="facilities">
-    <h3>Our Facilities</h3>
-    <ul>
-      <li>🏋🏽‍♀️ Weight Training Room – Dumbbells, barbells, and strength machines</li>
-      <li>🏃🏾 Cardio Area – Treadmills, bikes, and elliptical trainers</li>
-      <li>💃🏽 Aerobics & Dance Studio – Group sessions and fitness classes</li>
-      <li>🌳 Outdoor Fitness Zone – Open-air training for endurance and flexibility</li>
-    </ul>
-  </section>
+<section id="facilities" class="facilities">
+  <h3>Our Facilities</h3>
+  <ul>
+    <li>🏋🏽‍♀️ Weight Training Room – Dumbbells, barbells, and strength machines</li>
+    <li>🏃🏾 Cardio Area – Treadmills, bikes, and elliptical trainers</li>
+    <li>💃🏽 Aerobics & Dance Studio – Group sessions and fitness classes</li>
+    <li>🌳 Outdoor Fitness Zone – Open-air training for endurance and flexibility</li>
+  </ul>
+</section>
 
-  <section class="hours">
-    <h3>Operating Hours & Location</h3>
-    <p><strong>Location:</strong> University of Zambia, Main Campus – Near the Sports Complex</p>
-    <p><strong>Hours:</strong><br>
-      Monday–Friday: 06:00 AM – 08:00 PM<br>
-      Saturday: 08:00 AM – 06:00 PM<br>
-      Sunday: Closed
-    </p>
-  </section>
+<section class="hours">
+  <h3>Operating Hours & Location</h3>
+  <p><strong>Location:</strong> University of Zambia, Main Campus – Near the Sports Complex</p>
+  <p><strong>Hours:</strong><br>
+    Monday–Friday: 06:00 AM – 08:00 PM<br>
+    Saturday: 08:00 AM – 06:00 PM<br>
+    Sunday: Closed
+  </p>
+</section>
 
-  <section id="contact" class="contact">
-    <h3>Contact Us</h3>
-    <p>Have a question or need help with registration? We’re here to assist you!</p>
-    <p>📞 +260 97 795 8507 | 📧 2021509902@student.unza.zm | 💬 WhatsApp: +260 97 795 8507</p>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="4" placeholder="Your Message"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
+<section id="contact" class="contact">
+  <h3>Contact Us</h3>
+  <p>Have a question or need help with registration? We’re here to assist you!</p>
+  <p>📞 +260 97 795 8507 | 📧 2021509902@student.unza.zm | 💬 WhatsApp: +260 97 795 8507</p>
+  <form>
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea rows="4" placeholder="Your Message"></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
 
-  <section id="login" class="contact">
-    <h3>Member Access</h3>
-    <p>Already a member? <a href="member_login.html">Login Here</a></p>
-    <p>New to UNZA Gym? <a href="sign_up.html">Register to Become a Member</a></p>
-  </section>
+<section id="login" class="contact">
+  <h3>Member Access</h3>
+  <p>Already a member? <a href="member_login.html">Login Here</a></p>
+  <p>New to UNZA Gym? <a href="sign_up.html">Register to Become a Member</a></p>
+</section>
 
-  <footer>
-    <p>© 2025 University of Zambia Gym & Fitness Centre. All Rights Reserved.</p>
-    <p>Follow us: <a href="#">Facebook</a> | <a href="#">Instagram</a></p>
-    <p><a href="#home">Home</a> | <a href="#about">About</a> | <a href="#plans">Membership</a> | <a href="#contact">Contact</a> | <a href="#">Privacy Policy</a></p>
-  </footer>
+<footer>
+  <p>© 2025 University of Zambia Gym & Fitness Centre. All Rights Reserved.</p>
+  <p>Follow us: <a href="#">Facebook</a> | <a href="#">Instagram</a></p>
+  <p><a href="#home">Home</a> | <a href="#about">About</a> | <a href="#plans">Membership</a> | <a href="#contact">Contact</a> | <a href="#">Privacy Policy</a></p>
+</footer>
 
-  <script>
-    const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll("nav a[href^='#']");
+<script>
+  const navLinks = document.querySelectorAll("nav a[href^='#']");
+  const sections = document.querySelectorAll("section");
 
-    function removeHighlights() {
-      navLinks.forEach(link => link.classList.remove("active"));
-      sections.forEach(section => section.classList.remove("active-section"));
-    }
+  function removeHighlights() {
+    navLinks.forEach(link => link.classList.remove("active"));
+    sections.forEach(section => section.classList.remove("active-section"));
+  }
 
-    function highlightSection(sectionId) {
+  navLinks.forEach(link => {
+    link.addEventListener("click", e => {
+      const targetId = link.getAttribute("href").substring(1);
+      const targetSection = document.getElementById(targetId);
+      if (!targetSection) return;
+
+      e.preventDefault();
+      targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+
       removeHighlights();
-      const link = document.querySelector(`nav a[href="#${sectionId}"]`);
-      const section = document.getElementById(sectionId);
-      if (link) link.classList.add("active");
-      if (section) section.classList.add("active-section");
-    }
-
-    // Scroll-based highlighting: closest section to viewport center
-    window.addEventListener("scroll", () => {
-      let closestSection = sections[0];
-      let minDistance = Infinity;
-      const viewportCenter = window.innerHeight / 2;
-
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        const sectionCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(sectionCenter - viewportCenter);
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestSection = section;
-        }
-      });
-
-      highlightSection(closestSection.id);
+      link.classList.add("active");
+      targetSection.classList.add("active-section");
     });
-
-    // Click-based smooth scroll with highlight
-    navLinks.forEach(link => {
-      link.addEventListener("click", e => {
-        const targetId = link.getAttribute("href").substring(1);
-        const targetSection = document.getElementById(targetId);
-        if (targetSection) {
-          e.preventDefault();
-          targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
-          highlightSection(targetId);
-        }
-      });
-    });
-  </script>
+  });
+</script>
 
 </body>
 </html>
