@@ -53,12 +53,21 @@
       text-decoration: none;
       margin: 0 10px;
       font-weight: 600;
-      transition: color 0.3s, text-shadow 0.3s;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
     }
 
     nav a:hover {
       color: #fff;
       text-shadow: 0 0 8px #cdaa80;
+    }
+
+    /* Highlight active section */
+    nav a.active {
+      background: rgba(205, 170, 128, 0.2);
+      color: #fff;
+      border-bottom: 2px solid #cdaa80;
     }
 
     /* ---------- Hero Section ---------- */
@@ -274,7 +283,7 @@
   <header>
     <h1>UNZA Gym & Fitness Centre</h1>
     <nav>
-      <a href="#home">Home</a>
+      <a href="#home" class="active">Home</a>
       <a href="#about">About Us</a>
       <a href="#plans">Membership Plans</a>
       <a href="#facilities">Facilities</a>
@@ -354,7 +363,7 @@
   <section id="contact" class="contact">
     <h3>Contact Us</h3>
     <p>Have a question or need help with registration? We’re here to assist you!</p>
-    <p>📞 +260 97 795 8507| 📧 2021509902@student.unza.zm | 💬 WhatsApp: +260 97 795 8507</p>
+    <p>📞 +260 97 795 8507 | 📧 2021509902@student.unza.zm | 💬 WhatsApp: +260 97 795 8507</p>
     <form>
       <input type="text" placeholder="Your Name" required>
       <input type="email" placeholder="Your Email" required>
@@ -377,6 +386,30 @@
     </p>
     <p><a href="#home">Home</a> | <a href="#about">About</a> | <a href="#plans">Membership</a> | <a href="#contact">Contact</a> | <a href="#">Privacy Policy</a></p>
   </footer>
+
+  <script>
+    // Highlight active section in navbar
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll("nav a[href^='#']");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").includes(current)) {
+          link.classList.add("active");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-
