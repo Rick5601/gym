@@ -11,277 +11,104 @@
        Palette: Navy (#0f1e3f, #1b2a54) + Gold (#997953, #cdaa80)
        Font: Nunito
     =============================== */
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Nunito', sans-serif;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      color: #1b2a54;
-      background-color: #fff;
-      line-height: 1.6;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { color: #1b2a54; background-color: #fff; line-height: 1.6; }
 
     /* ---------- Header ---------- */
     header {
-      background: #0f1e3f;
-      color: #fff;
-      padding: 15px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      background: #0f1e3f; color: #fff; padding: 15px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; position: sticky; top: 0; z-index: 1000;
     }
-
-    header h1 {
-      font-size: 1.6em;
-      font-weight: 700;
-    }
-
+    header h1 { font-size: 1.6em; font-weight: 700; }
     nav a {
-      color: #cdaa80;
-      text-decoration: none;
-      margin: 0 10px;
-      font-weight: 600;
-      transition: color 0.3s, text-shadow 0.3s, border-bottom 0.3s;
+      color: #cdaa80; text-decoration: none; margin: 0 10px;
+      font-weight: 600; transition: color 0.3s, text-shadow 0.3s, border-bottom 0.3s;
       padding-bottom: 3px;
     }
-
-    nav a.active {
-      color: #fff;
-      border-bottom: 2px solid #cdaa80;
-      text-shadow: 0 0 8px #cdaa80;
-    }
-
-    nav a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px #cdaa80;
-    }
+    nav a.active { color: #fff; border-bottom: 2px solid #cdaa80; text-shadow: 0 0 8px #cdaa80; }
+    nav a:hover { color: #fff; text-shadow: 0 0 8px #cdaa80; }
 
     /* ---------- Hero Section ---------- */
     .hero {
       background: linear-gradient(rgba(15, 30, 63, 0.7), rgba(15, 30, 63, 0.7)),
                   url('https://images.unsplash.com/photo-1594737625785-cd0a4f9f34e8?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
-      color: white;
-      text-align: center;
-      padding: 100px 20px;
-      position: relative;
-      overflow: hidden;
+      color: white; text-align: center; padding: 100px 20px; position: relative; overflow: hidden;
     }
-
-    .hero h2 {
-      font-size: 2.8em;
-      margin-bottom: 15px;
-      color: #fff;
-    }
-
-    .hero p {
-      font-size: 1.2em;
-      margin-bottom: 25px;
-      color: #f5f5f5;
-    }
-
+    .hero h2 { font-size: 2.8em; margin-bottom: 15px; color: #fff; }
+    .hero p { font-size: 1.2em; margin-bottom: 25px; color: #f5f5f5; }
     .btn {
-      background: #997953;
-      color: #fff;
-      padding: 12px 25px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: 700;
-      transition: all 0.3s ease;
+      background: #997953; color: #fff; padding: 12px 25px; border-radius: 25px;
+      text-decoration: none; font-weight: 700; transition: all 0.3s ease;
       box-shadow: 0 0 0 rgba(153, 121, 83, 0);
     }
-
     .btn:hover {
-      background: #cdaa80;
-      box-shadow: 0 0 15px 3px rgba(205, 170, 128, 0.7);
-      transform: translateY(-2px);
+      background: #cdaa80; box-shadow: 0 0 15px 3px rgba(205, 170, 128, 0.7); transform: translateY(-2px);
     }
 
     /* ---------- Sections ---------- */
-    section {
-      padding: 60px 20px;
-      max-width: 1100px;
-      margin: auto;
-      transition: background-color 0.5s ease;
-    }
-
-    section.active-section {
-      background-color: #fff9f0; /* light gold highlight */
-    }
-
+    section { padding: 60px 20px; max-width: 1100px; margin: auto; transition: background-color 0.5s ease; }
+    section.active-section { background-color: #fff9f0; } /* light gold highlight */
     section h3 {
-      text-align: center;
-      font-size: 2em;
-      color: #0f1e3f;
-      margin-bottom: 20px;
-      font-weight: 700;
-      position: relative;
+      text-align: center; font-size: 2em; color: #0f1e3f; margin-bottom: 20px;
+      font-weight: 700; position: relative;
     }
-
     section h3::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 4px;
-      background: #997953;
-      margin: 10px auto 0;
-      border-radius: 2px;
+      content: ''; display: block; width: 60px; height: 4px; background: #997953;
+      margin: 10px auto 0; border-radius: 2px;
     }
-
-    .about, .facilities, .contact, .plans, .testimonials, .hours {
-      text-align: center;
-    }
+    .about, .facilities, .contact, .plans, .testimonials, .hours { text-align: center; }
 
     /* ---------- Membership Plans ---------- */
-    .plans table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    .plans th, .plans td {
-      border: 1px solid #ccc;
-      padding: 12px;
-    }
-
-    .plans th {
-      background: #1b2a54;
-      color: #fff;
-    }
-
-    .plans td {
-      background: #fafafa;
-    }
+    .plans table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .plans th, .plans td { border: 1px solid #ccc; padding: 12px; }
+    .plans th { background: #1b2a54; color: #fff; }
+    .plans td { background: #fafafa; }
 
     /* ---------- Facilities ---------- */
     .facilities ul {
-      list-style: none;
-      padding: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      text-align: left;
+      list-style: none; padding: 0; display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; text-align: left;
     }
-
     .facilities li {
-      background: #f9f9f9;
-      border: 1px solid #ddd;
-      padding: 15px;
-      border-radius: 10px;
-      transition: 0.3s;
+      background: #f9f9f9; border: 1px solid #ddd; padding: 15px; border-radius: 10px; transition: 0.3s;
     }
-
-    .facilities li:hover {
-      border-color: #997953;
-      box-shadow: 0 0 10px rgba(153, 121, 83, 0.5);
-      transform: translateY(-3px);
-    }
+    .facilities li:hover { border-color: #997953; box-shadow: 0 0 10px rgba(153, 121, 83, 0.5); transform: translateY(-3px); }
 
     /* ---------- Testimonials ---------- */
     .testimonials blockquote {
-      background: #f1f1f1;
-      padding: 20px;
-      border-left: 5px solid #997953;
-      margin: 15px auto;
-      width: 80%;
-      font-style: italic;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: 0.3s;
+      background: #f1f1f1; padding: 20px; border-left: 5px solid #997953;
+      margin: 15px auto; width: 80%; font-style: italic; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: 0.3s;
     }
-
-    .testimonials blockquote:hover {
-      box-shadow: 0 4px 10px rgba(153, 121, 83, 0.3);
-      transform: scale(1.02);
-    }
+    .testimonials blockquote:hover { box-shadow: 0 4px 10px rgba(153, 121, 83, 0.3); transform: scale(1.02); }
 
     /* ---------- Contact Section ---------- */
-    .contact form {
-      max-width: 500px;
-      margin: 20px auto;
-      display: flex;
-      flex-direction: column;
-    }
-
+    .contact form { max-width: 500px; margin: 20px auto; display: flex; flex-direction: column; }
     .contact input, .contact textarea {
-      margin: 8px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      transition: 0.3s;
+      margin: 8px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px; transition: 0.3s;
     }
-
-    .contact input:focus, .contact textarea:focus {
-      border-color: #997953;
-      box-shadow: 0 0 8px rgba(205, 170, 128, 0.4);
-      outline: none;
-    }
-
+    .contact input:focus, .contact textarea:focus { border-color: #997953; box-shadow: 0 0 8px rgba(205, 170, 128, 0.4); outline: none; }
     .contact button {
-      background: #997953;
-      color: #fff;
-      border: none;
-      padding: 12px;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      background: #997953; color: #fff; border: none; padding: 12px; border-radius: 25px;
+      font-weight: bold; cursor: pointer; transition: all 0.3s ease;
     }
-
-    .contact button:hover {
-      background: #cdaa80;
-      box-shadow: 0 0 12px rgba(205, 170, 128, 0.6);
-      transform: translateY(-2px);
-    }
+    .contact button:hover { background: #cdaa80; box-shadow: 0 0 12px rgba(205, 170, 128, 0.6); transform: translateY(-2px); }
 
     /* ---------- Footer ---------- */
-    footer {
-      background: #1b2a54;
-      color: #fff;
-      text-align: center;
-      padding: 25px;
-      margin-top: 40px;
-    }
-
-    footer a {
-      color: #cdaa80;
-      text-decoration: none;
-      margin: 0 8px;
-      transition: text-shadow 0.3s;
-    }
-
-    footer a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px #cdaa80;
-    }
+    footer { background: #1b2a54; color: #fff; text-align: center; padding: 25px; margin-top: 40px; }
+    footer a { color: #cdaa80; text-decoration: none; margin: 0 8px; transition: text-shadow 0.3s; }
+    footer a:hover { color: #fff; text-shadow: 0 0 8px #cdaa80; }
 
     @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .hero h2 {
-        font-size: 2.2em;
-      }
-
-      .plans table, .facilities ul {
-        font-size: 0.9em;
-      }
+      header { flex-direction: column; text-align: center; }
+      .hero h2 { font-size: 2.2em; }
+      .plans table, .facilities ul { font-size: 0.9em; }
     }
   </style>
 </head>
 <body>
+
   <header>
     <h1>UNZA Gym & Fitness Centre</h1>
     <nav>
@@ -294,6 +121,12 @@
       <a href="admin_login.html">Admin Login</a>
     </nav>
   </header>
+
+  <section class="hero">
+    <h2>Welcome to UNZA Gym & Fitness Centre</h2>
+    <p>Promoting health, wellness, and fitness for students and staff.</p>
+    <a href="#contact" class="btn">Join Now</a>
+  </section>
 
   <section id="about" class="about">
     <h3>About Us</h3>
@@ -331,9 +164,10 @@
     <h3>Operating Hours & Location</h3>
     <p><strong>Location:</strong> University of Zambia, Main Campus – Near the Sports Complex</p>
     <p><strong>Hours:</strong><br>
-    Monday–Friday: 06:00 AM – 08:00 PM<br>
-    Saturday: 08:00 AM – 06:00 PM<br>
-    Sunday: Closed</p>
+      Monday–Friday: 06:00 AM – 08:00 PM<br>
+      Saturday: 08:00 AM – 06:00 PM<br>
+      Sunday: Closed
+    </p>
   </section>
 
   <section id="contact" class="contact">
@@ -350,42 +184,45 @@
 
   <footer>
     <p>© 2025 University of Zambia Gym & Fitness Centre. All Rights Reserved.</p>
-    <p>Follow us:
-      <a href="#">Facebook</a> |
-      <a href="#">Instagram</a>
-    </p>
+    <p>Follow us: <a href="#">Facebook</a> | <a href="#">Instagram</a></p>
     <p><a href="#home">Home</a> | <a href="#about">About</a> | <a href="#plans">Membership</a> | <a href="#contact">Contact</a> | <a href="#">Privacy Policy</a></p>
   </footer>
 
   <script>
-    // Highlight current section and navbar link
     const sections = document.querySelectorAll("section");
     const navLinks = document.querySelectorAll("nav a[href^='#']");
 
+    function removeHighlights() {
+      navLinks.forEach(link => link.classList.remove("active"));
+      sections.forEach(section => section.classList.remove("active-section"));
+    }
+
+    function highlightSection(sectionId) {
+      removeHighlights();
+      const link = document.querySelector(`nav a[href="#${sectionId}"]`);
+      const section = document.getElementById(sectionId);
+      if (link) link.classList.add("active");
+      if (section) section.classList.add("active-section");
+    }
+
+    // Scroll-based highlighting
     window.addEventListener("scroll", () => {
       let current = "";
       sections.forEach(section => {
         const sectionTop = section.offsetTop - 100;
-        if (pageYOffset >= sectionTop) {
-          current = section.getAttribute("id");
-        }
+        if (pageYOffset >= sectionTop) current = section.getAttribute("id");
       });
+      if (current) highlightSection(current);
+    });
 
-      navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === "#" + current) {
-          link.classList.add("active");
-        }
-      });
-
-      sections.forEach(section => {
-        section.classList.remove("active-section");
-        if (section.getAttribute("id") === current) {
-          section.classList.add("active-section");
-        }
+    // Click-based highlighting
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        const targetId = link.getAttribute("href").substring(1);
+        highlightSection(targetId);
       });
     });
   </script>
+
 </body>
 </html>
-
