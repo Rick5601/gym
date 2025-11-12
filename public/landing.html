@@ -48,7 +48,13 @@
     }
 
     /* ---------- Sections ---------- */
-    section { padding: 60px 20px; max-width: 1100px; margin: auto; transition: background-color 0.5s ease; }
+    section { 
+      padding: 60px 20px; 
+      max-width: 1100px; 
+      margin: auto; 
+      transition: background-color 0.5s ease; 
+      scroll-margin-top: 90px; /* <-- Fix for sticky header */
+    }
     section.active-section { background-color: #fff9f0; } /* light gold highlight */
     section h3 {
       text-align: center; font-size: 2em; color: #0f1e3f; margin-bottom: 20px;
@@ -122,7 +128,7 @@
     </nav>
   </header>
 
-  <section class="hero">
+  <section class="hero" id="home">
     <h2>Welcome to UNZA Gym & Fitness Centre</h2>
     <p>Promoting health, wellness, and fitness for students and staff.</p>
     <a href="#login" class="btn">Join Now</a>
@@ -181,6 +187,7 @@
       <button type="submit">Send Message</button>
     </form>
   </section>
+
   <section id="login" class="contact">
     <h3>Member Access</h3>
     <p>Already a member? <a href="member_login.html">Login Here</a></p>
@@ -220,16 +227,19 @@
       if (current) highlightSection(current);
     });
 
-    // Click-based highlighting
+    // Click-based smooth scroll with highlight
     navLinks.forEach(link => {
-      link.addEventListener("click", () => {
+      link.addEventListener("click", e => {
         const targetId = link.getAttribute("href").substring(1);
-        highlightSection(targetId);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          e.preventDefault(); // prevent default jump
+          targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+          highlightSection(targetId);
+        }
       });
     });
   </script>
 
 </body>
 </html>
-
-
