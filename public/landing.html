@@ -53,7 +53,7 @@
       max-width: 1100px; 
       margin: auto; 
       transition: background-color 0.5s ease; 
-      scroll-margin-top: 90px; /* <-- Fix for sticky header */
+      scroll-margin-top: 120px; /* <-- Adjusted for sticky header + padding */
     }
     section.active-section { background-color: #fff9f0; } /* light gold highlight */
     section h3 {
@@ -110,6 +110,7 @@
       header { flex-direction: column; text-align: center; }
       .hero h2 { font-size: 2.2em; }
       .plans table, .facilities ul { font-size: 0.9em; }
+      section { scroll-margin-top: 100px; } /* smaller offset for mobile */
     }
   </style>
 </head>
@@ -215,7 +216,7 @@
     window.addEventListener("scroll", () => {
       let current = "";
       sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
+        const sectionTop = section.offsetTop - 120; // match scroll-margin-top
         if (pageYOffset >= sectionTop) current = section.getAttribute("id");
       });
       if (current) highlightSection(current);
@@ -227,7 +228,7 @@
         const targetId = link.getAttribute("href").substring(1);
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
-          e.preventDefault(); // prevent default jump
+          e.preventDefault();
           targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
           highlightSection(targetId);
         }
@@ -237,4 +238,3 @@
 
 </body>
 </html>
-
