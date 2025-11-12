@@ -53,21 +53,19 @@
       text-decoration: none;
       margin: 0 10px;
       font-weight: 600;
-      padding: 6px 10px;
-      border-radius: 6px;
-      transition: all 0.3s ease;
+      transition: color 0.3s, text-shadow 0.3s, border-bottom 0.3s;
+      padding-bottom: 3px;
+    }
+
+    nav a.active {
+      color: #fff;
+      border-bottom: 2px solid #cdaa80;
+      text-shadow: 0 0 8px #cdaa80;
     }
 
     nav a:hover {
       color: #fff;
       text-shadow: 0 0 8px #cdaa80;
-    }
-
-    /* Highlight active section */
-    nav a.active {
-      background: rgba(205, 170, 128, 0.2);
-      color: #fff;
-      border-bottom: 2px solid #cdaa80;
     }
 
     /* ---------- Hero Section ---------- */
@@ -115,6 +113,11 @@
       padding: 60px 20px;
       max-width: 1100px;
       margin: auto;
+      transition: background-color 0.5s ease;
+    }
+
+    section.active-section {
+      background-color: #fff9f0; /* light gold highlight */
     }
 
     section h3 {
@@ -278,7 +281,6 @@
     }
   </style>
 </head>
-
 <body>
   <header>
     <h1>UNZA Gym & Fitness Centre</h1>
@@ -308,30 +310,10 @@
   <section id="plans" class="plans">
     <h3>Membership Plans</h3>
     <table>
-      <tr>
-        <th>Plan</th>
-        <th>Duration</th>
-        <th>Price (ZMW)</th>
-        <th>Benefits</th>
-      </tr>
-      <tr>
-        <td>Daily</td>
-        <td>1 Day</td>
-        <td>K20</td>
-        <td>Full gym access for one day.</td>
-      </tr>
-      <tr>
-        <td>Male</td>
-        <td>Semester</td>
-        <td>K300</td>
-        <td>Access during open hours for the whole semester.</td>
-      </tr>
-      <tr>
-        <td>Female</td>
-        <td>Semester</td>
-        <td>K350</td>
-        <td>Access during open hours for the whole semester.</td>
-      </tr>
+      <tr><th>Plan</th><th>Duration</th><th>Price (ZMW)</th><th>Benefits</th></tr>
+      <tr><td>Daily</td><td>1 Day</td><td>K20</td><td>Full gym access for one day.</td></tr>
+      <tr><td>Male</td><td>Semester</td><td>K300</td><td>Access during open hours for the whole semester.</td></tr>
+      <tr><td>Female</td><td>Semester</td><td>K350</td><td>Access during open hours for the whole semester.</td></tr>
     </table>
   </section>
 
@@ -372,12 +354,6 @@
     </form>
   </section>
 
-  <section id="login" class="contact">
-    <h3>Member Access</h3>
-    <p>Already a member? <a href="member_login.html">Login Here</a></p>
-    <p>New to UNZA Gym? <a href="sign_up.html">Register to Become a Member</a></p>
-  </section>
-
   <footer>
     <p>© 2025 University of Zambia Gym & Fitness Centre. All Rights Reserved.</p>
     <p>Follow us:
@@ -388,25 +364,30 @@
   </footer>
 
   <script>
-    // Highlight active section in navbar
-    const sections = document.querySelectorAll("section[id]");
+    // Highlight current section and navbar link
+    const sections = document.querySelectorAll("section");
     const navLinks = document.querySelectorAll("nav a[href^='#']");
 
     window.addEventListener("scroll", () => {
       let current = "";
-
       sections.forEach(section => {
-        const sectionTop = section.offsetTop - 120;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        const sectionTop = section.offsetTop - 100;
+        if (pageYOffset >= sectionTop) {
           current = section.getAttribute("id");
         }
       });
 
       navLinks.forEach(link => {
         link.classList.remove("active");
-        if (link.getAttribute("href").includes(current)) {
+        if (link.getAttribute("href") === "#" + current) {
           link.classList.add("active");
+        }
+      });
+
+      sections.forEach(section => {
+        section.classList.remove("active-section");
+        if (section.getAttribute("id") === current) {
+          section.classList.add("active-section");
         }
       });
     });
