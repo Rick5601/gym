@@ -52,7 +52,7 @@ app.use('/api/member', authenticateToken, memberRoutes); // member routes
 // Root route: admin login page
 app.get('/', (req, res) => {
   console.log("Root page requested");
-  res.sendFile(path.join(__dirname, 'public/admin_login.html'));
+  res.sendFile(path.join(__dirname, 'public/landing.html'));
 });
 
 // Member login page
